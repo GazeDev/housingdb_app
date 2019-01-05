@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Properties
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  You are now on the properties page
+
+  <a routerLink="/">Go home</a>
+  <div class="cards">
+    <ion-card *ngFor="let property of properties;">
+      <ion-card-header>
+        <ion-card-title>{{ property.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="clearfix">
+        <div class="units-reviews-stamp clearfix">
+          <div class="units clearfix">
+            <span class="bedrooms">
+              <span class="number">
+                X
+              </span>
+              <span class="label">
+                Bedrooms
+              </span>
+            </span>
+            <span class="bedrooms-bathrooms-divider">/</span>
+            <span class="bathrooms">
+              <span class="number">
+                X
+              </span>
+              <span class="label">
+                Bathrooms
+              </span>
+            </span>
+          </div>
+          <div class="units-reviews-divider"><hr></div>
+          <div class="reviews clearfix">
+            <span class="stars">
+              55555
+            </span>
+            <span class="count">
+              X Reviews
+            </span>
+          </div>
+        </div>
+        <div class="location-landlord-stamp">
+          <div class="neighborhood">
+            {{ extractNeighborhood(property) }}
+          </div>
+          <div class="address" [title]="extractAddress(property)">
+            {{ extractAddress(property) }}
+          </div>
+          <div class="landlord">
+            <span *ngIf="property.LandlordId; let id">
+              <ng-container *ngIf="landlords[id]; else loading; let landlord">
+                {{ landlord.name }}
+              </ng-container>
+              <ng-template #loading>
+                Error Loading Landlord
+              </ng-template>
+            </span>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,44 @@
+version: '3'
+services:
+  init:
+    build: .
+    # build:
+    #   context: .
+    #   dockerfile: docker/Dockerfile
+    hostname: housing
+    command: tail -f /dev/null
+    # command: ["npm", "run", "dev"]
+    # command: ["npm", "run", "test"]
+    # command: ["npm", "run", "hold"]
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "4201:4200"
+  app:
+    build: .
+    # build:
+    #   context: .
+    #   dockerfile: docker/Dockerfile
+    hostname: housing
+    command: ["npm", "run", "start", "--", "--host=0.0.0.0"]
+    # command: ["npm", "run", "dev"]
+    # command: ["npm", "run", "test"]
+    # command: ["npm", "run", "hold"]
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "4201:4200"
+  surge:
+    build: .
+    hostname: app
+    command: ./surge-deploy.sh
+    env_file:
+      - variables.env
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+networks:
+  default:
+    driver: bridge
