@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { ApiService } from '_services/api.service';
 import { AlertService } from '_services/alert.service';
 
@@ -18,7 +20,9 @@ export class PropertyAddPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
+    private router: Router,
     private alertService: AlertService,
+    private toastController: ToastController,
   ) {
     this.submitAttempt = false;
     this.currentlySubmitting = false;
@@ -52,26 +56,41 @@ export class PropertyAddPage implements OnInit {
     console.log(this.form.get('address').value);
 
     this.apiService.addProperty(property).subscribe(propertyResponse => {
-      console.log(propertyResponse);
-      if (landlordQuickInfo) {
-        this.apiService.addLandlord(landlord).subscribe(landlordResponse => {
-          console.log(landlordResponse);
-          this.apiService.addLandlordToProperty(propertyResponse.id, landlordResponse.id).subscribe(updateResponse => {
-            console.log('updateResponse');
-            console.log(updateResponse);
 
-            // TODO: need to reset form, show confirmation
+      let propertyId = propertyResponse.id;
+      if (landlordQuickInfo) {
+
+        this.apiService.addLandlord(landlord).subscribe(landlordResponse => {
+
+          this.apiService.addLandlordToProperty(propertyResponse.id, landlordResponse.id).subscribe(updateResponse => {
+
+            this.displayPropertyCreatedToast(propertyId);
+
             this.form.reset();
-            let alertText = 'Success. New property created';
-            this.alertService.success(alertText);
           });
+
         });
+
       } else { // no landlord info, we're done
-        // give confirmation alert with link
+        this.displayPropertyCreatedToast(propertyId);
       }
     });
 
 
+  }
+
+  async displayPropertyCreatedToast(propertyId) {
+    let toast = await this.toastController.create({
+      message: 'The property has been created.',
+      color: 'success',
+      duration: 4000,
+      showCloseButton: true,
+      closeButtonText: 'View Property'
+    });
+    toast.onWillDismiss().then(() => {
+      this.router.navigate([`/property/${propertyId}`]);
+    });
+    toast.present();
   }
 
 }

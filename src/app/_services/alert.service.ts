@@ -28,9 +28,14 @@ export class AlertService {
         });
     }
 
-    success(message: string, keepAfterNavigationChange = false) {
+    async success(message: string, keepAfterNavigationChange = false) {
         this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'success', text: message });
+        const toast = await this.toastController.create({
+          message: message,
+          color: 'success',
+          showCloseButton: true,
+        });
+        toast.present();
     }
 
     async error(message: string, keepAfterNavigationChange = false) {
