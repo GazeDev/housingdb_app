@@ -7,16 +7,69 @@
 </ion-header>
 
 <ion-content padding text-center>
-  Welcome to HousingDB
 
-  <h2>Looking for your next place to live?</h2>
-  <p>Use our data before you make your next renting decision.</p>
-  <ion-button color="primary" routerLink="/elsewhere">Login/Sign Up</ion-button>
-  <p>
-    <a routerLink="/properties">Browse Properties</a> Or
-    <a routerLink="/landlords">Browse Landlords</a>
-  </p>
-  <p>
-    <a routerLink="/properties/add">Add Property</a>
-  </p>
+  <section>
+    <p>Welcome to HousingDB</p>
+
+    <h2>Looking for your next place to live?</h2>
+
+    <p>Use our collection of data to make an informed decision before you sign your next lease.</p>
+
+    <p>
+      <a routerLink="/properties">
+        <ion-button color="primary">Browse Properties</ion-button>
+      </a>
+      <a routerLink="/landlords">
+        <ion-button color="primary">Browse Landlords</ion-button>
+      </a>
+    </p>
+  </section>
+
+  <section>
+    <h2>HousingDB is The Pittsburgh Housing Database</h2>
+    <p>
+      GazePgh is building a catalog of Pittsburgh's rental properties and landlords, with ratings and reviews. We provide the ability to rate and review landlords and rental properties, as well as making it easy to find reviews on other sites.
+    </p>
+  </section>
+
+  <section>
+    <h2>Have something to share?</h2>
+
+    <p>
+      Let us know about a property, a landlord, or add your review to help build the community.
+    </p>
+    <div class="add-types">
+      <div class="add-type">
+        <h3>Properties</h3>
+        <p>Help us inventory Pittsburgh's rental properties, and rate their quality.</p>
+        <a routerLink="/properties/add">
+          <ion-button color="primary">Add a Property</ion-button>
+        </a>
+      </div>
+
+      <div class="add-type">
+        <h3>Landlords</h3>
+        <p>Fill in the list of landlords that are renting properties in Pittsburgh.</p>
+        <a routerLink="/landlords/add">
+          <ion-button color="primary">Add a Landlord</ion-button>
+        </a>
+      </div>
+
+      <div class="add-type">
+        <h3>Reviews</h3>
+        <p>Leave ratings and reviews of properties and landlords.</p>
+        <a routerLink="/reviews/add">
+          <ion-button color="primary">Add a Review</ion-button>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Get More from HousingDB</h2>
+    <a routerLink="#">
+      <ion-button color="primary">Sign Up Now</ion-button>
+    </a>
+  </section>
+
 </ion-content>

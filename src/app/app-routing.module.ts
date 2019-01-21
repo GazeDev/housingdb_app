@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: '', loadChildren: '_pages/property-detail/property-detail.module#PropertyDetailPageModule' },
   { path: '', loadChildren: '_pages/property-add/property-add.module#PropertyAddPageModule' },
   // { path: '', loadChildren: '_pages/property-detail/property-detail.module#PropertyDetailPageModule' },
+  { path: '', loadChildren: '_pages/landlords/landlords.module#LandlordsPageModule' },
 ];
 
 @NgModule({

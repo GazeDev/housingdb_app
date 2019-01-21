@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Property } from '_models/property.model';
+import { Landlord } from '_models/landlord.model';
 
 @Injectable({
   providedIn: 'root'
@@ -48,11 +49,30 @@ export class ApiService {
   }
 
   addProperty(property: Property) {
-    return this.httpClient.post<Property[]>(`${this.apiUrl}/properties`, property);
+    return this.httpClient.post<Property>(`${this.apiUrl}/properties`, property);
   }
 
-  getLandord(id) {
-    return this.httpClient.get<any>(`${this.apiUrl}/landlords/${id}`);
+  /*
+  * Landlord Methods
+  */
+
+  getLandlords() {
+    return this.httpClient.get<Landlord[]>(`${this.apiUrl}/landlords`);
+  }
+
+  getLandlord(id) {
+    return this.httpClient.get<Landlord>(`${this.apiUrl}/landlords/${id}`);
+  }
+
+  addLandlord(landlord: Landlord) {
+    return this.httpClient.post<Landlord>(`${this.apiUrl}/landlords`, landlord);
+  }
+
+  addLandlordToProperty(propertyId, landlordId) {
+    let landlord = {
+      id: landlordId,
+    };
+    return this.httpClient.post(`${this.apiUrl}/properties/${propertyId}/landlord`, landlord);
   }
 
 }

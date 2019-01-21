@@ -1,1 +1,19 @@
 
+.add-types {
+  display: flex;
+  flex-flow:row wrap;
+  justify-content: space-around;
+
+  .add-type {
+    max-width: 20rem;
+  }
+}
+
+section {
+  // max-width: 62.5rem;
+  max-width: 82.5rem;
+  padding: .5rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
+}

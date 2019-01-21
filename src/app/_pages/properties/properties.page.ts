@@ -59,7 +59,7 @@ export class PropertiesPage {
   loadLandlord(property: any) {
     // set a placeholder so we know not to load it again
     this.landlords[property.LandlordId] = true;
-    this.apiService.getLandord(property.LandlordId).subscribe(
+    this.apiService.getLandlord(property.LandlordId).subscribe(
     res => {
       // create a keyed array so we only have to load each landlord once
       // and can access it in O(1).
