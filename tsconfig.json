@@ -3,9 +3,11 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "_helpers/*": [ "src/app/_helpers/*" ],
       "_models/*": [ "src/app/_models/*" ],
       "_pages/*": [ "src/app/_pages/*" ],
-      "_services/*": [ "src/app/_services/*" ]
+      "_services/*": [ "src/app/_services/*" ],
+      "_utils/*": [ "src/app/_utils/*" ]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

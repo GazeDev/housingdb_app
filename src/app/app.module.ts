@@ -12,10 +12,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertComponent } from './_directives';
 import { AuthGuard } from './_guards';
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { AlertService, AuthenticationService } from './_services';
+import { JwtInterceptor, ErrorInterceptor } from '_helpers/index';
+import { AlertService, AuthenticationService } from '_services/index';
 
 import { ReactiveFormsModule } from '@angular/forms';
+
+import { APP_INITIALIZER } from '@angular/core';
+import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
+import { initializer } from '_utils/app-init';
 
 
 @NgModule({
@@ -29,7 +33,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule,    
+    ReactiveFormsModule,
+    KeycloakAngularModule,
   ],
   providers: [
     StatusBar,
@@ -40,6 +45,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializer,
+      multi: true,
+      deps: [KeycloakService]
+    },
   ],
   bootstrap: [AppComponent]
 })
