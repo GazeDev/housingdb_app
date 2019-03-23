@@ -15,6 +15,7 @@ import { AuthGuard } from './_guards';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AlertService, AuthenticationService } from './_services';
 
+import { AngularMaterialModule } from '_components/angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
@@ -26,10 +27,11 @@ import { ReactiveFormsModule } from '@angular/forms';
   entryComponents: [],
   imports: [
     BrowserModule,
+    AngularMaterialModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule,    
+    ReactiveFormsModule,
   ],
   providers: [
     StatusBar,
