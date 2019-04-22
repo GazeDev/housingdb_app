@@ -20,7 +20,7 @@ export class AppComponent {
   ) {
     this.initializeApp();
 
-    this.apiService.setUrl(APP_CONFIG.apiUrl);
+    this.apiService.setUrl(APP_CONFIG.apiURL);
   }
 
   initializeApp() {

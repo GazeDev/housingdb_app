@@ -26,7 +26,15 @@
             <!-- TODO: Get units -->
             <span class="bedrooms">
               <span class="number">
-                X
+                <ng-container *ngIf="property.bedroomsMin != property.bedroomsMax ">
+                {{ property.bedroomsMin }}-{{ property.bedroomsMax }}
+                </ng-container>
+                <ng-container *ngIf="property.bedroomsMin == null">
+                  ?
+                </ng-container>
+                <ng-container *ngIf="property.bedroomsMin == property.bedroomsMax && property.bedroomsMin != null">
+                  {{ property.bedroomsMin }}
+                </ng-container>
               </span>
               <span class="label">
                 Bedrooms
@@ -35,7 +43,15 @@
             <span class="bedrooms-bathrooms-divider">/</span>
             <span class="bathrooms">
               <span class="number">
-                X
+                <ng-container *ngIf="property.bathroomsMin != property.bathroomsMax ">
+                {{ property.bathroomsMin }}-{{ property.bathroomsMax }}
+                </ng-container>
+                <ng-container *ngIf="property.bathroomsMin == null">
+                  ?
+                </ng-container>
+                <ng-container *ngIf="property.bathroomsMin == property.bathroomsMax && property.bathroomsMin != null">
+                  {{ property.bathroomsMin }}
+                </ng-container>
               </span>
               <span class="label">
                 Bathrooms
