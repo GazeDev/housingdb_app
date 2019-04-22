@@ -45,7 +45,6 @@ export class ApiService {
 
   getProperties() {
     return this.httpClient.get<Property[]>(`${this.apiUrl}/properties`);
-    // return this.httpClient.get(`${this.apiUrl}/properties`);
   }
 
   addProperty(property: Property) {

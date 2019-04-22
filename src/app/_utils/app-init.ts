@@ -9,10 +9,10 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
         await keycloak.init({
           config: KEYCLOAK_CONFIG,
           initOptions: {
-            // onLoad: 'login-required',
-            checkLoginIframe: false
+            onLoad: 'check-sso',
+            checkLoginIframeInterval: 5,
           },
-          bearerExcludedUrls: []
+          enableBearerInterceptor: false, // we will handle this ourselves
         });
         resolve();
       } catch (error) {

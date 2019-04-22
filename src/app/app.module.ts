@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertComponent } from './_directives';
-import { AuthGuard } from './_guards';
+// import { AuthGuard } from './_guards';
 import { JwtInterceptor, ErrorInterceptor } from '_helpers/index';
 import { AlertService, AuthenticationService } from '_services/index';
 
@@ -40,16 +40,25 @@ import { initializer } from '_utils/app-init';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    AuthGuard,
+    // AuthGuard,
     AlertService,
     AuthenticationService,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
     {
       provide: APP_INITIALIZER,
       useFactory: initializer,
       multi: true,
       deps: [KeycloakService]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true,
+      deps: [KeycloakService],
     },
   ],
   bootstrap: [AppComponent]

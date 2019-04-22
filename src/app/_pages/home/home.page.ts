@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { ApiService } from '_services/api.service';
 
-import { KeycloakProfile } from 'keycloak-js';
-import { KeycloakService } from 'keycloak-angular';
+import { AuthenticationService } from '_services/index';
 
 @Component({
   selector: 'app-home',
@@ -13,25 +11,21 @@ export class HomePage {
   private accountUrl: any;
 
   constructor(
-    private apiService: ApiService,
-    // private keycloakInstance: Keycloak,
-    private keycloakService: KeycloakService,
+    private authService: AuthenticationService,
   ) {
 
   }
 
   async doLogin() {
-    await this.keycloakService.login();
+    await this.authService.login();
   }
 
   async doLogout() {
-    await this.keycloakService.logout();
+    await this.authService.logout();
   }
 
   async accountManagement() {
-    await this.keycloakService.getKeycloakInstance().accountManagement();
-    // let url = await this.keycloakService.getKeycloakInstance().createAccountUrl();
-    // window.open(url, '_blank');
+    await this.authService.account();
   }
 
 }

@@ -1,17 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
+    <ion-title slot="secondary">
       HousingDB Home
     </ion-title>
+    <div class="account-nav">
+      <ion-button *ngIf="authService.isAuthenticated" color="light" (click)="accountManagement()">My Account</ion-button>
+      <ion-button *ngIf="authService.isAuthenticated" color="light" (click)="doLogout()">Log out</ion-button>
+      <ion-button *ngIf="!authService.isAuthenticated" color="primary" (click)="doLogin()">Log in/Sign up</ion-button>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding text-center>
-  <section>
-    <ion-button color="secondary" (click)="doLogin()">Login</ion-button>
-    <ion-button color="secondary" (click)="doLogout()">Logout</ion-button>
-    <ion-button color="secondary" (click)="accountManagement()">Manage</ion-button>
-  </section>
 
   <section>
     <p>Welcome to HousingDB</p>

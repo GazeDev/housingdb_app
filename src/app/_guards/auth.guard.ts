@@ -1,19 +1,36 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { KeycloakService, KeycloakAuthGuard } from 'keycloak-angular';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AppAuthGuard extends KeycloakAuthGuard {
+  constructor(protected router: Router, protected keycloakAngular: KeycloakService) {
+    super(router, keycloakAngular);
+  }
 
-    constructor(private router: Router) { }
+  isAccessAllowed(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      // if (!this.authenticated) {
+      //   this.keycloakAngular.login();
+      //   return;
+      // }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (localStorage.getItem('currentUser')) {
-            // logged in so return true
-            return true;
+      const requiredRoles = route.data.roles;
+      if (!requiredRoles || requiredRoles.length === 0) {
+        return resolve(true);
+      } else {
+        if (!this.roles || this.roles.length === 0) {
+          resolve(false);
         }
-
-        // not logged in so redirect to login page with the return url
-        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
-        return false;
-    }
+        let granted: boolean = false;
+        for (const requiredRole of requiredRoles) {
+          if (this.roles.indexOf(requiredRole) > -1) {
+            granted = true;
+            break;
+          }
+        }
+        resolve(granted);
+      }
+    });
+  }
 }

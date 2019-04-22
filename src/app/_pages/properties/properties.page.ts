@@ -27,8 +27,6 @@ export class PropertiesPage {
 
   getProperties() {
     this.apiService.getProperties().subscribe(res => {
-      console.log('properties');
-      console.log(res);
       this.properties = res;
       this.loadPropertiesLandlords();
     },
