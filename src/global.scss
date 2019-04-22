@@ -10,7 +10,48 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
+@import '~@angular/material/theming';
 
+// NOTE: Theming is currently experimental and not yet publically released!
+
+@include mat-core();
+
+$primary: mat-palette($mat-deep-purple);
+$accent:  mat-palette($mat-amber, A200, A100, A400);
+
+$theme: mat-light-theme($primary, $accent);
+
+@include angular-material-theme($theme);
+
+.app-dark {
+  $dark-primary: mat-palette($mat-light-blue, 800);
+  $dark-accent:  mat-palette($mat-pink, A400);
+  // $dark-warn:    mat-palette($mat-deep-orange);
+
+  $dark-theme: mat-dark-theme($dark-primary, $dark-accent);
+
+  @include angular-material-theme($dark-theme);
+}
+
+body {
+  mat-form-field {
+    width: 100%;
+  }
+
+  .mat-form-field-underline {
+    position: static;
+  }
+
+  .mat-form-field-subscript-wrapper {
+    position: static;
+  }
+}
+
+.app-dark {
+  .mat-form-field.mat-focused .mat-form-field-label {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
 
 .sc-ion-card-md-h {
   --color: var(--ion-text-color);

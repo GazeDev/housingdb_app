@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "_components/*": [ "src/app/_components/*" ],
       "_helpers/*": [ "src/app/_helpers/*" ],
       "_models/*": [ "src/app/_models/*" ],
       "_pages/*": [ "src/app/_pages/*" ],

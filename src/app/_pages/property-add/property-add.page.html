@@ -11,19 +11,20 @@
 <ion-card>
   <ion-card-content>
     <form id="form" (submit)="submit()" [formGroup]="form" [ngClass]="{'submit-attempt': submitAttempt}">
-      <ion-item>
-        <ion-label position="stacked">Address</ion-label>
-        <ion-input formControlName="address" required></ion-input>
-      </ion-item>
 
-      <ion-item>
-        <ion-label position="stacked">Landlord</ion-label>
-        <div class="description">
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="address" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Landlord</mat-label>
+        <input matInput formControlName="landlordQuickInfo" required>
+        <mat-hint>
           You can use this field to quickly autofill the following fields: landlord name, phone number, email address.<br>
           Ex: Awesome Landlord 412-333-4444 landlord@example.com
-        </div>
-        <ion-input formControlName="landlordQuickInfo" required></ion-input>
-      </ion-item>
+        </mat-hint>
+      </mat-form-field>
 
       <!-- <ion-item>
         <ion-checkbox formControlName="iOwn" slot="start"></ion-checkbox>
@@ -45,7 +46,8 @@
         <ion-textarea formControlName="body" required></ion-textarea>
       </ion-item> -->
 
-      <ion-button type="submit">Send</ion-button>
+      <button mat-raised-button color="primary" type="submit">Send</button>
+
     </form>
   </ion-card-content>
 </ion-card>

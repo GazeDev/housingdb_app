@@ -15,6 +15,7 @@ import { AlertComponent } from './_directives';
 import { JwtInterceptor, ErrorInterceptor } from '_helpers/index';
 import { AlertService, AuthenticationService } from '_services/index';
 
+import { AngularMaterialModule } from '_components/angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { APP_INITIALIZER } from '@angular/core';
@@ -30,6 +31,7 @@ import { initializer } from '_utils/app-init';
   entryComponents: [],
   imports: [
     BrowserModule,
+    AngularMaterialModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,

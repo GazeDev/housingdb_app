@@ -2,17 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { AngularMaterialModule } from '_components/angular-material.module';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PropertyAddPage } from './property-add.page';
+import { LandlordAddPage } from './landlord-add.page';
 
 const routes: Routes = [
   {
-    path: 'properties/add',
-    component: PropertyAddPage
+    path: 'landlords/add',
+    component: LandlordAddPage
   }
 ];
 
@@ -22,9 +21,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     IonicModule,
-    AngularMaterialModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PropertyAddPage]
+  declarations: [LandlordAddPage]
 })
-export class PropertyAddPageModule {}
+export class LandlordAddPageModule {}
