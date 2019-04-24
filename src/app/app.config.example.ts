@@ -6,7 +6,7 @@ export const APP_CONFIG: any = {
 import { KeycloakConfig } from 'keycloak-angular';
 
 export const KEYCLOAK_CONFIG: KeycloakConfig = {
-  url: 'http://localhost:18080/auth',
-  realm: 'Gaze Identity',
-  clientId: 'housingdb'
+  url: 'http://localhost:8081/auth',
+  realm: 'gaze-accounts',
+  clientId: 'housingdb',
 };
