@@ -1,26 +1,47 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+
+import { KeycloakProfile } from 'keycloak-js';
+import { KeycloakService } from 'keycloak-angular';
 
 @Injectable()
 export class AuthenticationService {
-    constructor(private http: HttpClient) { }
 
-    login(username: string, password: string) {
-        // return this.http.post<any>(`${config.apiUrl}/users/authenticate`, { username: username, password: password })
-        //     .pipe(map(user => {
-        //         // login successful if there's a jwt token in the response
-        //         if (user && user.token) {
-        //             // store user details and jwt token in local storage to keep user logged in between page refreshes
-        //             localStorage.setItem('currentUser', JSON.stringify(user));
-        //         }
-        //
-        //         return user;
-        //     }));
+    public isAuthenticated: boolean;
+
+    public userDetails: KeycloakProfile;
+
+    constructor(
+      private http: HttpClient,
+      private keycloakService: KeycloakService,
+    ) {
+      this.isAuthenticated = false;
+    }
+
+    async init() {
+      await this.checkLogin();
+      if (this.isAuthenticated) {
+        await this.getUserInfo();
+      }
+    }
+
+    async checkLogin() {
+      this.isAuthenticated = await this.keycloakService.isLoggedIn();
+    }
+
+    async getUserInfo() {
+      this.userDetails = await this.keycloakService.loadUserProfile();
+    }
+
+    login() {
+      this.keycloakService.login();
     }
 
     logout() {
-        // remove user from local storage to log user out
-        // localStorage.removeItem('currentUser');
+      this.keycloakService.logout();
+    }
+
+    account() {
+      this.keycloakService.getKeycloakInstance().accountManagement();
     }
 }

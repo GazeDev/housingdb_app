@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ApiService } from '_services/api.service';
+
+import { AuthenticationService } from '_services/index';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +8,24 @@ import { ApiService } from '_services/api.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  private accountUrl: any;
+
   constructor(
-    private apiService: ApiService,
+    private authService: AuthenticationService,
   ) {
 
   }
 
+  async doLogin() {
+    await this.authService.login();
+  }
+
+  async doLogout() {
+    await this.authService.logout();
+  }
+
+  async accountManagement() {
+    await this.authService.account();
+  }
 
 }

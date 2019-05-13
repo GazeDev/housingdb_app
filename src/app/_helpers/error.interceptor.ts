@@ -3,8 +3,7 @@ import { HttpClient, HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { AuthenticationService } from '_services/authentication.service';
-import { AlertService } from '_services/alert.service';
+import { AlertService, AuthenticationService } from '_services/index';
 import { ApiService } from '_services/api.service';
 
 @Injectable()
@@ -27,13 +26,16 @@ export class ErrorInterceptor implements HttpInterceptor {
       // }
 
       return next.handle(request).pipe(catchError(err => {
+        let avoidFurtherAlerts = false;
+
+        console.log('error.interceptor caught an error');
         if (err.status === 401) {
-          // auto logout if 401 response returned from api
-          this.authenticationService.logout();
-          location.reload(true);
+          // User not authorized, request requires login token
+          avoidFurtherAlerts = true;
+          this.alertService.error("The request failed. Requires authentication.");
         }
 
-        let avoidFurtherAlerts = false;
+
 
         if (err.status === 0) {
           avoidFurtherAlerts = true;
