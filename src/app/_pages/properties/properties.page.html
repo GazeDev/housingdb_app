@@ -16,7 +16,7 @@
     </a>
   </div>
   <div class="cards">
-    <ion-card *ngFor="let property of properties;" itemscope itemtype="http://schema.org/Hotel">
+    <ion-card routerLink="/property/{{ property.id }}" title="Property" *ngFor="let property of properties;" itemscope itemtype="http://schema.org/Hotel">
       <ion-card-header>
         <ion-card-title>{{ property.name }}</ion-card-title>
       </ion-card-header>

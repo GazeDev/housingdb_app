@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from '_services/api.service';
+import { Property } from '_models/property.model';
+import { switchMap } from 'rxjs/operators';
+import { Landlord } from '_models/landlord.model';
 
 @Component({
   selector: 'app-property-detail',
@@ -7,9 +12,52 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PropertyDetailPage implements OnInit {
 
-  constructor() { }
+  public propertyId: string;
+  public property: Property;
+  public landlordId: string;
+  public landlord: Landlord;
+
+  constructor(
+    private route: ActivatedRoute,
+    private apiService: ApiService,
+  ) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.propertyId = params.get('id');
+      this.getProperty();
+    });
+
+  }
+  loadPropertiesLandlords() {
+    this.apiService.getLandlord(this.landlordId).subscribe(res => {
+      this.landlord = res;
+    },
+    err => {
+      console.log('error');
+      console.log(err);
+    });
+  }
+  getProperty() {
+    this.apiService.getProperty(this.propertyId).subscribe(res => {
+      this.property = res;
+      if (this.property.LandlordId) {
+        this.landlordId = this.property.LandlordId
+        this.loadPropertiesLandlords();
+      }
+    },
+    err => {
+      console.log('error');
+      console.log(err);
+    });
   }
 
+  extractNeighborhood(property: any) {
+    let addr = property.PostalAddresses[0];
+    return addr.addressNeighborhood;
+  }
+  extractAddress(property: any) {
+    let addr = property.PostalAddresses[0];
+    return `${addr.streetAddress}, ${addr.addressLocality}, ${addr.addressRegion} ${addr.postalCode}`;
+  }
 }
