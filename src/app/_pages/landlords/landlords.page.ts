@@ -25,8 +25,6 @@ export class LandlordsPage {
 
   getLandlords() {
     this.apiService.getLandlords().subscribe(res => {
-      console.log('properties');
-      console.log(res);
       this.landlords = res;
     },
     err => {
