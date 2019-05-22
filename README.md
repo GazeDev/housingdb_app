@@ -6,15 +6,20 @@ This frontend for the HousingDB api is built in Ionic 4, Angular.
 # Installation/Docker Commands
 
 It is intended that you will use [docker](https://docs.docker.com/engine/installation/)
-and [docker compose](https://docs.docker.com/compose/install/). You'll need to
-copy variables.env.example to variables.env and set the values and then run the
+and [docker compose](https://docs.docker.com/compose/install/). You'll need to run the
 commands below via command line to get started:
+
+Copy the app config (ready for running locally):
+`cp src/app/app.config.example.ts src/app/app.config.ts`
 
 Compile the initial image, or if the Dockerfile changes:
 `docker-compose build app`
 
 Bring up the container. This will tie the running process and logs to your terminal:
 `docker-compose up app`
+
+You can now view the app in your browser:
+[http://localhost:8081](http://localhost:8081)
 
 To instead run it detached, you can run the following:
 `docker-compose up -d app`
