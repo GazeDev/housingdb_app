@@ -19,7 +19,7 @@ Bring up the container. This will tie the running process and logs to your termi
 `docker-compose up app`
 
 You can now view the app in your browser:
-[http://localhost:8081](http://localhost:8081)
+[http://localhost:4201](http://localhost:4201)
 
 To instead run it detached, you can run the following:
 `docker-compose up -d app`
