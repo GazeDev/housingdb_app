@@ -1,14 +1,14 @@
 version: '3'
 services:
-  app:
+  deploy:
     build: .
-    hostname: housing
-    command: ["npm", "run", "start", "--", "--host=0.0.0.0"]
+    hostname: app
+    command: ./surge-deploy.sh
+    env_file:
+      - variables-deploy.env
     volumes:
       - ./:/usr/src/app
       - /usr/src/app/node_modules
-    ports:
-      - "4201:4200"
 networks:
   default:
     driver: bridge

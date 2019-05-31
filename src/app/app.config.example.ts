@@ -1,6 +1,6 @@
 export const APP_CONFIG: any = {
   apiURL: 'http://localhost:23085',
-  // apiURL: 'https://housingdb.surge.sh',
+  // apiURL: 'https://gaze-housingdb.herokuapp.com',
 };
 
 import { KeycloakConfig } from 'keycloak-angular';
