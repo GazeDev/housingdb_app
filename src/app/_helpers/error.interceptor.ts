@@ -29,13 +29,18 @@ export class ErrorInterceptor implements HttpInterceptor {
         let avoidFurtherAlerts = false;
 
         console.log('error.interceptor caught an error');
+        console.log(err.status)
+
         if (err.status === 401) {
           // User not authorized, request requires login token
           avoidFurtherAlerts = true;
           this.alertService.error("The request failed. Requires authentication.");
         }
 
-
+        if (err.status === 404) {
+          avoidFurtherAlerts = true;
+          return throwError(err);
+        }
 
         if (err.status === 0) {
           avoidFurtherAlerts = true;

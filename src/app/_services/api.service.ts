@@ -78,4 +78,16 @@ export class ApiService {
     return this.httpClient.post(`${this.apiUrl}/properties/${propertyId}/landlord`, landlord);
   }
 
+  /*
+  * Account Methods
+  */
+
+  getAccount() {
+    return this.httpClient.get<any>(`${this.apiUrl}/accounts`, {observe: 'response'});
+  }
+
+  createAccount() {
+    return this.httpClient.post<any>(`${this.apiUrl}/accounts`, '');
+  }
+
 }

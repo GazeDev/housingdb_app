@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { KeycloakProfile } from 'keycloak-js';
 import { KeycloakService } from 'keycloak-angular';
+import { ApiService } from '_services/api.service';
+import { ToastController } from '@ionic/angular';
 
 @Injectable()
 export class AuthenticationService {
@@ -14,6 +16,8 @@ export class AuthenticationService {
     constructor(
       private http: HttpClient,
       private keycloakService: KeycloakService,
+      private apiService: ApiService,
+      private toastController: ToastController,
     ) {
       this.isAuthenticated = false;
     }
@@ -22,6 +26,30 @@ export class AuthenticationService {
       await this.checkLogin();
       if (this.isAuthenticated) {
         await this.getUserInfo();
+        this.apiService.getAccount().subscribe(
+          response => {
+            console.log("getAccount()", response)
+          },
+          error => {
+            console.log("getAccount()-Error:", error)
+            this.apiService.createAccount().subscribe(
+              success => {
+                console.log("createAccount()", success)
+                let toast = this.toastController.create({
+                  message: 'The account has been created.',
+                  color: 'success',
+                  duration: 4000,
+                  showCloseButton: true,
+                  closeButtonText: 'OK'
+                });
+                toast.present();
+              },
+              error => {
+                console.log("createAccount()-Error:", error)
+              }
+            );
+          }
+        );
       }
     }
 
