@@ -33,10 +33,10 @@ export class AuthenticationService {
           error => {
             console.log("getAccount()-Error:", error)
             this.apiService.createAccount().subscribe(
-              success => {
+              async success => {
                 console.log("createAccount()", success)
-                let toast = this.toastController.create({
-                  message: 'The account has been created.',
+                let toast = await this.toastController.create({
+                  message: 'We have created an account for you. Welcome!',
                   color: 'success',
                   duration: 4000,
                   showCloseButton: true,
