@@ -27,27 +27,25 @@ export class AuthenticationService {
       if (this.isAuthenticated) {
         await this.getUserInfo();
         this.apiService.getAccount().subscribe(
-          response => {
-            console.log("getAccount()", response)
-          },
+          response => {},
           error => {
-            console.log("getAccount()-Error:", error)
-            this.apiService.createAccount().subscribe(
-              async success => {
-                console.log("createAccount()", success)
-                let toast = await this.toastController.create({
-                  message: 'We have created an account for you. Welcome!',
-                  color: 'success',
-                  duration: 4000,
-                  showCloseButton: true,
-                  closeButtonText: 'OK'
-                });
-                toast.present();
-              },
-              error => {
-                console.log("createAccount()-Error:", error)
-              }
-            );
+            if (error.status === 404) {
+              this.apiService.createAccount().subscribe(
+                async success => {
+                  let toast = await this.toastController.create({
+                    message: 'We have created an account for you. Welcome!',
+                    color: 'success',
+                    duration: 4000,
+                    showCloseButton: true,
+                    closeButtonText: 'OK'
+                  });
+                  toast.present();
+                },
+                error => {
+                  console.log("Error when calling createAccount(): ", error)
+                }
+              );
+            }
           }
         );
       }

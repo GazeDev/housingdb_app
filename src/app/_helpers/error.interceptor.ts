@@ -16,8 +16,6 @@ export class ErrorInterceptor implements HttpInterceptor {
     ) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      console.log('request');
-      console.log(request);
       // const url = new URL(request.url);
       // console.log(url.pathname);
       // if (url.pathname == '/') {
@@ -27,9 +25,6 @@ export class ErrorInterceptor implements HttpInterceptor {
 
       return next.handle(request).pipe(catchError(err => {
         let avoidFurtherAlerts = false;
-
-        console.log('error.interceptor caught an error');
-        console.log(err.status)
 
         if (err.status === 401) {
           // User not authorized, request requires login token
