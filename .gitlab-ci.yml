@@ -5,17 +5,13 @@ variables:
 # SURGE_LOGIN
 # SURGE_TOKEN
 
-app build:
-  stage: build
+deploy master:
+  stage: deploy
   script:
   - npm install --unsafe-perm -gq ionic@4.5.0 --no-interactive
   - npm install
   - cp src/app/app.config.example.ts src/app/app.config.ts
   - npm run build
-
-deploy master:
-  stage: deploy
-  script:
   - pwd
   - ls -lah
   - echo "Deployed to Production Server"
