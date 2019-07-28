@@ -12,9 +12,8 @@ deploy master:
   - npm install
   - cp src/app/app.config.example.ts src/app/app.config.ts
   - npm run build
-  - pwd
-  - ls -lah
-  - printenv
+  - npm install --global surge
+  - surge $(pwd)/www --domain=$SURGE_DOMAIN
   - echo "Deployed to Production Server"
   environment:
     name: production
