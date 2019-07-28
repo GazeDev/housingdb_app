@@ -1,0 +1,25 @@
+image: node:10.15.3
+
+variables:
+# SURGE_DOMAIN
+# SURGE_LOGIN
+# SURGE_TOKEN
+
+app build:
+  stage: build
+  script:
+  - npm install --unsafe-perm -gq ionic@4.5.0 --no-interactive
+  - npm install
+  - npm run build
+
+deploy master:
+  stage: deploy
+  script:
+  - pwd
+  - ls -lah
+  - echo "Deployed to Production Server"
+  environment:
+    name: production
+    url: https://housingdb.surge.sh
+  # only:
+  # - master
