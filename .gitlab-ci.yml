@@ -18,5 +18,5 @@ deploy master:
   environment:
     name: production
     url: https://housingdb.surge.sh
-  # only:
-  # - master
+  only:
+  - master
