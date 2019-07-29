@@ -1,5 +1,5 @@
 # Node v10
-FROM node:dubnium
+FROM node:10.15.3
 
 # Create app directory
 WORKDIR /usr/src/app
