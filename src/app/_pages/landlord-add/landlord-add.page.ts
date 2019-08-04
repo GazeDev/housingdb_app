@@ -55,7 +55,7 @@ export class LandlordAddPage implements OnInit {
     };
 
     this.apiService.addLandlord(landlord).subscribe(landlordResponse => {
-      let landlordId = landlordResponse.id;
+      let landlordId = landlordResponse.body.id;
       this.displayLandlordCreatedToast(landlordId);
       this.form.reset();
     });

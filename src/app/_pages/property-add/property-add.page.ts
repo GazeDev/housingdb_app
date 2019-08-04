@@ -60,16 +60,29 @@ export class PropertyAddPage implements OnInit {
       let propertyId = propertyResponse.id;
       if (landlordQuickInfo) {
 
-        this.apiService.addLandlord(landlord).subscribe(landlordResponse => {
+        this.apiService.addLandlord(landlord).subscribe(
+          landlordRequestResponse => {
+            let landlordResponse = landlordRequestResponse.body;
+            this.apiService.addLandlordToProperty(propertyResponse.id, landlordResponse.id).subscribe(updateResponse => {
 
-          this.apiService.addLandlordToProperty(propertyResponse.id, landlordResponse.id).subscribe(updateResponse => {
+              this.displayPropertyCreatedToast(propertyId);
 
-            this.displayPropertyCreatedToast(propertyId);
+              this.form.reset();
+            });
+          },
+          landlordErrorResponse => {
+            let contentLocation = landlordErrorResponse.headers.get('Content-Location');
+            if (landlordErrorResponse.status === 422 && contentLocation) {
+              // landlord already exists and we should use that id to attach to our property
+              this.apiService.addLandlordToProperty(propertyResponse.id, contentLocation).subscribe(updateResponse => {
 
-            this.form.reset();
-          });
+                this.displayPropertyCreatedToast(propertyId);
 
-        });
+                this.form.reset();
+              });
+            }
+          }
+        );
 
       } else { // no landlord info, we're done
         this.displayPropertyCreatedToast(propertyId);

@@ -18,7 +18,7 @@
   </div>
   -->
   <div class="cards">
-    <ion-card *ngFor="let landlord of landlords;">
+    <ion-card routerLink="/landlord/{{ landlord.id }}" title="Landlord" *ngFor="let landlord of landlords;">
       <ion-card-header>
         <ion-card-title>{{ landlord.name }}</ion-card-title>
       </ion-card-header>
