@@ -51,7 +51,7 @@
   <h2>
     Properties ({{ properties.length }} / {{ properties.length }})
   </h2>
-  <div class="card" *ngIf="properties.length > 0">
+  <div class="property-cards" *ngIf="properties.length > 0">
     <property-card *ngFor="let property of properties" [property]="property" [landlord]="landlord"></property-card>
   </div>
   <a id="reviews"></a>
