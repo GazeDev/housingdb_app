@@ -9,7 +9,7 @@ import { Router } from '@angular/router'
 export class PropertyCardComponent {
   @Input('property')
   public property: any;
-  
+
   @Input('landlord')
   public landlord: any;
 
@@ -24,11 +24,19 @@ export class PropertyCardComponent {
   }
 
   extractNeighborhood(property: any) {
-    let addr = property.PostalAddresses[0];
-    return addr.addressNeighborhood;
+    if (property.PostalAddresses) {
+      let addr = property.PostalAddresses[0];
+      return addr.addressNeighborhood;
+    } else {
+      return '';
+    }
   }
   extractAddress(property: any) {
-    let addr = property.PostalAddresses[0];
-    return `${addr.streetAddress}, ${addr.addressLocality}, ${addr.addressRegion} ${addr.postalCode}`;
+    if (property.PostalAddresses) {
+      let addr = property.PostalAddresses[0];
+      return `${addr.streetAddress}, ${addr.addressLocality}, ${addr.addressRegion} ${addr.postalCode}`;
+    } else {
+      return '';
+    }
   }
 }

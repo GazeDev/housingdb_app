@@ -58,12 +58,14 @@
         {{ extractAddress(property) }}
       </div>
       <div class="landlord">
-        <ng-container *ngIf="landlord; else loading;">
-          {{ landlord.name }}
-        </ng-container>
-        <ng-template #loading>
-          Loading Landlord
-        </ng-template>
+        <span *ngIf="property.LandlordId;">
+          <ng-container *ngIf="landlord; else loading;">
+            {{ landlord.name }}
+          </ng-container>
+          <ng-template #loading>
+            Loading Landlord
+          </ng-template>
+        </span>
       </div>
     </div>
   </ion-card-content>
