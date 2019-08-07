@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -22,7 +23,6 @@ import { APP_INITIALIZER } from '@angular/core';
 import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
 import { initializer } from '_utils/app-init';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +31,7 @@ import { initializer } from '_utils/app-init';
   entryComponents: [],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AngularMaterialModule,
     IonicModule.forRoot(),
     AppRoutingModule,

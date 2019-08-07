@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <a slot="start" class="nav-icon" routerLink="/landlords" title="Landlords">
+      <ion-icon name="arrow-back"></ion-icon>
+    </a>
+    <ion-title>{{ landlord?.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngIf="landlord" itemscope itemtype="">
+    <ion-card-header>
+      <ion-card-title>{{ landlord?.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="clearfix">
+      <div class="units-reviews-stamp clearfix">
+        <div class="units clearfix">
+          <span class="bedrooms">
+            <span class="number">
+              {{ properties.length }}
+            </span>
+            <span class="label">
+              Properties
+            </span>
+          </span>
+        </div>
+        <div class="units-reviews-divider"><hr></div>
+        <div class="reviews clearfix">
+          <span class="stars">
+            55555
+          </span>
+          <span class="count">
+            X Reviews
+          </span>
+        </div>
+      </div>
+      <div class="location-landlord-stamp">
+        <div class="neighborhood">
+          {{ landlord.phone }}<ng-container *ngIf="!landlord.phone">&nbsp;</ng-container>
+        </div>
+        <div class="address">
+          {{ landlord.website }}<ng-container *ngIf="!landlord.website">&nbsp;</ng-container>
+        </div>
+        <div class="landlord">
+          {{ landlord.email }}<ng-container *ngIf="!landlord.email">&nbsp;</ng-container>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <a id="properties"></a>
+  <h2>
+    Properties ({{ properties.length }} / {{ properties.length }})
+  </h2>
+  <div class="property-cards" *ngIf="properties.length > 0">
+    <property-card *ngFor="let property of properties" [property]="property" [landlord]="landlord"></property-card>
+  </div>
+  <a id="reviews"></a>
+  <h2>
+    Reviews
+    <a routerLink="/landlord/{{ landlord.id }}/add-review">
+      <button mat-raised-button color="primary">Add Property</button>
+    </a>
+  </h2>
+  <a id="external-reviews"></a>
+  <h2>
+    External Reviews
+  </h2>
+</ion-content>

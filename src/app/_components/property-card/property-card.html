@@ -1,0 +1,72 @@
+<ion-card title="Property" (click)="goToProperty()" itemscope itemtype="http://schema.org/Hotel">
+  <ion-card-header>
+    <ion-card-title>{{ property.name }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content class="clearfix">
+    <div class="units-reviews-stamp clearfix">
+      <div class="units clearfix">
+        <!-- TODO: Get units -->
+        <span class="bedrooms">
+          <span class="number">
+            <ng-container *ngIf="property.bedroomsMin != property.bedroomsMax ">
+            {{ property.bedroomsMin }}-{{ property.bedroomsMax }}
+            </ng-container>
+            <ng-container *ngIf="property.bedroomsMin == null">
+              ?
+            </ng-container>
+            <ng-container *ngIf="property.bedroomsMin == property.bedroomsMax && property.bedroomsMin != null">
+              {{ property.bedroomsMin }}
+            </ng-container>
+          </span>
+          <span class="label">
+            Bedrooms
+          </span>
+        </span>
+        <span class="bedrooms-bathrooms-divider">/</span>
+        <span class="bathrooms">
+          <span class="number">
+            <ng-container *ngIf="property.bathroomsMin != property.bathroomsMax ">
+            {{ property.bathroomsMin }}-{{ property.bathroomsMax }}
+            </ng-container>
+            <ng-container *ngIf="property.bathroomsMin == null">
+              ?
+            </ng-container>
+            <ng-container *ngIf="property.bathroomsMin == property.bathroomsMax && property.bathroomsMin != null">
+              {{ property.bathroomsMin }}
+            </ng-container>
+          </span>
+          <span class="label">
+            Bathrooms
+          </span>
+        </span>
+      </div>
+      <div class="units-reviews-divider"><hr></div>
+      <div class="reviews clearfix">
+        <span class="stars">
+          55555
+        </span>
+        <span class="count">
+          X Reviews
+        </span>
+      </div>
+    </div>
+    <div class="location-landlord-stamp">
+      <div class="neighborhood">
+        {{ extractNeighborhood(property) }}
+      </div>
+      <div class="address" [title]="extractAddress(property)">
+        {{ extractAddress(property) }}
+      </div>
+      <div class="landlord">
+        <span *ngIf="property.LandlordId;">
+          <ng-container *ngIf="landlord; else loading;">
+            {{ landlord.name }}
+          </ng-container>
+          <ng-template #loading>
+            Loading Landlord
+          </ng-template>
+        </span>
+      </div>
+    </div>
+  </ion-card-content>
+</ion-card>
