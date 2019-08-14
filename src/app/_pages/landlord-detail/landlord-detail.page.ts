@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '_services/api.service';
+import { AuthenticationService } from '_services/index';
 import { switchMap } from 'rxjs/operators';
 import { Landlord } from '_models/landlord.model';
 import { Property } from '_models/property.model';
@@ -19,12 +20,17 @@ export class LandlordDetailPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private apiService: ApiService,
+    private authenticationService: AuthenticationService
   ) {
     this.landlord = {};
     this.properties = [];
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.authenticationService.checkLogin();
+    if (this.authenticationService.isAuthenticated){
+
+    }
     this.route.paramMap.subscribe(params => {
       this.landlordId = params.get('id');
       this.getLandlord();

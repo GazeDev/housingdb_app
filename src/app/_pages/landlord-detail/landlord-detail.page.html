@@ -57,8 +57,11 @@
   <a id="reviews"></a>
   <h2>
     Reviews
-    <a routerLink="/landlord/{{ landlord.id }}/add-review">
-      <button mat-raised-button color="primary">Add Property</button>
+    <a *ngIf="authenticationService.isAuthenticated" routerLink="/landlord/{{ landlord.id }}/add-reviews">
+      <button mat-raised-button color="primary">Add a Review</button>
+    </a>
+    <a *ngIf="!authenticationService.isAuthenticated" (click)="authenticationService.login()">
+      <button mat-raised-button color="primary">Login to Add a Review</button>
     </a>
   </h2>
   <a id="external-reviews"></a>

@@ -13,9 +13,11 @@ import { Landlord } from '_models/landlord.model';
 export class PropertyDetailPage implements OnInit {
 
   public propertyId: string;
-  public property: Property;
+  // public property: Property;
+  public property: any;
   public landlordId: string;
-  public landlord: Landlord;
+  // public landlord: Landlord;
+  public landlord: any;
 
   constructor(
     private route: ActivatedRoute,
