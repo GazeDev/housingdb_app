@@ -15,6 +15,7 @@ export class LandlordDetailPage implements OnInit {
   public landlordId: string;
   public landlord: Landlord;
   public properties: Property[];
+  public reviews: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +30,7 @@ export class LandlordDetailPage implements OnInit {
       this.landlordId = params.get('id');
       this.getLandlord();
       this.getLandlordProperties();
+      this.getLandlordReviews();
     });
   }
 
@@ -47,6 +49,15 @@ export class LandlordDetailPage implements OnInit {
     },
     err => {
       console.log('error getting landlord properties', err);
+    });
+  }
+
+  getLandlordReviews() {
+    this.apiService.getLandlordReviews(this.landlordId).subscribe(res => {
+      this.reviews = res;
+    },
+    err => {
+      console.log('error getting landlord reviews', err);
     });
   }
 }

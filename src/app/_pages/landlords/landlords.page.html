@@ -10,13 +10,11 @@
 </ion-header>
 
 <ion-content padding>
-  <!-- TODO: Create add landlord page
   <div class="actions">
     <a routerLink="/landlords/add">
       <ion-button color="primary">Add Landlord</ion-button>
     </a>
   </div>
-  -->
   <div class="cards">
     <ion-card routerLink="/landlord/{{ landlord.id }}" title="Landlord" *ngFor="let landlord of landlords;">
       <ion-card-header>
@@ -27,7 +25,7 @@
           <div class="units clearfix">
             <span class="bedrooms">
               <span class="number">
-                X
+                {{ landlord?.metadata?.propertyCount || 0 }}
               </span>
               <span class="label">
                 Properties
@@ -50,7 +48,7 @@
               55555
             </span>
             <span class="count">
-              X Reviews
+              {{ (landlord?.metadata?.reviewCount || 0) + (landlord?.metadata.externalReviewCount || 0) }} Reviews
             </span>
           </div>
         </div>

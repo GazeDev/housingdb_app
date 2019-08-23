@@ -94,4 +94,12 @@ export class ApiService {
     return this.httpClient.post<any>(`${this.apiUrl}/accounts`, '');
   }
 
+  /*
+  * Review Methods
+  */
+
+  getLandlordReviews(landlordId) {
+    return this.httpClient.get<any>(`${this.apiUrl}/landlords/${landlordId}/reviews`);
+  }
+
 }
