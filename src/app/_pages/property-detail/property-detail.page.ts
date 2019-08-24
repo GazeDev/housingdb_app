@@ -21,7 +21,7 @@ export class PropertyDetailPage implements OnInit {
     private route: ActivatedRoute,
     private apiService: ApiService,
   ) {
-    this.property = {};
+    this.property = <Property>{};
     this.landlord = {};
   }
 
