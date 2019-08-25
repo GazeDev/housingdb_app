@@ -102,4 +102,12 @@ export class ApiService {
     return this.httpClient.get<any>(`${this.apiUrl}/landlords/${landlordId}/reviews`);
   }
 
+  /*
+  * External Review Methods
+  */
+
+  getLandlordExternalReviews(landlordId) {
+    return this.httpClient.get<any>(`${this.apiUrl}/landlords/${landlordId}/external-reviews`);
+  }
+
 }
