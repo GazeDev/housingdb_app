@@ -67,8 +67,12 @@ export class ApiService {
     return this.httpClient.get<Landlord>(`${this.apiUrl}/landlords/${id}`);
   }
 
+  getLandlordProperties(landlordId) {
+    return this.httpClient.get<Property[]>(`${this.apiUrl}/landlords/${landlordId}/properties`);
+  }
+
   addLandlord(landlord: Landlord) {
-    return this.httpClient.post<Landlord>(`${this.apiUrl}/landlords`, landlord);
+    return this.httpClient.post<any>(`${this.apiUrl}/landlords`, landlord, {observe: 'response'});
   }
 
   addLandlordToProperty(propertyId, landlordId) {
@@ -88,6 +92,22 @@ export class ApiService {
 
   createAccount() {
     return this.httpClient.post<any>(`${this.apiUrl}/accounts`, '');
+  }
+
+  /*
+  * Review Methods
+  */
+
+  getLandlordReviews(landlordId) {
+    return this.httpClient.get<any>(`${this.apiUrl}/landlords/${landlordId}/reviews`);
+  }
+
+  /*
+  * External Review Methods
+  */
+
+  getLandlordExternalReviews(landlordId) {
+    return this.httpClient.get<any>(`${this.apiUrl}/landlords/${landlordId}/external-reviews`);
   }
 
 }

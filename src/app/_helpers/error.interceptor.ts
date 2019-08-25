@@ -37,6 +37,11 @@ export class ErrorInterceptor implements HttpInterceptor {
           return throwError(err);
         }
 
+        if (err.status === 422) {
+          avoidFurtherAlerts = true;
+          return throwError(err);
+        }
+
         if (err.status === 0) {
           avoidFurtherAlerts = true;
           this.alertService.error("The request was cancelled. The API is probably not running.");

@@ -20,7 +20,10 @@ export class PropertyDetailPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private apiService: ApiService,
-  ) { }
+  ) {
+    this.property = <Property>{};
+    this.landlord = {};
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
