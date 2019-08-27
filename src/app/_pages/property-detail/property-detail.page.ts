@@ -16,6 +16,7 @@ export class PropertyDetailPage implements OnInit {
   public property: Property;
   public landlordId: string;
   public landlord: Landlord;
+  public reviews: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +30,7 @@ export class PropertyDetailPage implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.propertyId = params.get('id');
       this.getProperty();
+      this.getPropertyReviews();
     });
 
   }
@@ -62,5 +64,14 @@ export class PropertyDetailPage implements OnInit {
   extractAddress(property: any) {
     let addr = property.PostalAddresses[0];
     return `${addr.streetAddress}, ${addr.addressLocality}, ${addr.addressRegion} ${addr.postalCode}`;
+  }
+
+  getPropertyReviews() {
+    this.apiService.getPropertyReviews(this.propertyId).subscribe(res => {
+      this.reviews = res;
+    },
+    err => {
+      console.log('error getting property reviews', err);
+    });
   }
 }
