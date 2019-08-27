@@ -16,6 +16,8 @@ export class PropertyDetailPage implements OnInit {
   public property: Property;
   public landlordId: string;
   public landlord: Landlord;
+  public reviews: any;
+    public externalReviews: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,9 +31,11 @@ export class PropertyDetailPage implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.propertyId = params.get('id');
       this.getProperty();
+      this.getPropertyReviews();
+      this.getPropertyExternalReviews();
     });
-
   }
+
   loadPropertiesLandlords() {
     this.apiService.getLandlord(this.landlordId).subscribe(res => {
       this.landlord = res;
@@ -41,6 +45,7 @@ export class PropertyDetailPage implements OnInit {
       console.log(err);
     });
   }
+
   getProperty() {
     this.apiService.getProperty(this.propertyId).subscribe(res => {
       this.property = res;
@@ -59,8 +64,33 @@ export class PropertyDetailPage implements OnInit {
     let addr = property.PostalAddresses[0];
     return addr.addressNeighborhood;
   }
+
   extractAddress(property: any) {
     let addr = property.PostalAddresses[0];
     return `${addr.streetAddress}, ${addr.addressLocality}, ${addr.addressRegion} ${addr.postalCode}`;
+  }
+
+  getPropertyReviews() {
+    this.apiService.getPropertyReviews(this.propertyId).subscribe(res => {
+      this.reviews = res;
+    },
+    err => {
+      console.log('error getting property reviews', err);
+    });
+  }
+
+  getPropertyExternalReviews() {
+    this.apiService.getPropertyExternalReviews(this.propertyId).subscribe(res => {
+      this.externalReviews = res.map(x => {
+        let hostname = new URL(x.url).hostname;
+        hostname = hostname.replace(/^www\./i, '');
+        hostname = hostname.charAt(0).toUpperCase() + hostname.slice(1);
+        x.name = `Review on ${hostname}`;
+        return x;
+      });
+    },
+    err => {
+      console.log('error getting property external reviews', err);
+    });
   }
 }
