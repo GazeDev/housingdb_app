@@ -9,10 +9,14 @@ import {
 
 import { IonicModule } from '@ionic/angular';
 import { PropertyCardComponent } from './property-card/property-card';
+import { LandlordCardComponent } from './landlord-card/landlord-card';
+import { StarsDisplayComponent } from './stars-display/stars-display';
 
 @NgModule({
   declarations: [
     PropertyCardComponent,
+    LandlordCardComponent,
+    StarsDisplayComponent,
   ],
   imports: [
     MatButtonModule,
@@ -26,6 +30,8 @@ import { PropertyCardComponent } from './property-card/property-card';
     MatCheckboxModule,
     MatInputModule,
     PropertyCardComponent,
+    LandlordCardComponent,
+    StarsDisplayComponent,
   ],
 })
 export class AngularMaterialModule {}
