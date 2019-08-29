@@ -41,9 +41,9 @@
         </span>
       </div>
       <div class="units-reviews-divider"><hr></div>
-      <div class="reviews clearfix">
+      <div class="reviews">
         <span class="stars">
-          55555
+          <stars-display [rating]="property?.metadata?.reviewAverage"></stars-display>
         </span>
         <span class="count" title="{{(property?.metadata?.externalReviewCount || 0) }} External">
           {{ (property?.metadata?.reviewCount || 0) + (property?.metadata?.externalReviewCount || 0) }} Reviews
