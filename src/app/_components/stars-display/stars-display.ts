@@ -1,5 +1,4 @@
 import { Input, Component } from '@angular/core';
-import { Router } from '@angular/router'
 
 @Component({
   selector: 'stars-display',
@@ -11,13 +10,9 @@ export class StarsDisplayComponent {
   public rating: any;
 
   constructor (
-    // private router: Router,
+
   ) {
 
   }
-
-  // goToProperty() {
-  //   this.router.navigate([`/property/${ this.property.id }`]);
-  // }
 
 }

@@ -17,12 +17,7 @@
     <ion-card *ngFor="let review of reviews" >
       <ion-card-header>
         <ion-card-title>
-          <span class="rating" title="{{ review.rating }}/5">
-            <ng-container *ngFor="let i of [1,2,3,4,5]">
-              <ion-icon name="star" *ngIf="i <= review.rating"></ion-icon>
-              <ion-icon name="star-outline" *ngIf="i > review.rating"></ion-icon>
-            </ng-container>
-          </span>
+          <stars-display [rating]="review.rating"></stars-display>
           {{ review?.subject }}
         </ion-card-title>
         <ion-card-subtitle>

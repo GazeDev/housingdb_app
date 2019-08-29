@@ -8,6 +8,11 @@
 .units-reviews-stamp {
   float: left;
   width: 41.66667%;
+  .reviews {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
 }
 
 .location-landlord-stamp {
@@ -19,24 +24,10 @@
 
 
 .units {
-  // .bedrooms,
-  // .bathrooms {
-  //   float: left;
-  //   width: 50%;
-  // }
-  // .bedrooms-bathrooms-divider {
-  //   float: left;
-  //   width: 0%;
-  //   font-size: 2rem;
-  //   margin-left: -5px;
-  // }
   .number {
     font-size: 2rem;
     display: block;
   }
-  // .label {
-  //
-  // }
 }
 
 .units-reviews-divider {
@@ -52,14 +43,6 @@
   display: flex;
   justify-content: space-around;
   flex-basis: 50%;
-}
-
-.units-reviews-stamp {
-  .reviews {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-  }
 }
 
 .neighborhood {

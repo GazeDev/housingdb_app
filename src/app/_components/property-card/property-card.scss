@@ -8,6 +8,11 @@
 .units-reviews-stamp {
   float: left;
   width: 41.66667%;
+  .reviews {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
 }
 
 .location-landlord-stamp {
@@ -48,8 +53,9 @@
 
 .stars,
 .count {
-  float: left;
-  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  flex-basis: 50%;
 }
 
 .neighborhood {
