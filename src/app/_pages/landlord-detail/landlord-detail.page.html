@@ -1,17 +1,30 @@
 <ion-header>
   <ion-toolbar>
-    <a slot="start" class="nav-icon" routerLink="/properties" title="Properties">
+    <a slot="start" class="nav-icon" routerLink="/landlords" title="Landlords">
       <ion-icon name="arrow-back"></ion-icon>
     </a>
-    <ion-title>{{ property?.name }}</ion-title>
+    <ion-title>{{ landlord?.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <property-card [property]="property" [landlord]="landlord"></property-card>
+  <landlord-card [landlord]="landlord"></landlord-card>
+  <a id="properties"></a>
+  <h2>
+    Properties ({{ landlord?.metadata?.propertyCount || 0 }})
+    <a routerLink="/properties/add">
+      <button mat-raised-button color="primary">Add Property</button>
+    </a>
+  </h2>
+  <div class="property-cards" *ngIf="properties.length > 0">
+    <property-card *ngFor="let property of properties" [property]="property" [landlord]="landlord"></property-card>
+  </div>
   <a id="reviews"></a>
   <h2>
-    Reviews ({{ property?.metadata?.reviewCount || 0 }})
+    Reviews ({{ landlord?.metadata?.reviewCount || 0 }})
+    <a routerLink="/landlord/{{ landlord.id }}/add-review">
+      <button mat-raised-button color="primary">Add Review</button>
+    </a>
   </h2>
   <section class="reviews">
     <ion-card *ngFor="let review of reviews" >
@@ -33,7 +46,7 @@
   </section>
   <a id="external-reviews"></a>
   <h2>
-    External Reviews ({{ property?.metadata?.externalReviewCount || 0 }})
+    External Reviews ({{ landlord?.metadata?.externalReviewCount || 0 }})
   </h2>
   <section class="external-reviews">
     <ion-card *ngFor="let externalReview of externalReviews" >

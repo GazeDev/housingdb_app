@@ -1,0 +1,39 @@
+<ion-card itemscope itemtype="" (click)="goToLandlord()">
+  <ion-card-header>
+    <ion-card-title>{{ landlord?.name }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content class="clearfix">
+    <div class="units-reviews-stamp clearfix">
+      <div class="units clearfix">
+        <span class="bedrooms">
+          <span class="number">
+            {{ landlord?.metadata?.propertyCount || 0 }}
+          </span>
+          <span class="label">
+            Properties
+          </span>
+        </span>
+      </div>
+      <div class="units-reviews-divider"><hr></div>
+      <div class="reviews">
+        <span class="stars">
+          <stars-display [rating]="landlord?.metadata?.reviewAverage"></stars-display>
+        </span>
+        <span class="count" title="{{(landlord?.metadata?.externalReviewCount || 0) }} External">
+          {{ (landlord?.metadata?.reviewCount || 0) + (landlord?.metadata?.externalReviewCount || 0) }} Reviews
+        </span>
+      </div>
+    </div>
+    <div class="location-landlord-stamp">
+      <div class="neighborhood">
+        {{ landlord.phone }}<ng-container *ngIf="!landlord.phone">&nbsp;</ng-container>
+      </div>
+      <div class="address">
+        {{ landlord.website }}<ng-container *ngIf="!landlord.website">&nbsp;</ng-container>
+      </div>
+      <div class="landlord">
+        {{ landlord.email }}<ng-container *ngIf="!landlord.email">&nbsp;</ng-container>
+      </div>
+    </div>
+  </ion-card-content>
+</ion-card>

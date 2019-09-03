@@ -1,0 +1,21 @@
+.property-cards {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  property-card {
+    width: 30rem;
+    max-width: 100%;
+  }
+}
+
+// Reviews
+
+section.reviews {
+  stars-display {
+    display: inline-block;
+    height: 1.5rem;
+    vertical-align: middle;
+  }
+}

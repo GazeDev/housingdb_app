@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '_components/angular-material.module';
 import { Routes, RouterModule } from '@angular/router';
 
-import { PropertyDetailPage } from './property-detail.page';
+import { IonicModule } from '@ionic/angular';
+
+import { LandlordDetailPage } from './landlord-detail.page';
 
 const routes: Routes = [
   {
-    path: 'property/:id',
-    component: PropertyDetailPage
+    path: 'landlord/:id',
+    component: LandlordDetailPage
   }
 ];
 
@@ -22,6 +23,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PropertyDetailPage]
+  declarations: [LandlordDetailPage]
 })
-export class PropertyDetailPageModule {}
+export class LandlordDetailPageModule {}

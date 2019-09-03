@@ -1,0 +1,22 @@
+image: node:10.15.3
+
+variables:
+# SURGE_DOMAIN
+# SURGE_LOGIN
+# SURGE_TOKEN
+
+deploy master:
+  stage: deploy
+  script:
+  - npm install --unsafe-perm -gq ionic@4.5.0 --no-interactive
+  - npm install
+  - cp src/app/app.config.example.ts src/app/app.config.ts
+  - npm run build
+  - npm install --global surge
+  - surge $(pwd)/www --domain=$SURGE_DOMAIN
+  - echo "Deployed to Production Server"
+  environment:
+    name: production
+    url: https://housingdb.surge.sh
+  only:
+  - master

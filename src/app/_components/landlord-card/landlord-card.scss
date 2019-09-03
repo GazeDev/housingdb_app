@@ -1,0 +1,59 @@
+.units-reviews-stamp,
+.location-landlord-stamp {
+  border: 2px solid white;
+  text-align: center;
+  padding: .25rem;
+}
+
+.units-reviews-stamp {
+  float: left;
+  width: 41.66667%;
+  .reviews {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+}
+
+.location-landlord-stamp {
+  float: right;
+  width: 58.3333333%;
+  border-color: transparent;
+  text-align: left;
+}
+
+
+.units {
+  .number {
+    font-size: 2rem;
+    display: block;
+  }
+}
+
+.units-reviews-divider {
+  hr {
+    margin: .25rem -.25rem;
+    background-color: #fff;
+    height: 2px;
+  }
+}
+
+.stars,
+.count {
+  display: flex;
+  justify-content: space-around;
+  flex-basis: 50%;
+}
+
+.neighborhood {
+  font-size: 2rem;
+}
+
+.address {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding-bottom: .25rem;
+  border-bottom: 2px solid transparent;
+  margin-bottom: .25rem;
+}
