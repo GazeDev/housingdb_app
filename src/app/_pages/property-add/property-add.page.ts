@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ApiService } from '_services/api.service';
 import { AlertService } from '_services/alert.service';
+import { AuthenticationService } from '_services/index';
+import { NumberRangeValidator, NumberRangeItemValidator } from '_validators/range-validator';
 
 @Component({
   selector: 'app-property-add',
@@ -22,6 +24,7 @@ export class PropertyAddPage implements OnInit {
     private apiService: ApiService,
     private router: Router,
     private alertService: AlertService,
+    public authenticationService: AuthenticationService,
     private toastController: ToastController,
   ) {
     this.submitAttempt = false;
@@ -29,14 +32,78 @@ export class PropertyAddPage implements OnInit {
     this.form = this.formBuilder.group({
       address: ['', Validators.compose([Validators.required])],
       landlordQuickInfo: [''],
-      // name: [''],
       // iOwn: [''],
-      // body: [''],
+      name: [''],
+      bedrooms: this.formBuilder.group({
+        min: ['', this.bedroomItemValidator()],
+        max: ['', this.bedroomItemValidator()],
+      }, {
+        validator: NumberRangeValidator
+      }),
+      bathrooms: this.formBuilder.group({
+        min: ['', this.bathroomItemValidator()],
+        max: ['', this.bathroomItemValidator()],
+      }, {
+        validator: NumberRangeValidator
+      }),
+      body: [''],
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.authenticationService.checkLogin();
+  }
 
+  bedroomItemValidator() {
+    return NumberRangeItemValidator({
+      modulo: 1,
+      min: 0,
+      max: 10,
+    });
+  }
+
+  bedroomValueDuplicate() {
+    let minControl = this.form.get('bedrooms.min');
+    let maxControl = this.form.get('bedrooms.max');
+    if (minControl.value === '') {
+      minControl.setValue(maxControl.value);
+    } else if (maxControl.value === '') {
+      maxControl.setValue(minControl.value);
+    }
+  }
+
+  bedroomValuesSwitch() {
+    let minControl = this.form.get('bedrooms.min');
+    let maxControl = this.form.get('bedrooms.max');
+    let minValue = minControl.value;
+    minControl.setValue(maxControl.value);
+    maxControl.setValue(minValue);
+  }
+
+  bathroomItemValidator() {
+    return NumberRangeItemValidator({
+      modulo: .5,
+      min: 1,
+      max: 9,
+    });
+  }
+
+  bathroomValueDuplicate() {
+    let minControl = this.form.get('bathrooms.min');
+    let maxControl = this.form.get('bathrooms.max');
+    if (minControl.value === '') {
+      minControl.setValue(maxControl.value);
+    } else if (maxControl.value === '') {
+      maxControl.setValue(minControl.value);
+    }
+  }
+
+  bathroomValuesSwitch() {
+    let minControl = this.form.get('bathrooms.min');
+    let maxControl = this.form.get('bathrooms.max');
+    let minValue = minControl.value;
+    minControl.setValue(maxControl.value);
+    maxControl.setValue(minValue);
   }
 
   submit() {
@@ -45,6 +112,7 @@ export class PropertyAddPage implements OnInit {
 
     if (!this.form.valid) {
       console.log('form invalid!');
+      console.log(this.form);
       return;
     }
     let landlordQuickInfo = this.form.get('landlordQuickInfo').value;

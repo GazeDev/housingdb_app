@@ -7,6 +7,9 @@ import {
   MatInputModule,
 } from '@angular/material';
 
+// import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+
 import { IonicModule } from '@ionic/angular';
 import { PropertyCardComponent } from './property-card/property-card';
 import { LandlordCardComponent } from './landlord-card/landlord-card';
@@ -22,6 +25,8 @@ import { StarsDisplayComponent } from './stars-display/stars-display';
     MatButtonModule,
     MatCheckboxModule,
     MatInputModule,
+    // MatCardModule,
+    MatExpansionModule,
     CommonModule,
     IonicModule,
   ],
@@ -29,6 +34,8 @@ import { StarsDisplayComponent } from './stars-display/stars-display';
     MatButtonModule,
     MatCheckboxModule,
     MatInputModule,
+    // MatCardModule,
+    MatExpansionModule,
     PropertyCardComponent,
     LandlordCardComponent,
     StarsDisplayComponent,
