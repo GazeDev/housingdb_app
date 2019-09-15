@@ -115,13 +115,38 @@ export class PropertyAddPage implements OnInit {
       console.log(this.form);
       return;
     }
-    let landlordQuickInfo = this.form.get('landlordQuickInfo').value;
-    let landlord = {
-      quickInfo: landlordQuickInfo
-    };
-    let property = this.form.value;
-    delete property.landlordQuickInfo;
-    console.log(this.form.get('address').value);
+
+    let formValues = this.form.value;
+    let property: any = {};
+    let landlord: any = {};
+    let landlordQuickInfo: boolean = false;
+    for (var key in formValues) {
+      console.log(key, formValues[key]);
+      if (formValues[key] === '') {
+        continue;
+      }
+
+      switch (key) {
+        case 'landlordQuickInfo':
+          landlord.quickInfo = formValues[key];
+          landlordQuickInfo = true;
+          break;
+        case 'bedrooms':
+          if (formValues.bedrooms.min !== '') {
+            property.bedroomsMin = formValues.bedrooms.min;
+            property.bedroomsMax = formValues.bedrooms.max;
+          }
+          break;
+        case 'bathrooms':
+          if (formValues.bathrooms.min !== '') {
+            property.bathroomsMin = formValues.bathrooms.min;
+            property.bathroomsMax = formValues.bathrooms.max;
+          }
+          break;
+        default:
+          property[key] = formValues[key];
+      }
+    }
 
     this.apiService.addProperty(property).subscribe(propertyResponse => {
 

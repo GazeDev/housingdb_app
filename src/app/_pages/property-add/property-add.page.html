@@ -14,7 +14,9 @@
     <mat-form-field appearance="standard" floatLabel="always">
       <mat-label>Address</mat-label>
       <input matInput formControlName="address" required>
-      <mat-error>something</mat-error>
+      <mat-error>
+        Address is a required field in order to add a property.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="standard" floatLabel="always">
@@ -24,9 +26,6 @@
         You can use this field to quickly autofill the following fields: landlord name, phone number, email address.<br>
         Ex: Awesome Landlord 412-333-4444 landlord@example.com
       </mat-hint>
-      <mat-error>
-        something
-      </mat-error>
     </mat-form-field>
 
     <!-- <ion-item>
