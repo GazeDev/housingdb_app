@@ -8,55 +8,20 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngIf="landlord" itemscope itemtype="">
-    <ion-card-header>
-      <ion-card-title>{{ landlord?.name }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content class="clearfix">
-      <div class="units-reviews-stamp clearfix">
-        <div class="units clearfix">
-          <span class="bedrooms">
-            <span class="number">
-              {{ properties.length }}
-            </span>
-            <span class="label">
-              Properties
-            </span>
-          </span>
-        </div>
-        <div class="units-reviews-divider"><hr></div>
-        <div class="reviews clearfix">
-          <span class="stars">
-            55555
-          </span>
-          <span class="count">
-            X Reviews
-          </span>
-        </div>
-      </div>
-      <div class="location-landlord-stamp">
-        <div class="neighborhood">
-          {{ landlord.phone }}<ng-container *ngIf="!landlord.phone">&nbsp;</ng-container>
-        </div>
-        <div class="address">
-          {{ landlord.website }}<ng-container *ngIf="!landlord.website">&nbsp;</ng-container>
-        </div>
-        <div class="landlord">
-          {{ landlord.email }}<ng-container *ngIf="!landlord.email">&nbsp;</ng-container>
-        </div>
-      </div>
-    </ion-card-content>
-  </ion-card>
+  <landlord-card [landlord]="landlord"></landlord-card>
   <a id="properties"></a>
   <h2>
-    Properties ({{ properties.length }} / {{ properties.length }})
+    Properties ({{ landlord?.metadata?.propertyCount || 0 }})
+    <a routerLink="/properties/add">
+      <button mat-raised-button color="primary">Add Property</button>
+    </a>
   </h2>
   <div class="property-cards" *ngIf="properties.length > 0">
     <property-card *ngFor="let property of properties" [property]="property" [landlord]="landlord"></property-card>
   </div>
   <a id="reviews"></a>
   <h2>
-    Reviews
+    Reviews ({{ landlord?.metadata?.reviewCount || 0 }})
     <a *ngIf="authenticationService.isAuthenticated" routerLink="/landlord/{{ landlord.id }}/add-reviews">
       <button mat-raised-button color="primary">Add a Review</button>
     </a>
@@ -64,8 +29,43 @@
       <button mat-raised-button color="primary">Login to Add a Review</button>
     </a>
   </h2>
+  <section class="reviews">
+    <ion-card *ngFor="let review of reviews" >
+      <ion-card-header>
+        <ion-card-title>
+          <stars-display [rating]="review.rating"></stars-display>
+          {{ review?.subject }}
+        </ion-card-title>
+        <ion-card-subtitle>
+          Created {{ review?.createdAt | date : 'medium' }}
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content class="clearfix">
+        <p>
+          {{ review.body }}
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </section>
   <a id="external-reviews"></a>
   <h2>
-    External Reviews
+    External Reviews ({{ landlord?.metadata?.externalReviewCount || 0 }})
   </h2>
+  <section class="external-reviews">
+    <ion-card *ngFor="let externalReview of externalReviews" >
+      <ion-card-header>
+        <ion-card-title>
+          {{ externalReview.name }}
+        </ion-card-title>
+        <ion-card-subtitle>
+          Dated {{ externalReview?.date | date : 'mediumDate' }}
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content class="clearfix">
+        <a href="{{externalReview.url}}" target="_blank" rel="nofollow">
+          {{ externalReview.url }}
+        </a>
+      </ion-card-content>
+    </ion-card>
+  </section>
 </ion-content>

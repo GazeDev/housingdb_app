@@ -8,7 +8,8 @@
       "_models/*": [ "src/app/_models/*" ],
       "_pages/*": [ "src/app/_pages/*" ],
       "_services/*": [ "src/app/_services/*" ],
-      "_utils/*": [ "src/app/_utils/*" ]
+      "_utils/*": [ "src/app/_utils/*" ],
+      "_validators/*": [ "src/app/_validators/*" ]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

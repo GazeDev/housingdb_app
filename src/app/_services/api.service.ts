@@ -98,12 +98,28 @@ export class ApiService {
   * Review Methods
   */
 
-  getLandlordReview(landlordId) {
+  getLandlordReviews(landlordId) {
     return this.httpClient.get<any>(`${this.apiUrl}/landlords/${landlordId}/reviews`);
   }
 
   addLandlordReview(landlordId, landlordReview) {
     return this.httpClient.post<any>(`${this.apiUrl}/landlords/${landlordId}/reviews`, landlordReview);
+  }
+
+  getPropertyReviews(propertyId) {
+    return this.httpClient.get<any>(`${this.apiUrl}/properties/${propertyId}/reviews`);
+  }
+
+  /*
+  * External Review Methods
+  */
+
+  getLandlordExternalReviews(landlordId) {
+    return this.httpClient.get<any>(`${this.apiUrl}/landlords/${landlordId}/external-reviews`);
+  }
+
+  getPropertyExternalReviews(propertyId) {
+    return this.httpClient.get<any>(`${this.apiUrl}/properties/${propertyId}/external-reviews`);
   }
 
 }

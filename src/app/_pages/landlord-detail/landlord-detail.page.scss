@@ -1,71 +1,3 @@
-.units-reviews-stamp,
-.location-landlord-stamp {
-  border: 2px solid white;
-  text-align: center;
-  padding: .25rem;
-}
-
-.units-reviews-stamp {
-  float: left;
-  width: 41.66667%;
-}
-
-.location-landlord-stamp {
-  float: right;
-  width: 58.3333333%;
-  border-color: transparent;
-  text-align: left;
-}
-
-
-.units {
-  // .bedrooms,
-  // .bathrooms {
-  //   float: left;
-  //   width: 50%;
-  // }
-  // .bedrooms-bathrooms-divider {
-  //   float: left;
-  //   width: 0%;
-  //   font-size: 2rem;
-  //   margin-left: -5px;
-  // }
-  .number {
-    font-size: 2rem;
-    display: block;
-  }
-  // .label {
-  //
-  // }
-}
-
-.units-reviews-divider {
-  hr {
-    margin: .25rem -.25rem;
-    background-color: #fff;
-    height: 2px;
-  }
-}
-
-.stars,
-.count {
-  float: left;
-  width: 50%;
-}
-
-.neighborhood {
-  font-size: 2rem;
-}
-
-.address {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  padding-bottom: .25rem;
-  border-bottom: 2px solid transparent;
-  margin-bottom: .25rem;
-}
-
 .property-cards {
   display: flex;
   align-items: flex-start;
@@ -75,5 +7,15 @@
   property-card {
     width: 30rem;
     max-width: 100%;
+  }
+}
+
+// Reviews
+
+section.reviews {
+  stars-display {
+    display: inline-block;
+    height: 1.5rem;
+    vertical-align: middle;
   }
 }

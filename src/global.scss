@@ -25,17 +25,37 @@ $theme: mat-light-theme($primary, $accent);
 
 .app-dark {
   $dark-primary: mat-palette($mat-light-blue, 800);
-  $dark-accent:  mat-palette($mat-pink, A400);
-  // $dark-warn:    mat-palette($mat-deep-orange);
+  $dark-accent:  mat-palette($mat-yellow, 500);
+  $dark-warn:    mat-palette($mat-red);
+  // color: #f44336;
 
   $dark-theme: mat-dark-theme($dark-primary, $dark-accent);
 
   @include angular-material-theme($dark-theme);
+
+  fieldset {
+
+    &:focus-within {
+      border-style: solid;
+      // border-bottom-color: mat-color($dark-primary);
+    }
+    &.ng-invalid.ng-dirty.ng-touched:not(:focus-within) {
+      border-bottom-color: mat-color($dark-warn);
+      legend {
+        color: mat-color($dark-warn);
+      }
+    }
+  }
+
 }
 
 body {
   mat-form-field {
     width: 100%;
+  }
+
+  .mat-form-field-infix {
+    width: auto;
   }
 
   .mat-form-field-underline {
@@ -51,6 +71,7 @@ body {
   .mat-form-field.mat-focused .mat-form-field-label {
     color: rgba(255, 255, 255, 0.7);
   }
+
 }
 
 .sc-ion-card-md-h {
