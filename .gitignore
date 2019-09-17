@@ -34,4 +34,4 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 
 src/app/app.config.ts
-variables.env
+variables-deploy.env

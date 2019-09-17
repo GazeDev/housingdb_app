@@ -11,7 +11,6 @@ import { Landlord } from '_models/landlord.model';
 export class LandlordsPage {
 
   landlords: Landlord[];
-  // properties: any;
 
   constructor(
     private apiService: ApiService,
