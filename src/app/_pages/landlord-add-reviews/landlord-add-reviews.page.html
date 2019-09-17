@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <a slot="start" class="nav-icon" routerLink="/landlord/{{landlord.id}}" title="{{landlord?.name}}">
+    <a slot="start" class="nav-icon" routerLink="/landlord/{{landlordId}}" title="{{landlord?.name}}">
       <ion-icon name="arrow-back"></ion-icon>
     </a>
     <ion-title>Add Landlord Review</ion-title>
@@ -8,35 +8,59 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Write a review for: {{landlord?.name}}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <form id="form" (submit)="submit()" [formGroup]="form" [ngClass]="{'submit-attempt': submitAttempt}">
-        <ion-item>
-          <ion-label position="stacked">Subject</ion-label>
-          <ion-input formControlName="subject" required></ion-input>
-        </ion-item>
+  <!-- <ion-card> -->
+    <!-- <ion-card-header> -->
+      <!-- <ion-card-title>Write a review for: {{landlord?.name}}</ion-card-title> -->
+    <!-- </ion-card-header> -->
 
-        <ion-item>
-          <ion-label position="stacked">Rating</ion-label>
-          <ion-select formControlName="rating" placeholder="Select your rating">
-            <ion-select-option value=1>Awful</ion-select-option>
-            <ion-select-option value=2>Mediocre</ion-select-option>
-            <ion-select-option value=3>Average</ion-select-option>
-            <ion-select-option value=4>Great</ion-select-option>
-            <ion-select-option value=5>Excellent</ion-select-option>
-          </ion-select>
-        </ion-item>
+    <!-- <ion-card-content> -->
+      <form (submit)="submit()" [formGroup]="form" #ngFormDirective="ngForm" [ngClass]="{'submit-attempt': submitAttempt}">
 
-        <ion-item>
-          <ion-label position="stacked">Please enter your review here.</ion-label>
-          <ion-textarea formControlName="body"></ion-textarea>
-        </ion-item>
+        <mat-form-field appearance="standard" floatLabel="always">
+          <mat-label>Reviewing</mat-label>
+          <input matInput [value]="landlord?.name" required disabled>
+        </mat-form-field>
 
-        <ion-button type="submit">Save</ion-button>
+        <mat-form-field appearance="standard" floatLabel="always">
+          <mat-label>Subject</mat-label>
+          <input matInput formControlName="subject" required>
+          <mat-error>
+            Subject is a required field in order to add a review.
+          </mat-error>
+        </mat-form-field>
+
+        <div class="stars-wrapper" title="Rating: {{ form.get('rating').value }}">
+          <span class="star-container" *ngFor="let i of [1,2,3,4,5]">
+            <ng-container *ngIf="i - form.get('rating').value <= 0">
+              <ion-icon class="full-star" name="star"></ion-icon>
+            </ng-container>
+            <ion-icon class="empty-star" (click)="setRating(i)" name="star"></ion-icon>
+          </span>
+        </div>
+
+        <mat-form-field appearance="standard" floatLabel="always">
+          <mat-label>
+            Rating
+          </mat-label>
+          <select formControlName="rating" placeholder="Select your rating" matNativeControl required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" floatLabel="always">
+          <mat-label>Please enter your review here</mat-label>
+          <textarea matInput formControlName="body"></textarea>
+        </mat-form-field>
+
+
+        <div class="form-actions">
+          <button mat-raised-button color="primary" type="submit">Submit</button>
+        </div>
       </form>
-    </ion-card-content>
-  </ion-card>
+    <!-- </ion-card-content> -->
+  <!-- </ion-card> -->
 </ion-content>

@@ -12,6 +12,12 @@
   <a id="reviews"></a>
   <h2>
     Reviews ({{ property?.metadata?.reviewCount || 0 }})
+    <a *ngIf="authenticationService.isAuthenticated" routerLink="/property/{{ propertyId }}/add-reviews">
+      <button mat-raised-button color="primary">Add a Review</button>
+    </a>
+    <a *ngIf="!authenticationService.isAuthenticated" (click)="authenticationService.login()">
+      <button mat-raised-button color="primary">Login to Add a Review</button>
+    </a>
   </h2>
   <section class="reviews">
     <ion-card *ngFor="let review of reviews" >

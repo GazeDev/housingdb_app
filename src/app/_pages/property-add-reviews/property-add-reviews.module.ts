@@ -7,12 +7,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LandlordAddReviewsPage } from './landlord-add-reviews.page';
+import { PropertyAddReviewsPage } from './property-add-reviews.page';
 
 const routes: Routes = [
   {
-    path: 'landlord/:id/add-reviews',
-    component: LandlordAddReviewsPage
+    path: 'property/:id/add-reviews',
+    component: PropertyAddReviewsPage
   }
 ];
 
@@ -25,6 +25,6 @@ const routes: Routes = [
     AngularMaterialModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [LandlordAddReviewsPage]
+  declarations: [PropertyAddReviewsPage]
 })
-export class LandlordAddReviewsPageModule {}
+export class PropertyAddReviewsPageModule {}

@@ -22,7 +22,7 @@ export class LandlordDetailPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private apiService: ApiService,
-    private authenticationService: AuthenticationService
+    public authenticationService: AuthenticationService,
   ) {
     this.landlord = {};
     this.properties = [];
@@ -30,9 +30,7 @@ export class LandlordDetailPage implements OnInit {
 
   async ngOnInit() {
     await this.authenticationService.checkLogin();
-    if (this.authenticationService.isAuthenticated){
 
-    }
     this.route.paramMap.subscribe(params => {
       this.landlordId = params.get('id');
       this.getLandlord();

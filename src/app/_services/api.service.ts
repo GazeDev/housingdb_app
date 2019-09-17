@@ -110,6 +110,10 @@ export class ApiService {
     return this.httpClient.get<any>(`${this.apiUrl}/properties/${propertyId}/reviews`);
   }
 
+  addPropertyReview(propertyId, propertyReview) {
+    return this.httpClient.post<any>(`${this.apiUrl}/properties/${propertyId}/reviews`, propertyReview);
+  }
+
   /*
   * External Review Methods
   */
