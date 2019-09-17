@@ -22,8 +22,11 @@
   <a id="reviews"></a>
   <h2>
     Reviews ({{ landlord?.metadata?.reviewCount || 0 }})
-    <a routerLink="/landlord/{{ landlord.id }}/add-review">
-      <button mat-raised-button color="primary">Add Review</button>
+    <a *ngIf="authenticationService.isAuthenticated" routerLink="/landlord/{{ landlordId }}/add-reviews">
+      <button mat-raised-button color="primary">Add a Review</button>
+    </a>
+    <a *ngIf="!authenticationService.isAuthenticated" (click)="authenticationService.login()">
+      <button mat-raised-button color="primary">Login to Add a Review</button>
     </a>
   </h2>
   <section class="reviews">

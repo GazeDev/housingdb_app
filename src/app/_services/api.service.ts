@@ -102,8 +102,16 @@ export class ApiService {
     return this.httpClient.get<any>(`${this.apiUrl}/landlords/${landlordId}/reviews`);
   }
 
+  addLandlordReview(landlordId, landlordReview) {
+    return this.httpClient.post<any>(`${this.apiUrl}/landlords/${landlordId}/reviews`, landlordReview);
+  }
+
   getPropertyReviews(propertyId) {
     return this.httpClient.get<any>(`${this.apiUrl}/properties/${propertyId}/reviews`);
+  }
+
+  addPropertyReview(propertyId, propertyReview) {
+    return this.httpClient.post<any>(`${this.apiUrl}/properties/${propertyId}/reviews`, propertyReview);
   }
 
   /*
