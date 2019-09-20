@@ -1,11 +1,10 @@
-<ion-header>
-  <ion-toolbar>
-    <a slot="start" class="nav-icon" routerLink="/properties" title="Properties">
-      <ion-icon name="arrow-back"></ion-icon>
-    </a>
-    <ion-title>{{ property?.name }}</ion-title>
-  </ion-toolbar>
-</ion-header>
+<top-bar></top-bar>
+
+<mat-toolbar class="page-info">
+  <mat-toolbar-row>
+    {{ property?.name }}
+  </mat-toolbar-row>
+</mat-toolbar>
 
 <ion-content padding>
   <property-card [property]="property" [landlord]="landlord"></property-card>

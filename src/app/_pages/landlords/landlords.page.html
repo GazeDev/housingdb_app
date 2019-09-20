@@ -1,4 +1,10 @@
-<ion-header>
+<top-bar></top-bar>
+<mat-toolbar class="page-info">
+  <mat-toolbar-row>
+    Landlords
+  </mat-toolbar-row>
+</mat-toolbar>
+<!-- <ion-header>
   <ion-toolbar>
     <a slot="start" class="nav-icon" routerLink="/" title="Home">
       <ion-icon name="arrow-back"></ion-icon>
@@ -7,12 +13,12 @@
       Landlords
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content padding>
   <div class="actions">
     <a routerLink="/landlords/add">
-      <ion-button color="primary">Add Landlord</ion-button>
+      <button mat-raised-button color="primary">Add Landlord</button>
     </a>
   </div>
   <div class="cards">
