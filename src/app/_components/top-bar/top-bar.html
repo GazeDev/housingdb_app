@@ -2,9 +2,11 @@
   <mat-toolbar-row>
     <!-- <button mat-button>Menu</button> -->
 
-    <h1 class="app-name" >
-      <a (click)="goHome()">HousingDB</a>
-    </h1>
+    <a mat-button (click)="goHome()">
+      <h1 class="app-name" >
+        HousingDB
+      </h1>
+    </a>
 
     <div class="account-nav">
       <button mat-button *ngIf="authService.isAuthenticated" (click)="accountManagement()">My Account</button>

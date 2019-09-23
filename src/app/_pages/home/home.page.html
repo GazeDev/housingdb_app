@@ -59,7 +59,7 @@
     </div>
   </section>
 
-  <section>
+  <section *ngIf="!authService.isAuthenticated">
     <h2>Get More from HousingDB</h2>
     <a routerLink="#">
       <button mat-raised-button color="primary" (click)="doLogin()">Sign Up Now</button>

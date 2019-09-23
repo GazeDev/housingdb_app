@@ -10,9 +10,13 @@ import { AuthenticationService } from '_services/index';
 export class HomePage {
 
   constructor(
-
+    public authService: AuthenticationService,
   ) {
 
+  }
+
+  async doLogin() {
+    await this.authService.login();
   }
 
 }
