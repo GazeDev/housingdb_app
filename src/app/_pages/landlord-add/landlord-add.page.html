@@ -1,65 +1,66 @@
-<ion-header>
-  <ion-toolbar>
-    <a slot="start" class="nav-icon" routerLink="/landlords" title="Landlords">
-      <ion-icon name="arrow-back"></ion-icon>
-    </a>
-    <ion-title>Add Landlord</ion-title>
-  </ion-toolbar>
-</ion-header>
+<top-bar></top-bar>
 
-  <ion-content padding>
-<ion-card>
-  <ion-card-content>
-    <form id="form" (submit)="submit()" [formGroup]="form" [ngClass]="{'submit-attempt': submitAttempt}">
+<mat-toolbar class="page-info">
+  <mat-toolbar-row>
+    Add Landlord
+  </mat-toolbar-row>
+</mat-toolbar>
 
-      <ion-item>
-        <ion-label position="stacked">Landlord</ion-label>
-        <div class="description">
-          You can use this field to quickly autofill the following fields: landlord name, phone number, email address.<br>
-          Ex: Awesome Landlord 412-333-4444 landlord@example.com
-        </div>
-        <ion-input formControlName="landlordQuickInfo" required></ion-input>
-      </ion-item>
+<ion-content padding>
 
-      <!--
-      <ion-item>
-        <ion-checkbox formControlName="iAm" slot="start"></ion-checkbox>
-        <ion-label>
-          I am this landlord, or manage for them <br>
-          <span class="sublabel">
-            Only check this if you are this landlord or are authorized by them to manage the profile on their behalf.
-          </span>
-        </ion-label>
-      </ion-item>
+  <form id="form" (submit)="submit()" [formGroup]="form" [ngClass]="{'submit-attempt': submitAttempt}">
 
-      <ion-item>
-        <ion-label position="stacked">Name</ion-label>
-        <ion-input formControlName="name"></ion-input>
-      </ion-item>
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Landlord</mat-label>
+      <input matInput formControlName="landlordQuickInfo" required>
+      <mat-hint>
+        You can use this field to quickly autofill the following fields: landlord name, phone number, email address.<br>
+        Ex: Awesome Landlord 412-333-4444 landlord@example.com
+      </mat-hint>
+      <mat-error>
+        Landlord is a required field.
+      </mat-error>
+    </mat-form-field>
 
-      <ion-item>
-        <ion-label position="stacked">Phone</ion-label>
-        <ion-input formControlName="phone"></ion-input>
-      </ion-item>
+    <!--
+    <mat-checkbox formControlName="iAm">
+      I am this landlord, or manage for them <br>
+      <span class="sublabel">
+        Only check this if you are this landlord or are authorized by them to manage the profile on their behalf.
+      </span>
+    </mat-checkbox>
 
-      <ion-item>
-        <ion-label position="stacked">Email</ion-label>
-        <ion-input formControlName="email"></ion-input>
-      </ion-item>
 
-      <ion-item>
-        <ion-label position="stacked">Website</ion-label>
-        <ion-input formControlName="website"></ion-input>
-      </ion-item>
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" required>
+    </mat-form-field>
 
-      <ion-item>
-        <ion-label position="stacked">Bio</ion-label>
-        <ion-textarea formControlName="body" required></ion-textarea>
-      </ion-item>
-      -->
 
-      <ion-button type="submit">Save</ion-button>
-    </form>
-  </ion-card-content>
-</ion-card>
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Website</mat-label>
+      <input matInput formControlName="website" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Bio</mat-label>
+        <textarea matInput formControlName="body"></textarea>
+    </mat-form-field>
+    -->
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </div>
+  </form>
+
 </ion-content>

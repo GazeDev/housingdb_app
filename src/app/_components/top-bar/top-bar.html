@@ -1,0 +1,17 @@
+<mat-toolbar color="primary" class="example-toolbar mat-elevation-z6">
+  <mat-toolbar-row>
+    <!-- <button mat-button>Menu</button> -->
+
+    <a mat-button (click)="goHome()">
+      <h1 class="app-name" >
+        HousingDB
+      </h1>
+    </a>
+
+    <div class="account-nav">
+      <button mat-button *ngIf="authService.isAuthenticated" (click)="accountManagement()">My Account</button>
+      <button mat-button *ngIf="authService.isAuthenticated"  (click)="doLogout()">Log out</button>
+      <button mat-button *ngIf="!authService.isAuthenticated" (click)="doLogin()">Log in/Sign up</button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

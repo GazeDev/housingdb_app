@@ -47,6 +47,10 @@ $theme: mat-light-theme($primary, $accent);
     }
   }
 
+  mat-toolbar.page-info {
+    background-color: #424242;
+  }
+
 }
 
 body {
@@ -72,6 +76,12 @@ body {
     color: rgba(255, 255, 255, 0.7);
   }
 
+}
+
+mat-toolbar.page-info {
+  mat-toolbar-row {
+    min-height: 5rem;
+  }
 }
 
 .sc-ion-card-md-h {

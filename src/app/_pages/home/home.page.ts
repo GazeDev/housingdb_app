@@ -8,24 +8,15 @@ import { AuthenticationService } from '_services/index';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  private accountUrl: any;
 
   constructor(
-    private authService: AuthenticationService,
+    public authService: AuthenticationService,
   ) {
 
   }
 
   async doLogin() {
     await this.authService.login();
-  }
-
-  async doLogout() {
-    await this.authService.logout();
-  }
-
-  async accountManagement() {
-    await this.authService.account();
   }
 
 }

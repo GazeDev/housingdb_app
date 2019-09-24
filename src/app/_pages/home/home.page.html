@@ -1,15 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title slot="secondary">
-      HousingDB Home
-    </ion-title>
-    <div class="account-nav">
-      <button mat-raised-button *ngIf="authService.isAuthenticated" color="light" (click)="accountManagement()">My Account</button>
-      <button mat-raised-button *ngIf="authService.isAuthenticated" color="light" (click)="doLogout()">Log out</button>
-      <button mat-raised-button *ngIf="!authService.isAuthenticated" color="primary" (click)="doLogin()">Log in/Sign up</button>
-    </div>
-  </ion-toolbar>
-</ion-header>
+<top-bar></top-bar>
 
 <ion-content padding text-center>
 
@@ -70,7 +59,7 @@
     </div>
   </section>
 
-  <section>
+  <section *ngIf="!authService.isAuthenticated">
     <h2>Get More from HousingDB</h2>
     <a routerLink="#">
       <button mat-raised-button color="primary" (click)="doLogin()">Sign Up Now</button>
