@@ -28,6 +28,7 @@
     "@ionic-native/status-bar": "5.0.0-beta.21",
     "@ionic/angular": "4.0.0-beta.16",
     "core-js": "^2.5.4",
+    "google-libphonenumber": "^3.2.5",
     "hammerjs": "^2.0.8",
     "keycloak-angular": "^6.0.0",
     "rxjs": "~6.3.3",

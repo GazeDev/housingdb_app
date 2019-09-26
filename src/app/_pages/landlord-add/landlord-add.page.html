@@ -8,55 +8,82 @@
 
 <ion-content padding>
 
-  <form id="form" (submit)="submit()" [formGroup]="form" [ngClass]="{'submit-attempt': submitAttempt}">
+  <form (submit)="submit()" [formGroup]="form" #ngFormDirective="ngForm" [ngClass]="{'submit-attempt': submitAttempt}">
 
     <mat-form-field appearance="standard" floatLabel="always">
-      <mat-label>Landlord</mat-label>
-      <input matInput formControlName="landlordQuickInfo" required>
+      <mat-label>Landlord Quick Info</mat-label>
+      <input matInput formControlName="landlordQuickInfo">
       <mat-hint>
         You can use this field to quickly autofill the following fields: landlord name, phone number, email address.<br>
         Ex: Awesome Landlord 412-333-4444 landlord@example.com
       </mat-hint>
-      <mat-error>
-        Landlord is a required field.
+      <mat-error *ngIf="form.errors?.landlordQuickInfoNotSet">
+        Landlord Quick Info is a required field.
+      </mat-error>
+      <mat-error *ngIf="form.errors?.nameNotSet">
+        Landlord Quick Info or the Advanced Name field must be filled out.
       </mat-error>
     </mat-form-field>
 
-    <!--
-    <mat-checkbox formControlName="iAm">
-      I am this landlord, or manage for them <br>
-      <span class="sublabel">
-        Only check this if you are this landlord or are authorized by them to manage the profile on their behalf.
-      </span>
-    </mat-checkbox>
+    <p *ngIf="!authService.isAuthenticated">
+      <a mat-stroked-button color="accent" (click)="authService.login()">
+        Login
+      </a>
+      To access advanced fields like property name, phone, email, website, bio, and claiming ownership of the landlord profile with an account.
+    </p>
 
+    <mat-expansion-panel class="advanced" *ngIf="authService.isAuthenticated">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Advanced Fields
+        </mat-panel-title>
+        <mat-panel-description>
+          Name, Phone, Email, Website, Bio, Ownership
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-    <mat-form-field appearance="standard" floatLabel="always">
-      <mat-label>Name</mat-label>
-      <input matInput formControlName="name" required>
-    </mat-form-field>
+      <!-- <mat-checkbox formControlName="iAm">
+        I am this landlord, or manage for them <br>
+        <span class="sublabel">
+          Only check this if you are this landlord or are authorized by them to manage the profile on their behalf.
+        </span>
+      </mat-checkbox> -->
 
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+        <mat-error *ngIf="form.errors?.nameNotSet">
+          Landlord Quick Info or the Advanced Name field must be filled out.
+        </mat-error>
+      </mat-form-field>
 
-    <mat-form-field appearance="standard" floatLabel="always">
-      <mat-label>Phone</mat-label>
-      <input matInput formControlName="phone" required>
-    </mat-form-field>
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Phone</mat-label>
+        <input matInput type="tel" formControlName="phone">
+        <mat-hint>
+          Formatted like (412) 444-5555 ext 45
+        </mat-hint>
+      </mat-form-field>
 
-    <mat-form-field appearance="standard" floatLabel="always">
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email" required>
-    </mat-form-field>
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email">
+      </mat-form-field>
 
-    <mat-form-field appearance="standard" floatLabel="always">
-      <mat-label>Website</mat-label>
-      <input matInput formControlName="website" required>
-    </mat-form-field>
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Website</mat-label>
+        <input matInput type="url" formControlName="website">
+        <mat-hint>
+          https://example.com
+        </mat-hint>
+      </mat-form-field>
 
-    <mat-form-field appearance="standard" floatLabel="always">
-      <mat-label>Bio</mat-label>
-        <textarea matInput formControlName="body"></textarea>
-    </mat-form-field>
-    -->
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Bio</mat-label>
+          <textarea matInput formControlName="body"></textarea>
+      </mat-form-field>
+
+    </mat-expansion-panel>
 
     <div class="form-actions">
       <button mat-raised-button color="primary" type="submit">Submit</button>
