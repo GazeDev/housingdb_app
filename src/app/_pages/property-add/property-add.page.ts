@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ApiService } from '_services/api.service';
@@ -15,6 +15,7 @@ import { NumberRangeValidator, NumberRangeItemValidator } from '_validators/rang
 })
 export class PropertyAddPage implements OnInit {
 
+  @ViewChild('ngFormDirective') formDirective;
   form: FormGroup;
   submitAttempt: boolean;
   currentlySubmitting: boolean;
@@ -24,7 +25,7 @@ export class PropertyAddPage implements OnInit {
     private apiService: ApiService,
     private router: Router,
     private alertService: AlertService,
-    public authenticationService: AuthenticationService,
+    public authService: AuthenticationService,
     private toastController: ToastController,
   ) {
     this.submitAttempt = false;
@@ -51,7 +52,7 @@ export class PropertyAddPage implements OnInit {
   }
 
   async ngOnInit() {
-    await this.authenticationService.checkLogin();
+    await this.authService.checkLogin();
   }
 
   bedroomItemValidator() {
@@ -159,8 +160,8 @@ export class PropertyAddPage implements OnInit {
             this.apiService.addLandlordToProperty(propertyResponse.id, landlordResponse.id).subscribe(updateResponse => {
 
               this.displayPropertyCreatedToast(propertyId);
-
               this.form.reset();
+              this.formDirective.resetForm();
             });
           },
           landlordErrorResponse => {
@@ -170,8 +171,8 @@ export class PropertyAddPage implements OnInit {
               this.apiService.addLandlordToProperty(propertyResponse.id, contentLocation).subscribe(updateResponse => {
 
                 this.displayPropertyCreatedToast(propertyId);
-
                 this.form.reset();
+                this.formDirective.resetForm();
               });
             }
           }
@@ -179,6 +180,8 @@ export class PropertyAddPage implements OnInit {
 
       } else { // no landlord info, we're done
         this.displayPropertyCreatedToast(propertyId);
+        this.form.reset();
+        this.formDirective.resetForm();
       }
     });
 

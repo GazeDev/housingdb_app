@@ -8,7 +8,7 @@
 
 <ion-content padding>
 
-  <form (submit)="submit()" [formGroup]="form" [ngClass]="{'submit-attempt': submitAttempt}">
+  <form (submit)="submit()" [formGroup]="form" #ngFormDirective="ngForm" [ngClass]="{'submit-attempt': submitAttempt}">
 
     <mat-form-field appearance="standard" floatLabel="always">
       <mat-label>Address</mat-label>
@@ -36,14 +36,14 @@
         </span>
       </ion-label>
     </ion-item> -->
-    <p *ngIf="!authenticationService.isAuthenticated">
-      <a mat-stroked-button color="accent" (click)="authenticationService.login()">
+    <p *ngIf="!authService.isAuthenticated">
+      <a mat-stroked-button color="accent" (click)="authService.login()">
         Login
       </a>
       To access advanced fields like property name, bedrooms, bathrooms, description, and claiming ownership of the property with an account.
     </p>
 
-    <mat-expansion-panel class="advanced" *ngIf="authenticationService.isAuthenticated">
+    <mat-expansion-panel class="advanced" *ngIf="authService.isAuthenticated">
       <mat-expansion-panel-header>
         <mat-panel-title>
           Advanced Fields
