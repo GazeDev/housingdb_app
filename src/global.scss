@@ -69,6 +69,14 @@ body {
   .mat-form-field-subscript-wrapper {
     position: static;
   }
+
+  .mat-snack-bar-container {
+    max-width: 66vw;
+  }
+
+  mat-card-header.no-margin .mat-card-header-text {
+    margin: 0;
+  }
 }
 
 .app-dark {
@@ -84,50 +92,8 @@ mat-toolbar.page-info {
   }
 }
 
-.sc-ion-card-md-h {
-  --color: var(--ion-text-color);
-}
-
-ion-card-title {
-  --color: var(--ion-text-color);
-}
-
 .clearfix:after {
   content: "";
   display: table;
   clear: both;
-}
-
-ion-label {
-  .sublabel {
-    color: var(--ion-color-medium);
-  }
-}
-
-ion-item {
-  .label-stacked.sc-ion-label-md-h {
-    font-size: 1rem;
-  }
-  .description {
-    text-align: left;
-    color: var(--ion-color-medium);
-    width: 100%;
-  }
-}
-
-.toolbar-content {
-  order: unset;
-}
-
-ion-toolbar {
-  .nav-icon {
-    color: var(--ion-text-color);
-    font-size: 1.5em;
-    line-height: 1;
-    display: block;
-    padding-left: .5rem;
-    ion-icon {
-      display: block;
-    }
-  }
 }

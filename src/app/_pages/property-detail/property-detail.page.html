@@ -19,42 +19,42 @@
     </a>
   </h2>
   <section class="reviews">
-    <ion-card *ngFor="let review of reviews" >
-      <ion-card-header>
-        <ion-card-title>
+    <mat-card *ngFor="let review of reviews" >
+      <mat-card-header class="no-margin">
+        <mat-card-title>
           <stars-display [rating]="review.rating"></stars-display>
           {{ review?.subject }}
-        </ion-card-title>
-        <ion-card-subtitle>
+        </mat-card-title>
+        <mat-card-subtitle>
           Created {{ review?.createdAt | date : 'medium' }}
-        </ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content class="clearfix">
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="clearfix">
         <p>
           {{ review.body }}
         </p>
-      </ion-card-content>
-    </ion-card>
+      </mat-card-content>
+    </mat-card>
   </section>
   <a id="external-reviews"></a>
   <h2>
     External Reviews ({{ property?.metadata?.externalReviewCount || 0 }})
   </h2>
   <section class="external-reviews">
-    <ion-card *ngFor="let externalReview of externalReviews" >
-      <ion-card-header>
-        <ion-card-title>
+    <mat-card *ngFor="let externalReview of externalReviews" >
+      <mat-card-header class="no-margin">
+        <mat-card-title>
           {{ externalReview.name }}
-        </ion-card-title>
-        <ion-card-subtitle>
+        </mat-card-title>
+        <mat-card-subtitle>
           Dated {{ externalReview?.date | date : 'mediumDate' }}
-        </ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content class="clearfix">
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="clearfix">
         <a href="{{externalReview.url}}" target="_blank" rel="nofollow">
           {{ externalReview.url }}
         </a>
-      </ion-card-content>
-    </ion-card>
+      </mat-card-content>
+    </mat-card>
   </section>
 </ion-content>

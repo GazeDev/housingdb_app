@@ -3,7 +3,7 @@ import { ValidatorFn, ValidationErrors, AbstractControl } from "@angular/forms";
 export function UrlValidator(control: AbstractControl): ValidationErrors | null {
 
   // Don't validate empty control
-  if (control.value == '') {
+  if (control.value == '' || control.value == null) {
     return null;
   }
 
