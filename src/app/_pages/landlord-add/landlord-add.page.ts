@@ -87,11 +87,13 @@ export class LandlordAddPage implements OnInit {
 
   displayLandlordCreatedToast(landlordId) {
     this.alertService.action({
-      message: 'The landlord has been created.',
-      action: {
-        text: 'View Landlord',
-        navigateTo: `/landlord/${landlordId}`,
-      },
+      data: {
+        message: 'The landlord has been created.',
+        action: {
+          text: 'View Landlord',
+          navigateTo: `/landlord/${landlordId}`,
+        },
+      }
     });
   }
 
