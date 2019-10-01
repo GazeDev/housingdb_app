@@ -11,13 +11,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AlertComponent } from './_directives';
-// import { AuthGuard } from './_guards';
 import { JwtInterceptor, ErrorInterceptor } from '_helpers/index';
 import { AlertService, AuthenticationService } from '_services/index';
+import { ActionSnackBarComponent } from '_components/action-snack-bar/action-snack-bar';
 
 import { AngularMaterialModule } from '_components/angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 import { APP_INITIALIZER } from '@angular/core';
 import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
@@ -26,9 +26,10 @@ import { initializer } from '_utils/app-init';
 @NgModule({
   declarations: [
     AppComponent,
-    AlertComponent,
   ],
-  entryComponents: [],
+  entryComponents: [
+    ActionSnackBarComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -66,4 +67,8 @@ import { initializer } from '_utils/app-init';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(overlayContainer: OverlayContainer) {
+    overlayContainer.getContainerElement().classList.add('app-dark');
+  }
+}

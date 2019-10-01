@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
 import { ApiService } from '_services/api.service';
 import { AlertService } from '_services/alert.service';
 import { Landlord } from '_models/landlord.model';
@@ -26,7 +25,6 @@ export class LandlordAddReviewsPage implements OnInit {
     private apiService: ApiService,
     private router: Router,
     private alertService: AlertService,
-    private toastController: ToastController,
   ){
     this.submitAttempt = false;
     this.currentlySubmitting = false;
@@ -84,16 +82,14 @@ export class LandlordAddReviewsPage implements OnInit {
     this.form.get('rating').setValue(i);
   }
 
-  async displayLandlordReviewCreatedToast(landlordId) {
-    let toast = await this.toastController.create({
-      message: 'The landlord review has been created.',
-      color: 'success',
+  displayLandlordReviewCreatedToast(landlordId) {
+    this.alertService.action({
+      data: {
+        message: 'The landlord review has been created.',
+      },
       duration: 4000,
-      showCloseButton: true,
-      closeButtonText: 'Close'
     });
     this.router.navigate([`landlord/${this.landlordId}`]);
-    toast.present();
   }
 
 }

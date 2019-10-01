@@ -1,55 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-
-import { Component } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActionSnackBarComponent } from '_components/action-snack-bar/action-snack-bar';
 
 @Injectable()
 export class AlertService {
-    private subject = new Subject<any>();
-    private keepAfterNavigationChange = false;
 
     constructor(
-      private router: Router,
-      public toastController: ToastController,
+      private snackBar: MatSnackBar,
     ) {
-        // clear alert message on route change
-        this.router.events.subscribe(event => {
-            if (event instanceof NavigationStart) {
-                if (this.keepAfterNavigationChange) {
-                    // only keep for a single location change
-                    this.keepAfterNavigationChange = false;
-                } else {
-                    // clear alert
-                    this.subject.next();
-                }
-            }
-        });
+
     }
 
-    async success(message: string, keepAfterNavigationChange = false) {
-        this.keepAfterNavigationChange = keepAfterNavigationChange;
-        const toast = await this.toastController.create({
+    action(config: any) {
+      this.snackBar.openFromComponent(ActionSnackBarComponent, config);
+    }
+
+    success(message: string) {
+      this.action({
+        data: {
           message: message,
-          color: 'success',
-          showCloseButton: true,
-        });
-        toast.present();
+        }
+      });
     }
 
-    async error(message: string, keepAfterNavigationChange = false) {
-        this.keepAfterNavigationChange = keepAfterNavigationChange;
-        // this.subject.next({ type: 'error', text: message });
-        const toast = await this.toastController.create({
+    error(message: string) {
+      this.action({
+        data: {
           message: message,
-          color: 'danger',
-          showCloseButton: true,
-        });
-        toast.present();
+        }
+      });
     }
 
-    getMessage(): Observable<any> {
-        return this.subject.asObservable();
-    }
 }

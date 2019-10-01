@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
 import { ApiService } from '_services/api.service';
 import { AlertService } from '_services/alert.service';
 import { Property } from '_models/property.model';
@@ -19,7 +18,6 @@ export class PropertyAddReviewsPage implements OnInit {
   currentlySubmitting: boolean;
   propertyId: string;
   property: any;
-  rating: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,7 +25,6 @@ export class PropertyAddReviewsPage implements OnInit {
     private apiService: ApiService,
     private router: Router,
     private alertService: AlertService,
-    private toastController: ToastController,
   ){
     this.submitAttempt = false;
     this.currentlySubmitting = false;
@@ -85,16 +82,14 @@ export class PropertyAddReviewsPage implements OnInit {
     this.form.get('rating').setValue(i);
   }
 
-  async displayPropertyReviewCreatedToast(propertyId) {
-    let toast = await this.toastController.create({
-      message: 'The property review has been created.',
-      color: 'success',
+  displayPropertyReviewCreatedToast(propertyId) {
+    this.alertService.action({
+      data: {
+        message: 'The property review has been created.',
+      },
       duration: 4000,
-      showCloseButton: true,
-      closeButtonText: 'Close'
     });
     this.router.navigate([`property/${this.propertyId}`]);
-    toast.present();
   }
 
 }

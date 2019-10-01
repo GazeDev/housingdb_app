@@ -6,7 +6,7 @@ export function PhoneNumberValidator(control: AbstractControl): ValidationErrors
   const phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
   console.log('value', control.value);
   // Don't validate empty control
-  if (control.value == '') {
+  if (control.value == '' || control.value == null) {
     return null;
   }
 

@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
 import { ApiService } from '_services/api.service';
 import { AlertService } from '_services/alert.service';
 import { AuthenticationService } from '_services/index';
@@ -28,7 +27,6 @@ export class LandlordAddPage implements OnInit {
     private router: Router,
     private alertService: AlertService,
     public authService: AuthenticationService,
-    private toastController: ToastController,
   ) {
     this.submitAttempt = false;
     this.currentlySubmitting = false;
@@ -62,7 +60,10 @@ export class LandlordAddPage implements OnInit {
     let formValues = this.form.value;
     let landlord: any = {};
     for (var key in formValues) {
-      if (formValues[key] === '') {
+      if (
+        formValues[key] === '' ||
+        formValues[key] === null
+      ) {
         continue;
       }
 
@@ -84,18 +85,14 @@ export class LandlordAddPage implements OnInit {
 
   }
 
-  async displayLandlordCreatedToast(landlordId) {
-    let toast = await this.toastController.create({
+  displayLandlordCreatedToast(landlordId) {
+    this.alertService.action({
       message: 'The landlord has been created.',
-      color: 'success',
-      duration: 4000,
-      showCloseButton: true,
-      closeButtonText: 'View Landlord'
+      action: {
+        text: 'View Landlord',
+        navigateTo: `/landlord/${landlordId}`,
+      },
     });
-    toast.onWillDismiss().then(() => {
-      this.router.navigate([`/landlord/${landlordId}`]);
-    });
-    toast.present();
   }
 
 }

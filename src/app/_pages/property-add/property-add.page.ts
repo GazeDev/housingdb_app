@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
 import { ApiService } from '_services/api.service';
 import { AlertService } from '_services/alert.service';
 import { AuthenticationService } from '_services/index';
@@ -26,7 +25,6 @@ export class PropertyAddPage implements OnInit {
     private router: Router,
     private alertService: AlertService,
     public authService: AuthenticationService,
-    private toastController: ToastController,
   ) {
     this.submitAttempt = false;
     this.currentlySubmitting = false;
@@ -123,7 +121,10 @@ export class PropertyAddPage implements OnInit {
     let landlordQuickInfo: boolean = false;
     for (var key in formValues) {
       console.log(key, formValues[key]);
-      if (formValues[key] === '') {
+      if (
+        formValues[key] === '' ||
+        formValues[key] === null
+      ) {
         continue;
       }
 
@@ -133,13 +134,19 @@ export class PropertyAddPage implements OnInit {
           landlordQuickInfo = true;
           break;
         case 'bedrooms':
-          if (formValues.bedrooms.min !== '') {
+          if (
+            formValues.bedrooms.min !== '' &&
+            formValues.bedrooms.min !== null
+          ) {
             property.bedroomsMin = formValues.bedrooms.min;
             property.bedroomsMax = formValues.bedrooms.max;
           }
           break;
         case 'bathrooms':
-          if (formValues.bathrooms.min !== '') {
+          if (
+            formValues.bathrooms.min !== '' &&
+            formValues.bathrooms.min !== null
+          ) {
             property.bathroomsMin = formValues.bathrooms.min;
             property.bathroomsMax = formValues.bathrooms.max;
           }
@@ -188,18 +195,16 @@ export class PropertyAddPage implements OnInit {
 
   }
 
-  async displayPropertyCreatedToast(propertyId) {
-    let toast = await this.toastController.create({
-      message: 'The property has been created.',
-      color: 'success',
-      duration: 4000,
-      showCloseButton: true,
-      closeButtonText: 'View Property'
+  displayPropertyCreatedToast(propertyId) {
+    this.alertService.action({
+      data: {
+        message: 'The property has been created.',
+        action: {
+          text: 'View Property',
+          navigateTo: `/property/${propertyId}`,
+        },
+      }
     });
-    toast.onWillDismiss().then(() => {
-      this.router.navigate([`/property/${propertyId}`]);
-    });
-    toast.present();
   }
 
 }
