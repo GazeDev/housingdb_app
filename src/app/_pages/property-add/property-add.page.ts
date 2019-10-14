@@ -31,7 +31,7 @@ export class PropertyAddPage implements OnInit {
     this.form = this.formBuilder.group({
       address: ['', Validators.compose([Validators.required])],
       landlordQuickInfo: [''],
-      // iOwn: [''],
+      claimOwnership: [false],
       name: [''],
       bedrooms: this.formBuilder.group({
         min: ['', this.bedroomItemValidator()],
@@ -133,6 +133,10 @@ export class PropertyAddPage implements OnInit {
           landlord.quickInfo = formValues[key];
           landlordQuickInfo = true;
           break;
+        case 'claimOwnership':
+          // we'll manually check this later and look up account info if checked
+          // but we do need to prevent it from being added to property as is
+          break;
         case 'bedrooms':
           if (
             formValues.bedrooms.min !== '' &&
@@ -156,11 +160,33 @@ export class PropertyAddPage implements OnInit {
       }
     }
 
+    if (formValues.claimOwnership === true) {
+      this.apiService.getAccount().subscribe(
+        response => {
+          property.AuthorId = response.id;
+          if (landlordQuickInfo) {
+            this.addProperty(property, landlord);
+          } else {
+            this.addProperty(property);
+          }
+        },
+      );
+    } else {
+      if (landlordQuickInfo) {
+        this.addProperty(property, landlord);
+      } else {
+        this.addProperty(property);
+      }
+    }
+
+
+  }
+
+  addProperty(property, landlord: any = undefined) {
     this.apiService.addProperty(property).subscribe(propertyResponse => {
 
       let propertyId = propertyResponse.id;
-      if (landlordQuickInfo) {
-
+      if (landlord !== undefined) {
         this.apiService.addLandlord(landlord).subscribe(
           landlordRequestResponse => {
             let landlordResponse = landlordRequestResponse.body;
@@ -184,15 +210,12 @@ export class PropertyAddPage implements OnInit {
             }
           }
         );
-
       } else { // no landlord info, we're done
         this.displayPropertyCreatedToast(propertyId);
         this.form.reset();
         this.formDirective.resetForm();
       }
     });
-
-
   }
 
   displayPropertyCreatedToast(propertyId) {

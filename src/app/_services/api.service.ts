@@ -86,8 +86,13 @@ export class ApiService {
   * Account Methods
   */
 
-  getAccount() {
-    return this.httpClient.get<any>(`${this.apiUrl}/accounts`, {observe: 'response'});
+  getAccount(observeResponse: boolean = false) {
+    if (observeResponse) {
+      return this.httpClient.get<any>(`${this.apiUrl}/accounts`, {observe: 'response'});
+    } else {
+      return this.httpClient.get<any>(`${this.apiUrl}/accounts`);
+    }
+
   }
 
   createAccount() {

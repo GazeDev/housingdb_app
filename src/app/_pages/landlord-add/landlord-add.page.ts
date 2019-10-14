@@ -20,6 +20,7 @@ export class LandlordAddPage implements OnInit {
   form: FormGroup;
   submitAttempt: boolean;
   currentlySubmitting: boolean;
+  account: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,7 +33,7 @@ export class LandlordAddPage implements OnInit {
     this.currentlySubmitting = false;
     this.form = this.formBuilder.group({
       landlordQuickInfo: [''],
-      // iAm: [''],
+      claimOwnership: [false],
       name: [''],
       phone: ['', PhoneNumberValidator],
       email: ['', Validators.email],
@@ -71,18 +72,43 @@ export class LandlordAddPage implements OnInit {
         case 'landlordQuickInfo':
           landlord.quickInfo = formValues[key];
           break;
+        case 'claimOwnership':
+          // we'll manually check this later and look up account info if checked
+          // but we do need to prevent it from being added to landlord as is
+          break;
         default:
           landlord[key] = formValues[key];
       }
     }
 
+    if (formValues.claimOwnership === true) {
+      this.apiService.getAccount().subscribe(
+        response => {
+          landlord.AuthorId = response.id;
+          this.addLandlord(landlord);
+        },
+      );
+    } else {
+      this.addLandlord(landlord);
+    }
+  }
+
+  addLandlord(landlord) {
     this.apiService.addLandlord(landlord).subscribe(landlordResponse => {
       let landlordId = landlordResponse.body.id;
       this.displayLandlordCreatedToast(landlordId);
       this.form.reset();
       this.formDirective.resetForm();
+    },
+    err => {
+      if (err.status == 422) {
+        this.alertService.action({
+          data: {
+            message: 'A landlord with that name, phone, or email already exists.',
+          }
+        });
+      }
     });
-
   }
 
   displayLandlordCreatedToast(landlordId) {

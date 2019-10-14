@@ -26,7 +26,8 @@ export class AuthenticationService {
       await this.checkLogin();
       if (this.isAuthenticated) {
         await this.getUserInfo();
-        this.apiService.getAccount().subscribe(
+        let observeResponse = true;
+        this.apiService.getAccount(observeResponse).subscribe(
           response => {},
           error => {
             if (error.status === 404) {

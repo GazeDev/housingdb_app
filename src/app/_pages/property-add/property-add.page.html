@@ -27,15 +27,6 @@
       </mat-hint>
     </mat-form-field>
 
-    <!-- <ion-item>
-      <ion-checkbox formControlName="iOwn" slot="start"></ion-checkbox>
-      <ion-label>
-        I own or manage this property <br>
-        <span class="sublabel">
-          Only check this if you own this property or are authorized by the owner to manage it on their behalf.
-        </span>
-      </ion-label>
-    </ion-item> -->
     <p *ngIf="!authService.isAuthenticated">
       <a mat-stroked-button color="accent" (click)="authService.login()">
         Login
@@ -52,6 +43,13 @@
           Name, Bedrooms, Bathrooms, Description, Ownership
         </mat-panel-description>
       </mat-expansion-panel-header>
+
+      <mat-checkbox formControlName="claimOwnership">
+        Claim Ownership: I own or manage this property <br>
+        <span class="sublabel">
+          Only check this if you own this property or are authorized by the owner to manage it on their behalf.
+        </span>
+      </mat-checkbox>
 
       <mat-form-field appearance="standard" floatLabel="always">
         <mat-label>Name</mat-label>
