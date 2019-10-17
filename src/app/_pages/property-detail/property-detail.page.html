@@ -1,12 +1,9 @@
-<top-bar></top-bar>
-
 <mat-toolbar class="page-info">
   <mat-toolbar-row>
     {{ property?.name }}
   </mat-toolbar-row>
 </mat-toolbar>
 
-<ion-content padding>
   <property-card [property]="property" [landlord]="landlord"></property-card>
   <a id="reviews"></a>
   <h2>
@@ -57,4 +54,3 @@
       </mat-card-content>
     </mat-card>
   </section>
-</ion-content>

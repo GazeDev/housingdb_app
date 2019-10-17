@@ -51,6 +51,12 @@ $theme: mat-light-theme($primary, $accent);
     background-color: #424242;
   }
 
+  app-home {
+    section.header {
+      background-color: mat-color($dark-primary);
+    }
+  }
+
 }
 
 body {
@@ -96,4 +102,15 @@ mat-toolbar.page-info {
   content: "";
   display: table;
   clear: both;
+}
+
+.app-content {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  mat-toolbar {
+    width: auto;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    margin-bottom: 2rem;
+  }
 }

@@ -10,7 +10,8 @@ import { ApiService } from '_services/api.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html'
+  templateUrl: 'app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
 
@@ -19,17 +20,29 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private apiService: ApiService,
-    private authenticationService: AuthenticationService,
+    private authService: AuthenticationService,
   ) {
     this.initializeApp();
     this.apiService.setUrl(APP_CONFIG.apiURL);
   }
 
   async initializeApp() {
-    await this.authenticationService.init();
+    await this.authService.init();
     this.platform.ready().then(() => {
       // this.statusBar.styleDefault();
       // this.splashScreen.hide();
     });
+  }
+
+  async doLogin() {
+    await this.authService.login();
+  }
+
+  async doLogout() {
+    await this.authService.logout();
+  }
+
+  async accountManagement() {
+    await this.authService.account();
   }
 }

@@ -1,3 +1,51 @@
-<ion-app>
-  <ion-router-outlet></ion-router-outlet>
-</ion-app>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav role="navigation">
+    <mat-toolbar class="mat-elevation-z6">
+      <mat-toolbar-row>
+        <button mat-stroked-button (click)="sidenav.close()">
+          <mat-icon>close</mat-icon> Close
+        </button>
+
+        <a mat-button routerLink="/">
+          <h1 class="app-name">
+            HousingDB
+          </h1>
+        </a>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-nav-list (click)="sidenav.close()">
+      <a mat-list-item routerLink="/dashboard">Dashboard</a>
+      <a mat-list-item routerLink="/properties">Properties</a>
+      <a mat-list-item routerLink="/landlords">Landlords</a>
+      <mat-divider></mat-divider>
+      <a mat-list-item routerLink="#" *ngIf="authService.isAuthenticated" (click)="accountManagement()">My Account</a>
+      <a mat-list-item routerLink="#" *ngIf="authService.isAuthenticated" (click)="doLogout()">Log out</a>
+      <a mat-list-item routerLink="#" *ngIf="!authService.isAuthenticated" (click)="doLogin()">Log in/Sign up</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content role="main">
+    <mat-toolbar color="primary" class="primary-toolbar mat-elevation-z6">
+      <mat-toolbar-row>
+        <button mat-stroked-button (click)="sidenav.open()">
+          <mat-icon>menu</mat-icon> Menu
+        </button>
+
+        <a mat-button routerLink="/">
+          <h1 class="app-name">
+            HousingDB
+          </h1>
+        </a>
+
+        <div class="account-nav">
+          <button mat-button *ngIf="authService.isAuthenticated" (click)="accountManagement()">My Account</button>
+          <button mat-button *ngIf="authService.isAuthenticated"  (click)="doLogout()">Log out</button>
+          <button mat-button *ngIf="!authService.isAuthenticated" (click)="doLogin()">Log in/Sign up</button>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="app-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
