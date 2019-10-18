@@ -22,9 +22,9 @@
     <div class="stars-wrapper" title="Rating: {{ form.get('rating').value }}">
       <span class="star-container" *ngFor="let i of [1,2,3,4,5]">
         <ng-container *ngIf="i - form.get('rating').value <= 0">
-          <ion-icon class="full-star" name="star"></ion-icon>
+          <mat-icon class="full-star">star</mat-icon>
         </ng-container>
-        <ion-icon class="empty-star" (click)="setRating(i)" name="star"></ion-icon>
+        <mat-icon class="empty-star" (click)="setRating(i)">star_border</mat-icon>
       </span>
     </div>
 

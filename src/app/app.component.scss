@@ -31,3 +31,12 @@ mat-sidenav {
 
 // .app-content and mat-toolbar moved to global.scss so it could apply to
 // mat-toolbar elements inside child components
+
+@media (max-width: 33rem) {
+  .icon-label {
+    display: none;
+  }
+  .account-nav {
+    display: none;
+  }
+}

@@ -29,10 +29,15 @@ section.header {
   padding-bottom: 3rem;
   h2 {
     font-size: 3rem;
+    line-height: 1.6;
+  }
+  .actions {
+    margin-top: 3rem;
   }
 }
 
 button {
   margin-right: 1rem;
   margin-left: 1rem;
+  margin-bottom: 2rem;
 }

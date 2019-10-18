@@ -3,7 +3,7 @@ h1.example-app-name {
 }
 
 .actions {
-  margin: .625rem;
+  margin-bottom: 1rem;
 }
 
 .cards {
@@ -13,7 +13,6 @@ h1.example-app-name {
   flex-flow: row wrap;
   align-content: flex-start;
   property-card {
-    margin: .8rem;
     width: 31rem;
   }
 }

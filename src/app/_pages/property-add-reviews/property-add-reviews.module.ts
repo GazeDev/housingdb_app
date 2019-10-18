@@ -5,8 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '_components/angular-material.module';
 import { Routes, RouterModule } from '@angular/router';
 
-import { IonicModule } from '@ionic/angular';
-
 import { PropertyAddReviewsPage } from './property-add-reviews.page';
 
 const routes: Routes = [
@@ -21,7 +19,6 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    IonicModule,
     AngularMaterialModule,
     RouterModule.forChild(routes)
   ],

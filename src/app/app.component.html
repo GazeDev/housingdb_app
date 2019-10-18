@@ -3,7 +3,7 @@
     <mat-toolbar class="mat-elevation-z6">
       <mat-toolbar-row>
         <button mat-stroked-button (click)="sidenav.close()">
-          <mat-icon>close</mat-icon> Close
+          <mat-icon title="Close">close</mat-icon> <span class="icon-label">Close</span>
         </button>
 
         <a mat-button routerLink="/">
@@ -27,7 +27,7 @@
     <mat-toolbar color="primary" class="primary-toolbar mat-elevation-z6">
       <mat-toolbar-row>
         <button mat-stroked-button (click)="sidenav.open()">
-          <mat-icon>menu</mat-icon> Menu
+          <mat-icon title="Menu">menu</mat-icon> <span class="icon-label">Menu</span>
         </button>
 
         <a mat-button routerLink="/">

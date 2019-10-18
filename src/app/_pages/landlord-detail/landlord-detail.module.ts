@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '_components/angular-material.module';
 import { Routes, RouterModule } from '@angular/router';
 
-import { IonicModule } from '@ionic/angular';
-
 import { LandlordDetailPage } from './landlord-detail.page';
 
 const routes: Routes = [
@@ -20,7 +18,6 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     AngularMaterialModule,
-    IonicModule,
     RouterModule.forChild(routes)
   ],
   declarations: [LandlordDetailPage]

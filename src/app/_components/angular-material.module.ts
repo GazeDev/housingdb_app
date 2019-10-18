@@ -16,7 +16,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { IonicModule } from '@ionic/angular';
 import { ActionSnackBarComponent } from './action-snack-bar/action-snack-bar';
 import { PropertyCardComponent } from './property-card/property-card';
 import { LandlordCardComponent } from './landlord-card/landlord-card';
@@ -42,7 +41,6 @@ import { StarsDisplayComponent } from './stars-display/stars-display';
     MatSnackBarModule,
     MatToolbarModule,
     CommonModule,
-    IonicModule,
   ],
   exports: [
     MatButtonModule,

@@ -2,21 +2,21 @@
   <div class="stars-wrapper" title="Rating: {{ rating }}">
     <span class="star-container" *ngFor="let i of [1,2,3,4,5]">
       <ng-container *ngIf="i - rating <= 0">
-        <ion-icon class="full-star" name="star"></ion-icon>
+        <mat-icon class="full-star">star</mat-icon>
       </ng-container>
       <ng-container *ngIf="0 < i - rating && i - rating < 1">
         <span class="partial-star-container" [style.width]="((i - rating) * 100) + '%'">
-          <ion-icon class="partial-star" name="star"></ion-icon>
+          <mat-icon class="partial-star">star</mat-icon>
         </span>
       </ng-container>
-      <ion-icon class="empty-star" name="star"></ion-icon>
+      <mat-icon class="empty-star">star_border</mat-icon>
     </span>
   </div>
 </ng-container>
 <ng-template #noRating>
   <span class="stars-wrapper" title="Rating: N/A">
     <span class="star-container" *ngFor="let i of [1,2,3,4,5]">
-      <ion-icon class="empty" name="star"></ion-icon>
+      <mat-icon class="empty">star_border</mat-icon>
     </span>
   </span>
 </ng-template>
