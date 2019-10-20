@@ -51,6 +51,10 @@ $theme: mat-light-theme($primary, $accent);
 
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   margin: 0;
 
