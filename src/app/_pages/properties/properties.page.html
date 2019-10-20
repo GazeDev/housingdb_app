@@ -1,12 +1,9 @@
-<top-bar></top-bar>
-
 <mat-toolbar class="page-info">
   <mat-toolbar-row>
     Properties
   </mat-toolbar-row>
 </mat-toolbar>
 
-<ion-content padding>
   <div class="actions">
     <a routerLink="/properties/add">
       <button mat-raised-button color="primary">Add Property</button>
@@ -15,4 +12,3 @@
   <div class="cards">
     <property-card *ngFor="let property of properties" [property]="property" [landlord]="landlords[property.LandlordId]"></property-card>
   </div>
-</ion-content>

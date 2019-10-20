@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '_components/angular-material.module';
 import { Routes, RouterModule } from '@angular/router';
@@ -19,7 +18,6 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     AngularMaterialModule,
-    IonicModule,
     RouterModule.forChild(routes)
   ],
   declarations: [PropertyDetailPage]

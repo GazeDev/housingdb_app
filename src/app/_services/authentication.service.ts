@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { KeycloakProfile } from 'keycloak-js';
 import { KeycloakService } from 'keycloak-angular';
 import { ApiService } from '_services/api.service';
-import { ToastController } from '@ionic/angular';
+import { AlertService } from './alert.service';
 
 @Injectable()
 export class AuthenticationService {
@@ -17,7 +17,7 @@ export class AuthenticationService {
       private http: HttpClient,
       private keycloakService: KeycloakService,
       private apiService: ApiService,
-      private toastController: ToastController,
+      private alertService: AlertService,
     ) {
       this.isAuthenticated = false;
     }
@@ -33,14 +33,7 @@ export class AuthenticationService {
             if (error.status === 404) {
               this.apiService.createAccount().subscribe(
                 async success => {
-                  let toast = await this.toastController.create({
-                    message: 'We have created an account for you. Welcome!',
-                    color: 'success',
-                    duration: 4000,
-                    showCloseButton: true,
-                    closeButtonText: 'OK'
-                  });
-                  toast.present();
+                  this.alertService.success('We have created an account for you. Welcome!');
                 },
                 error => {
                   console.log("Error when calling createAccount(): ", error)

@@ -1,12 +1,9 @@
-<top-bar></top-bar>
-
 <mat-toolbar class="page-info">
   <mat-toolbar-row>
     {{ landlord?.name }}
   </mat-toolbar-row>
 </mat-toolbar>
 
-<ion-content padding>
   <landlord-card [landlord]="landlord"></landlord-card>
   <a id="properties"></a>
   <h2>
@@ -30,15 +27,13 @@
   </h2>
   <section class="reviews">
     <mat-card *ngFor="let review of reviews" >
-      <mat-card-header class="no-margin">
-        <mat-card-title>
-          <stars-display [rating]="review.rating"></stars-display>
-          {{ review?.subject }}
-        </mat-card-title>
-        <mat-card-subtitle>
-          Created {{ review?.createdAt | date : 'medium' }}
-        </mat-card-subtitle>
-      </mat-card-header>
+      <mat-card-title>
+        <stars-display [rating]="review.rating"></stars-display>
+        {{ review?.subject }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        Created {{ review?.createdAt | date : 'medium' }}
+      </mat-card-subtitle>
       <mat-card-content>
         <p>
           {{ review.body }}
@@ -52,14 +47,12 @@
   </h2>
   <section class="external-reviews">
     <mat-card *ngFor="let externalReview of externalReviews" >
-      <mat-card-header class="no-margin">
-        <mat-card-title>
-          {{ externalReview.name }}
-        </mat-card-title>
-        <mat-card-subtitle>
-          Dated {{ externalReview?.date | date : 'mediumDate' }}
-        </mat-card-subtitle>
-      </mat-card-header>
+      <mat-card-title>
+        {{ externalReview.name }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        Dated {{ externalReview?.date | date : 'mediumDate' }}
+      </mat-card-subtitle>
       <mat-card-content class="clearfix">
         <a href="{{externalReview.url}}" target="_blank" rel="nofollow">
           {{ externalReview.url }}
@@ -67,4 +60,3 @@
       </mat-card-content>
     </mat-card>
   </section>
-</ion-content>

@@ -33,8 +33,7 @@
 .units-reviews-divider {
   hr {
     margin: .25rem -.25rem;
-    background-color: #fff;
-    height: 2px;
+    border-color: #fff;
   }
 }
 
@@ -43,6 +42,10 @@
   display: flex;
   justify-content: space-around;
   flex-basis: 50%;
+}
+
+.count {
+  line-height: 1.5;
 }
 
 .neighborhood {

@@ -1,20 +1,16 @@
-<top-bar></top-bar>
-
-<ion-content padding text-center>
-
-  <section>
+  <section class="header">
     <p>Welcome to HousingDB</p>
 
     <h2>Looking for your next place to live?</h2>
 
     <p>Use our collection of data to make an informed decision before you sign your next lease.</p>
 
-    <p>
+    <p class="actions">
       <a routerLink="/properties">
-        <button mat-raised-button color="primary">Browse Properties</button>
+        <button mat-raised-button>Browse Properties</button>
       </a>
       <a routerLink="/landlords">
-        <button mat-raised-button color="primary">Browse Landlords</button>
+        <button mat-raised-button>Browse Landlords</button>
       </a>
     </p>
   </section>
@@ -65,5 +61,3 @@
       <button mat-raised-button color="primary" (click)="doLogin()">Sign Up Now</button>
     </a>
   </section>
-
-</ion-content>

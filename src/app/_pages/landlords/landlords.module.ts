@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '_components/angular-material.module';
 import { RouterModule } from '@angular/router';
 
-import { IonicModule } from '@ionic/angular';
-
 import { LandlordsPage } from './landlords.page';
 
 @NgModule({
@@ -13,7 +11,6 @@ import { LandlordsPage } from './landlords.page';
     CommonModule,
     FormsModule,
     AngularMaterialModule,
-    IonicModule,
     RouterModule.forChild([
       {
         path: 'landlords',

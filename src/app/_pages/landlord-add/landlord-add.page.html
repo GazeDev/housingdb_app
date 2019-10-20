@@ -1,12 +1,8 @@
-<top-bar></top-bar>
-
 <mat-toolbar class="page-info">
   <mat-toolbar-row>
     Add Landlord
   </mat-toolbar-row>
 </mat-toolbar>
-
-<ion-content padding>
 
   <form (submit)="submit()" [formGroup]="form" #ngFormDirective="ngForm" [ngClass]="{'submit-attempt': submitAttempt}">
 
@@ -89,5 +85,3 @@
       <button mat-raised-button color="primary" type="submit">Submit</button>
     </div>
   </form>
-
-</ion-content>
