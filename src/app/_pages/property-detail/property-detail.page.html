@@ -16,7 +16,8 @@
     </a>
   </h2>
   <section class="reviews">
-    <mat-card *ngFor="let review of reviews" >
+    <review-card *ngFor="let review of reviews" [review]="review"></review-card>
+    <!-- <mat-card *ngFor="let review of reviews" >
       <mat-card-title>
         <stars-display [rating]="review.rating"></stars-display>
         {{ review?.subject }}
@@ -29,7 +30,7 @@
           {{ review.body }}
         </p>
       </mat-card-content>
-    </mat-card>
+    </mat-card> -->
   </section>
   <a id="external-reviews"></a>
   <h2>

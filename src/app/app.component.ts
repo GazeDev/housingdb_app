@@ -12,8 +12,6 @@ import { ApiService } from '_services/api.service';
 export class AppComponent {
 
   constructor(
-    // private splashScreen: SplashScreen,
-    // private statusBar: StatusBar,
     private apiService: ApiService,
     private authService: AuthenticationService,
   ) {

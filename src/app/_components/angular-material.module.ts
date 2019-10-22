@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import {
   MatButtonModule,
@@ -19,6 +20,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActionSnackBarComponent } from './action-snack-bar/action-snack-bar';
 import { PropertyCardComponent } from './property-card/property-card';
 import { LandlordCardComponent } from './landlord-card/landlord-card';
+import { ReviewCardComponent } from './review-card/review-card';
 import { StarsDisplayComponent } from './stars-display/stars-display';
 
 @NgModule({
@@ -26,6 +28,7 @@ import { StarsDisplayComponent } from './stars-display/stars-display';
     ActionSnackBarComponent,
     PropertyCardComponent,
     LandlordCardComponent,
+    ReviewCardComponent,
     StarsDisplayComponent,
   ],
   imports: [
@@ -41,6 +44,12 @@ import { StarsDisplayComponent } from './stars-display/stars-display';
     MatSnackBarModule,
     MatToolbarModule,
     CommonModule,
+    RouterModule.forChild([
+      {
+        path: 'review-card',
+        component: ReviewCardComponent,
+      }
+    ])
   ],
   exports: [
     MatButtonModule,
@@ -57,6 +66,7 @@ import { StarsDisplayComponent } from './stars-display/stars-display';
     ActionSnackBarComponent,
     PropertyCardComponent,
     LandlordCardComponent,
+    ReviewCardComponent,
     StarsDisplayComponent,
   ],
 })

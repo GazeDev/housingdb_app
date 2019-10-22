@@ -1,0 +1,17 @@
+<mat-card #reviewElem [id]="review.id" [class.target]="isTarget">
+  <mat-card-title>
+    <stars-display [rating]="review.rating"></stars-display>
+    {{ review?.subject }}
+    <a class="permalink" target="_self" routerLink="{{reviewedItem()}}" fragment="{{review.id}}">
+      <mat-icon>link</mat-icon>
+    </a>
+  </mat-card-title>
+  <mat-card-subtitle>
+    Created {{ review?.createdAt | date : 'medium' }}
+  </mat-card-subtitle>
+  <mat-card-content>
+    <p>
+      {{ review.body }}
+    </p>
+  </mat-card-content>
+</mat-card>
