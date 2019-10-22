@@ -26,18 +26,23 @@ export class LandlordDetailPage implements OnInit {
   ) {
     this.landlord = {};
     this.properties = [];
+    this.reviews = [];
   }
 
   async ngOnInit() {
     await this.authenticationService.checkLogin();
 
     this.route.paramMap.subscribe(params => {
+      console.log('params', params);
       this.landlordId = params.get('id');
       this.getLandlord();
       this.getLandlordProperties();
       this.getLandlordReviews();
       this.getLandlordExternalReviews();
     });
+
+
+
   }
 
   getLandlord() {

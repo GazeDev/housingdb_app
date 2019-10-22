@@ -61,7 +61,9 @@ import { initializer } from '_utils/app-init';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(overlayContainer: OverlayContainer) {
+  constructor(
+    overlayContainer: OverlayContainer
+  ) {
     overlayContainer.getContainerElement().classList.add('app-dark');
   }
 }

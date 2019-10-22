@@ -1,0 +1,22 @@
+mat-card:target,
+mat-card.target {
+  // background-color: blue;
+  border: 2px solid #fff;
+}
+
+stars-display {
+  display: inline-block;
+  height: 1.5rem;
+  vertical-align: middle;
+}
+
+.permalink {
+  display:none;
+  height: 1.5rem;
+  vertical-align: middle;
+  color: #fff;
+}
+
+mat-card-title:hover .permalink {
+  display: inline-block;
+}

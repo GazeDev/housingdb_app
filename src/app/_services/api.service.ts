@@ -99,6 +99,18 @@ export class ApiService {
     return this.httpClient.post<any>(`${this.apiUrl}/accounts`, '');
   }
 
+  getAccountLandlords() {
+    return this.httpClient.get<any>(`${this.apiUrl}/accounts/landlords`);
+  }
+
+  getAccountProperties() {
+    return this.httpClient.get<any>(`${this.apiUrl}/accounts/properties`);
+  }
+
+  getAccountReviews() {
+    return this.httpClient.get<any>(`${this.apiUrl}/accounts/reviews`);
+  }
+
   /*
   * Review Methods
   */
