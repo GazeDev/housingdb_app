@@ -49,6 +49,31 @@ $theme: mat-light-theme($primary, $accent);
     color: rgba(255, 255, 255, 0.7);
   }
 
+  a:not([class*=-button]):not(.mat-list-item) {
+    // Applies to unvisited links
+    &:link {
+      color: #81d0ff;
+    }
+
+    // Applies to visited links
+    &:visited {
+      color: #65a3c8;
+    }
+
+    // Applies to elements that are being activated (BUTTON, INPUT, A, etc.)
+    &:active {
+      // outline: 1px dotted;
+    }
+
+    // Applies to elements that are being hovered over.
+    &:hover,
+    // Applies to elements that have the focus
+    &:focus {
+      outline: 1px dotted;
+    }
+  }
+
+
 }
 
 html, body {
