@@ -28,6 +28,7 @@ export class PropertyDetailPage implements OnInit {
   ) {
     this.property = <Property>{};
     this.landlord = {};
+    this.reviews = [];
   }
 
   async ngOnInit() {

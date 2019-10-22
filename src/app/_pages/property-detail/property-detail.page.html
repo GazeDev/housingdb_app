@@ -15,22 +15,8 @@
       <button mat-raised-button color="primary">Login to Add a Review</button>
     </a>
   </h2>
-  <section class="reviews">
+  <section class="reviews" *ngIf="reviews.length > 0">
     <review-card *ngFor="let review of reviews" [review]="review"></review-card>
-    <!-- <mat-card *ngFor="let review of reviews" >
-      <mat-card-title>
-        <stars-display [rating]="review.rating"></stars-display>
-        {{ review?.subject }}
-      </mat-card-title>
-      <mat-card-subtitle>
-        Created {{ review?.createdAt | date : 'medium' }}
-      </mat-card-subtitle>
-      <mat-card-content class="clearfix">
-        <p>
-          {{ review.body }}
-        </p>
-      </mat-card-content>
-    </mat-card> -->
   </section>
   <a id="external-reviews"></a>
   <h2>
