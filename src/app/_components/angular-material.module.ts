@@ -46,9 +46,17 @@ import { StarsDisplayComponent } from './stars-display/stars-display';
     CommonModule,
     RouterModule.forChild([
       {
+        path: 'property-card',
+        component: PropertyCardComponent,
+      },
+      {
+        path: 'landlord-card',
+        component: LandlordCardComponent,
+      },
+      {
         path: 'review-card',
         component: ReviewCardComponent,
-      }
+      },
     ])
   ],
   exports: [

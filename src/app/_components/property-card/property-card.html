@@ -1,5 +1,9 @@
-<mat-card title="Property" (click)="goToProperty()" itemscope itemtype="http://schema.org/Hotel">
-  <mat-card-title>{{ property.name }}</mat-card-title>
+<mat-card itemscope itemtype="http://schema.org/Hotel">
+  <mat-card-title *ngIf="showTitle">
+    <a routerLink="/property/{{ property.id }}">
+      {{ property.name }}
+    </a>
+  </mat-card-title>
   <mat-card-content class="clearfix">
     <div class="units-reviews-stamp clearfix">
       <div class="units clearfix">
@@ -57,12 +61,14 @@
       </div>
       <div class="landlord">
         <span *ngIf="property.LandlordId;">
-          <ng-container *ngIf="landlord; else loading;">
-            {{ landlord.name }}
-          </ng-container>
-          <ng-template #loading>
-            Loading Landlord
-          </ng-template>
+          <a routerLink="/landlord/{{ property.LandlordId }}">
+            <ng-container *ngIf="landlord; else loading;">
+              {{ landlord.name }}
+            </ng-container>
+            <ng-template #loading>
+              Loading Landlord
+            </ng-template>
+          </a>
         </span>
       </div>
     </div>

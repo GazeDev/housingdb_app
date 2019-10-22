@@ -4,7 +4,7 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-  <property-card [property]="property" [landlord]="landlord"></property-card>
+  <property-card [property]="property" [landlord]="landlord" [showTitle]="false"></property-card>
   <a id="reviews"></a>
   <h2>
     Reviews ({{ property?.metadata?.reviewCount || 0 }})

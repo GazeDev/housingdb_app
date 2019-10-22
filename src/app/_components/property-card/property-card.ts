@@ -13,14 +13,13 @@ export class PropertyCardComponent {
   @Input('landlord')
   public landlord: any;
 
+  @Input('showTitle')
+  public showTitle: boolean = true;
+
   constructor (
     private router: Router,
   ) {
 
-  }
-
-  goToProperty() {
-    this.router.navigate([`/property/${ this.property.id }`]);
   }
 
   extractNeighborhood(property: any) {

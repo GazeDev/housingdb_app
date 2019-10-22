@@ -1,5 +1,9 @@
-<mat-card itemscope itemtype="" (click)="goToLandlord()">
-  <mat-card-title>{{ landlord?.name }}</mat-card-title>
+<mat-card itemscope itemtype="">
+  <mat-card-title *ngIf="showTitle">
+    <a routerLink="/landlord/{{ landlord.id }}">
+      {{ landlord?.name }}
+    </a>
+  </mat-card-title>
   <mat-card-content class="clearfix">
     <div class="units-reviews-stamp clearfix">
       <div class="units clearfix">

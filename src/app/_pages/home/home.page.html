@@ -6,11 +6,11 @@
     <p>Use our collection of data to make an informed decision before you sign your next lease.</p>
 
     <p class="actions">
-      <a routerLink="/properties">
-        <button mat-raised-button>Browse Properties</button>
+      <a routerLink="/properties" mat-raised-button>
+        Browse Properties
       </a>
-      <a routerLink="/landlords">
-        <button mat-raised-button>Browse Landlords</button>
+      <a routerLink="/landlords" mat-raised-button>
+        Browse Landlords
       </a>
     </p>
   </section>
@@ -32,24 +32,24 @@
       <div class="add-type">
         <h3>Properties</h3>
         <p>Help us inventory Pittsburgh's rental properties, and rate their quality.</p>
-        <a routerLink="/properties/add">
-          <button mat-raised-button color="primary">Add a Property</button>
+        <a routerLink="/properties/add" mat-raised-button color="primary">
+          Add a Property
         </a>
       </div>
 
       <div class="add-type">
         <h3>Landlords</h3>
         <p>Fill in the list of landlords that are renting properties in Pittsburgh.</p>
-        <a routerLink="/landlords/add">
-          <button mat-raised-button color="primary">Add a Landlord</button>
+        <a routerLink="/landlords/add" mat-raised-button color="primary">
+          Add a Landlord
         </a>
       </div>
 
       <div class="add-type">
         <h3>Reviews</h3>
         <p>Leave ratings and reviews of properties and landlords.</p>
-        <a routerLink="/reviews/add">
-          <button mat-raised-button color="primary">Add a Review</button>
+        <a routerLink="/reviews/add" mat-raised-button color="primary">
+          Add a Review
         </a>
       </div>
     </div>
@@ -57,7 +57,5 @@
 
   <section *ngIf="!authService.isAuthenticated">
     <h2>Get More from HousingDB</h2>
-    <a routerLink="#">
-      <button mat-raised-button color="primary" (click)="doLogin()">Sign Up Now</button>
-    </a>
+    <button routerLink="#" mat-raised-button color="primary" (click)="doLogin()">Sign Up Now</button>
   </section>
