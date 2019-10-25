@@ -6,6 +6,7 @@ import { ApiService } from '_services/api.service';
 import { AlertService } from '_services/alert.service';
 import { AuthenticationService } from '_services/index';
 import { NumberRangeValidator, NumberRangeItemValidator } from '_validators/range-validator';
+import { UrlValidator } from '_validators/url-validator';
 
 @Component({
   selector: 'app-property-add',
@@ -45,6 +46,8 @@ export class PropertyAddPage implements OnInit {
       }, {
         validator: NumberRangeValidator
       }),
+      website: ['', UrlValidator],
+      contact: [''],
       body: [''],
     });
   }

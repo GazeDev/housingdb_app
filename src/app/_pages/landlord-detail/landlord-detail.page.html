@@ -5,6 +5,12 @@
 </mat-toolbar>
 
   <landlord-card [landlord]="landlord" [showTitle]="false"></landlord-card>
+
+  <div *ngIf="landlord.body">
+    <h3>Body</h3>
+    <p [innerHTML]="content.body(landlord.body)"></p>
+  </div>
+
   <a id="properties"></a>
   <h2>
     Properties ({{ landlord?.metadata?.propertyCount || 0 }})

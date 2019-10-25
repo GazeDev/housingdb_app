@@ -28,13 +28,16 @@
     </div>
     <div class="location-landlord-stamp">
       <div class="neighborhood">
-        {{ landlord.phone }}<ng-container *ngIf="!landlord.phone">&nbsp;</ng-container>
+        <a [href]="'tel:'+landlord.phone" target="_blank" rel="nofollow,noreferrer">{{ landlord.phone }}</a>
+        <ng-container *ngIf="!landlord.phone">&nbsp;</ng-container>
       </div>
       <div class="address">
-        {{ landlord.website }}<ng-container *ngIf="!landlord.website">&nbsp;</ng-container>
+        <a [href]="landlord.website" target="_blank" rel="nofollow,noreferrer">{{ landlord.website }}</a>
+        <ng-container *ngIf="!landlord.website">&nbsp;</ng-container>
       </div>
       <div class="landlord">
-        {{ landlord.email }}<ng-container *ngIf="!landlord.email">&nbsp;</ng-container>
+        <a [href]="'mailto:'+landlord.email" target="_blank" rel="nofollow,noreferrer">{{ landlord.email }}</a>
+        <ng-container *ngIf="!landlord.email">&nbsp;</ng-container>
       </div>
     </div>
   </mat-card-content>

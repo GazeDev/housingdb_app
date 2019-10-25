@@ -10,8 +10,6 @@
     Created {{ review?.createdAt | date : 'medium' }}
   </mat-card-subtitle>
   <mat-card-content>
-    <p>
-      {{ review.body }}
-    </p>
+    <p [innerHTML]="content.body(review.body)"></p>
   </mat-card-content>
 </mat-card>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from '_services/api.service';
+import { ApiService, ContentService } from '_services/index';
 import { AuthenticationService } from '_services/index';
 import { Property } from '_models/property.model';
 import { switchMap } from 'rxjs/operators';
@@ -23,6 +23,7 @@ export class PropertyDetailPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    public content: ContentService,
     private apiService: ApiService,
     public authenticationService: AuthenticationService,
   ) {
