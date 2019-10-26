@@ -9,7 +9,7 @@
   <div *ngIf="property.website">
     <h3>Website</h3>
     <p>
-      <a [href]="property.website" target="_blank" rel="nofollow,noreferrer">{{ property.website }}</a>
+      <a [href]="property.website" target="_blank" rel="noopener noreferrer nofollow">{{ property.website }}</a>
     </p>
     <mat-divider></mat-divider>
   </div>
@@ -51,7 +51,7 @@
         Dated {{ externalReview?.date | date : 'mediumDate' }}
       </mat-card-subtitle>
       <mat-card-content class="clearfix">
-        <a href="{{externalReview.url}}" target="_blank" rel="nofollow">
+        <a href="{{externalReview.url}}" target="_blank" rel="noopener noreferrer nofollow">
           {{ externalReview.url }}
         </a>
       </mat-card-content>

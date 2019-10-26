@@ -28,15 +28,15 @@
     </div>
     <div class="location-landlord-stamp">
       <div class="neighborhood">
-        <a [href]="'tel:'+landlord.phone" target="_blank" rel="nofollow,noreferrer">{{ landlord.phone }}</a>
+        <a [href]="'tel:'+landlord.phone" target="_blank" rel="noopener noreferrer nofollow">{{ landlord.phone }}</a>
         <ng-container *ngIf="!landlord.phone">&nbsp;</ng-container>
       </div>
       <div class="address">
-        <a [href]="landlord.website" target="_blank" rel="nofollow,noreferrer">{{ landlord.website }}</a>
+        <a [href]="landlord.website" target="_blank" rel="noopener noreferrer nofollow">{{ landlord.website }}</a>
         <ng-container *ngIf="!landlord.website">&nbsp;</ng-container>
       </div>
       <div class="landlord">
-        <a [href]="'mailto:'+landlord.email" target="_blank" rel="nofollow,noreferrer">{{ landlord.email }}</a>
+        <a [href]="'mailto:'+landlord.email" target="_blank" rel="noopener noreferrer nofollow">{{ landlord.email }}</a>
         <ng-container *ngIf="!landlord.email">&nbsp;</ng-container>
       </div>
     </div>
