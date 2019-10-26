@@ -36,7 +36,7 @@
           Advanced Fields
         </mat-panel-title>
         <mat-panel-description>
-          Name, Bedrooms, Bathrooms, Description, Ownership
+          Ownership, Name, Bedrooms, Bathrooms, Website, Contact, Description
         </mat-panel-description>
       </mat-expansion-panel-header>
 
@@ -125,6 +125,22 @@
           <mat-error *ngIf="form?.get('bathrooms').errors?.outOfOrderError">The From value should be lower than the To value. To fix: <button mat-stroked-button (click)="bathroomValuesSwitch()">Switch To and From values</button></mat-error>
         </ng-container>
       </fieldset>
+
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Website</mat-label>
+        <input matInput type="url" formControlName="website">
+        <mat-hint>
+          A link to find more info about the property. Format: https://example.com
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Contact</mat-label>
+        <input matInput formControlName="contact">
+        <mat-hint>
+          Contact information if it is different from the landlord info
+        </mat-hint>
+      </mat-form-field>
 
       <mat-form-field appearance="standard" floatLabel="always">
         <mat-label>Description</mat-label>

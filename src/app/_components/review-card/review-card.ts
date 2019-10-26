@@ -1,6 +1,7 @@
-import { Input, Component, ViewChild, ElementRef } from '@angular/core';
+import { Input, Component, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { ContentService } from '_services/index';
 
 @Component({
   selector: 'review-card',
@@ -8,27 +9,24 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['review-card.scss'],
 })
 export class ReviewCardComponent {
-  @ViewChild("reviewElem") reviewProp: ElementRef;
 
   @Input('review')
   public review: any;
   public isTarget: boolean;
 
   constructor (
-    private router: Router,
     private route: ActivatedRoute,
     private elementRef: ElementRef,
+    public content: ContentService,
   ) {
     this.isTarget = false;
   }
 
   ngOnInit() {
     this.route.fragment.subscribe(fragments => {
-      console.log('fragments', fragments);
       if (fragments == this.review.id) {
         this.isTarget = true;
         this.elementRef.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
-        console.log('review ' + this.review.subject + ' is focused');
       } else {
         this.isTarget = false;
       }
@@ -41,15 +39,6 @@ export class ReviewCardComponent {
     } else {
       return `/property/${ this.review.reviewableId }`;
     }
-  }
-
-  goToReviewedItem() {
-    if (this.review.reviewableType === "landlord") {
-      this.router.navigate([`/property/${ this.review.id }`]);
-    } else {
-      this.router.navigate([`/property/${ this.review.id }`]);
-    }
-
   }
 
 }

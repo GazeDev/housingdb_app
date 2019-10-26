@@ -5,6 +5,12 @@
 </mat-toolbar>
 
   <landlord-card [landlord]="landlord" [showTitle]="false"></landlord-card>
+
+  <div *ngIf="landlord.body">
+    <h3>Body</h3>
+    <p [innerHTML]="content.body(landlord.body)"></p>
+  </div>
+
   <a id="properties"></a>
   <h2>
     Properties ({{ landlord?.metadata?.propertyCount || 0 }})
@@ -41,7 +47,7 @@
         Dated {{ externalReview?.date | date : 'mediumDate' }}
       </mat-card-subtitle>
       <mat-card-content class="clearfix">
-        <a href="{{externalReview.url}}" target="_blank" rel="nofollow">
+        <a href="{{externalReview.url}}" target="_blank" rel="noopener noreferrer nofollow">
           {{ externalReview.url }}
         </a>
       </mat-card-content>
