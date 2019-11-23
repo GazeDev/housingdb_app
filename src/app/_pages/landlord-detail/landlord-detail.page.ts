@@ -13,6 +13,7 @@ import { Property } from '_models/property.model';
 })
 export class LandlordDetailPage implements OnInit {
 
+  public userAccount: any;
   public landlordId: string;
   public landlord: Landlord;
   public properties: Property[];
@@ -32,7 +33,9 @@ export class LandlordDetailPage implements OnInit {
 
   async ngOnInit() {
     await this.authenticationService.checkLogin();
-
+    if (this.authenticationService.isAuthenticated) {
+      this.getAccount();
+    }
     this.route.paramMap.subscribe(params => {
       console.log('params', params);
       this.landlordId = params.get('id');
@@ -41,9 +44,13 @@ export class LandlordDetailPage implements OnInit {
       this.getLandlordReviews();
       this.getLandlordExternalReviews();
     });
+  }
 
-
-
+  getAccount() {
+    this.apiService.getAccount().subscribe(res => {
+      console.log('userAccount', res);
+      this.userAccount = res;
+    });
   }
 
   getLandlord() {

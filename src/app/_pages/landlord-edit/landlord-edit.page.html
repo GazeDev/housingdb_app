@@ -1,0 +1,53 @@
+<mat-toolbar class="page-info">
+  <mat-toolbar-row>
+    Edit Landlord
+  </mat-toolbar-row>
+</mat-toolbar>
+
+  <form (submit)="submit()" [formGroup]="form" #ngFormDirective="ngForm" [ngClass]="{'submit-attempt': submitAttempt}">
+
+    <p *ngIf="!authService.isAuthenticated">
+      <a mat-stroked-button color="accent" (click)="authService.login()">
+        Login
+      </a>
+      You must be logged in to edit a Landlord.
+    </p>
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+      <mat-error *ngIf="form.errors?.nameNotSet">
+        Landlord Quick Info or the Advanced Name field must be filled out.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Phone</mat-label>
+      <input matInput type="tel" formControlName="phone">
+      <mat-hint>
+        Formatted like (412) 444-5555 ext 45
+      </mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Website</mat-label>
+      <input matInput type="url" formControlName="website">
+      <mat-hint>
+        https://example.com
+      </mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Bio</mat-label>
+        <textarea matInput formControlName="body"></textarea>
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </div>
+  </form>
