@@ -75,6 +75,10 @@ export class ApiService {
     return this.httpClient.post<any>(`${this.apiUrl}/landlords`, landlord, {observe: 'response'});
   }
 
+  patchLandlord(id, landlord: Landlord) {
+    return this.httpClient.patch<any>(`${this.apiUrl}/landlords/${id}`, landlord, {observe: 'response'});
+  }
+
   addLandlordToProperty(propertyId, landlordId) {
     let landlord = {
       id: landlordId,

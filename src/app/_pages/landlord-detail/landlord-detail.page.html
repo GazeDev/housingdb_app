@@ -1,6 +1,13 @@
 <mat-toolbar class="page-info">
   <mat-toolbar-row>
     {{ landlord?.name }}
+    <span class="edit"
+    *ngIf="authenticationService.isAuthenticated &&
+      userAccount?.id == landlord?.AuthorId">
+      <a routerLink="/landlord/{{ landlordId }}/edit" mat-icon-button aria-label="Edit Landlord" title="Edit Landlord">
+        <mat-icon>edit</mat-icon>
+      </a>
+    </span>
   </mat-toolbar-row>
 </mat-toolbar>
 
