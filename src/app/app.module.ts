@@ -14,7 +14,7 @@ import { ActionSnackBarComponent } from '_components/action-snack-bar/action-sna
 
 import { AngularMaterialModule } from '_components/angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { OverlayContainer } from '@angular/cdk/overlay';
+// import { OverlayContainer } from '@angular/cdk/overlay';
 
 import { APP_INITIALIZER } from '@angular/core';
 import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
@@ -62,8 +62,8 @@ import { initializer } from '_utils/app-init';
 })
 export class AppModule {
   constructor(
-    overlayContainer: OverlayContainer
+    // overlayContainer: OverlayContainer
   ) {
-    overlayContainer.getContainerElement().classList.add('app-dark');
+    // overlayContainer.getContainerElement().classList.add('app-dark');
   }
 }

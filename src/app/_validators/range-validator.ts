@@ -1,18 +1,19 @@
 import { ValidatorFn, ValidationErrors, AbstractControl } from "@angular/forms";
+import { emptyish } from '_helpers/emptyish';
 
 export function NumberRangeValidator(group: AbstractControl): ValidationErrors | null {
   let minControlValue = group.get('min').value;
   let maxControlValue = group.get('max').value;
 
   // If neither value is set we don't need to do anything
-  if (minControlValue === '' && maxControlValue === '') {
+  if (emptyish(minControlValue) && emptyish(maxControlValue)) {
     return null;
   }
 
   // If only one value is set, the user needs to set the other one
   if (
-    (minControlValue === '' && maxControlValue !== '') ||
-    (minControlValue !== '' && maxControlValue === '')
+    (emptyish(minControlValue) && !emptyish(maxControlValue)) ||
+    (!emptyish(minControlValue) && emptyish(maxControlValue))
   ) {
     return {'incompleteSetError': {message: `"${minControlValue}", "${maxControlValue}"`}};
   }
@@ -43,7 +44,9 @@ export function NumberRangeItemValidator( config = {modulo: 1, min: 0, max: 10})
     let controlValue = control.value;
     console.log(controlValue);
 
-    if (controlValue === '') {
+    if (
+      emptyish(controlValue)
+    ) {
       return null;
     }
 

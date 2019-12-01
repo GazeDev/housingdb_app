@@ -55,6 +55,10 @@ export class ApiService {
     return this.httpClient.post<Property>(`${this.apiUrl}/properties`, property);
   }
 
+  patchProperty(id, property: Property) {
+    return this.httpClient.patch<any>(`${this.apiUrl}/properties/${id}`, property, {observe: 'response'});
+  }
+
   /*
   * Landlord Methods
   */

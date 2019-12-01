@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: '', loadChildren: '_pages/dashboard/dashboard.module#DashboardPageModule' },
   { path: '', loadChildren: '_pages/properties/properties.module#PropertiesPageModule' },
   { path: '', loadChildren: '_pages/property-detail/property-detail.module#PropertyDetailPageModule' },
+  { path: '', loadChildren: '_pages/property-edit/property-edit.module#PropertyEditPageModule' },
   { path: '', loadChildren: '_pages/property-add/property-add.module#PropertyAddPageModule' },
   // { path: '', loadChildren: '_pages/property-detail/property-detail.module#PropertyDetailPageModule' },
   { path: '', loadChildren: '_pages/landlords/landlords.module#LandlordsPageModule' },
