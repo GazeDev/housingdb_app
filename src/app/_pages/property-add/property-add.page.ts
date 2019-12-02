@@ -7,6 +7,7 @@ import { AlertService } from '_services/alert.service';
 import { AuthenticationService } from '_services/index';
 import { NumberRangeValidator, NumberRangeItemValidator } from '_validators/range-validator';
 import { UrlValidator } from '_validators/url-validator';
+import { emptyish } from '_helpers/emptyish';
 
 @Component({
   selector: 'app-property-add',
@@ -119,49 +120,18 @@ export class PropertyAddPage implements OnInit {
     }
 
     let formValues = this.form.value;
-    let property: any = {};
     let landlord: any = {};
     let landlordQuickInfo: boolean = false;
-    for (var key in formValues) {
-      console.log(key, formValues[key]);
-      if (
-        formValues[key] === '' ||
-        formValues[key] === null
-      ) {
-        continue;
-      }
 
-      switch (key) {
-        case 'landlordQuickInfo':
-          landlord.quickInfo = formValues[key];
-          landlordQuickInfo = true;
-          break;
-        case 'claimOwnership':
-          // we'll manually check this later and look up account info if checked
-          // but we do need to prevent it from being added to property as is
-          break;
-        case 'bedrooms':
-          if (
-            formValues.bedrooms.min !== '' &&
-            formValues.bedrooms.min !== null
-          ) {
-            property.bedroomsMin = formValues.bedrooms.min;
-            property.bedroomsMax = formValues.bedrooms.max;
-          }
-          break;
-        case 'bathrooms':
-          if (
-            formValues.bathrooms.min !== '' &&
-            formValues.bathrooms.min !== null
-          ) {
-            property.bathroomsMin = formValues.bathrooms.min;
-            property.bathroomsMax = formValues.bathrooms.max;
-          }
-          break;
-        default:
-          property[key] = formValues[key];
-      }
+    if (
+      formValues.landlordQuickInfo !== '' &&
+      formValues.landlordQuickInfo !== null
+    ) {
+      landlord.quickInfo = formValues.landlordQuickInfo;
+      landlordQuickInfo = true;
     }
+
+    let property = this.propertyMapLocalToApi(formValues);
 
     if (formValues.claimOwnership === true) {
       this.apiService.getAccount().subscribe(
@@ -183,6 +153,48 @@ export class PropertyAddPage implements OnInit {
     }
 
 
+  }
+
+  propertyMapLocalToApi(formValues) {
+    let property: any = {};
+    // let landlord: any = {};
+    for (var key in formValues) {
+      console.log(key, formValues[key]);
+      if (
+        emptyish(formValues[key])
+      ) {
+        continue;
+      }
+
+      switch (key) {
+        case 'claimOwnership':
+          // we'll manually check this later and look up account info if checked
+          // but we do need to prevent it from being added to property as is
+          break;
+        case 'landlordQuickInfo':
+          // we don't want to to be added to the property object
+          break;
+        case 'bedrooms':
+          if (
+            !emptyish(formValues.bedrooms.min)
+          ) {
+            property.bedroomsMin = formValues.bedrooms.min;
+            property.bedroomsMax = formValues.bedrooms.max;
+          }
+          break;
+        case 'bathrooms':
+          if (
+            !emptyish(formValues.bathrooms.min)
+          ) {
+            property.bathroomsMin = formValues.bathrooms.min;
+            property.bathroomsMax = formValues.bathrooms.max;
+          }
+          break;
+        default:
+          property[key] = formValues[key];
+      }
+    }
+    return property;
   }
 
   addProperty(property, landlord: any = undefined) {

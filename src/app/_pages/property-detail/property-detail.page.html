@@ -1,6 +1,13 @@
 <mat-toolbar class="page-info">
   <mat-toolbar-row>
     {{ property?.name }}
+    <span class="edit"
+    *ngIf="authenticationService.isAuthenticated &&
+      userAccount?.id == property?.AuthorId">
+      <a routerLink="/property/{{ propertyId }}/edit" mat-icon-button aria-label="Edit Property" title="Edit Property">
+        <mat-icon>edit</mat-icon>
+      </a>
+    </span>
   </mat-toolbar-row>
 </mat-toolbar>
 
