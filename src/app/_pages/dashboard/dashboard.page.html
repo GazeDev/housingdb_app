@@ -35,7 +35,11 @@
 </p>
 
 <div class="cards">
-  <property-card *ngFor="let property of properties" [property]="property" [landlord]="landlordsMap[property.LandlordId]"></property-card>
+  <property-card *ngFor="let property of properties"
+    [property]="property"
+    [landlord]="landlordsMap[property.LandlordId]"
+    [location]="locations[property.LocationId]"
+  ></property-card>
 </div>
 
 <h2>

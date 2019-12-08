@@ -10,5 +10,9 @@
     </a>
   </div>
   <div class="cards">
-    <property-card *ngFor="let property of properties" [property]="property" [landlord]="landlords[property.LandlordId]"></property-card>
+    <property-card *ngFor="let property of properties"
+      [property]="property"
+      [landlord]="landlords[property.LandlordId]"
+      [location]="locations[property.LocationId]"
+    ></property-card>
   </div>

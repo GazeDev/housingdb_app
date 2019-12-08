@@ -49,7 +49,6 @@ export class PropertyDetailPage implements OnInit {
 
   getAccount() {
     this.apiService.getAccount().subscribe(res => {
-      console.log('userAccount', res);
       this.userAccount = res;
     });
   }
@@ -67,9 +66,8 @@ export class PropertyDetailPage implements OnInit {
   getProperty() {
     this.apiService.getProperty(this.propertyId).subscribe(res => {
       this.property = res;
-      console.log(this.userAccount.id, this.property.AuthorId);
       if (this.property.LandlordId) {
-        this.landlordId = this.property.LandlordId
+        this.landlordId = this.property.LandlordId;
         this.loadPropertiesLandlords();
       }
     },

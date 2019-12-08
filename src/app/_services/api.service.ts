@@ -151,4 +151,16 @@ export class ApiService {
     return this.httpClient.get<any>(`${this.apiUrl}/properties/${propertyId}/external-reviews`);
   }
 
+  /*
+  * Location Methods
+  */
+
+  getLocations() {
+    return this.httpClient.get<any>(`${this.apiUrl}/locations`);
+  }
+
+  getLocation(id) {
+    return this.httpClient.get<any>(`${this.apiUrl}/locations/${id}`);
+  }
+
 }
