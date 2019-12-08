@@ -9,6 +9,17 @@
       Add Property
     </a>
   </div>
+  <!-- <div class="filters">
+    <mat-form-field>
+      <mat-label>Neighborhood(s)</mat-label>
+      <mat-select multiple>
+        <mat-option *ngFor="let location of renderLocations" [value]="location.id" [disabled]="!location.active">
+          <span *ngIf="location.active">{{location.name}}</span>
+          <strong *ngIf="!location.active">{{location.name}}</strong>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div> -->
   <div class="cards">
     <property-card *ngFor="let property of properties"
       [property]="property"

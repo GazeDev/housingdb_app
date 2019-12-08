@@ -13,6 +13,7 @@ export class PropertiesPage {
   properties: Property[];
   landlords: any;
   locations: any;
+  renderLocations: any[];
   // properties: any;
 
   constructor(
@@ -21,10 +22,12 @@ export class PropertiesPage {
     this.properties = [];
     this.landlords = {};
     this.locations = {};
+    this.renderLocations = [];
   }
 
   ngOnInit() {
     this.getProperties();
+    this.loadAllLocations();
   }
 
   getProperties() {
@@ -93,6 +96,50 @@ export class PropertiesPage {
       console.log('error loading location');
       console.log(err);
     });
+  }
+
+  loadAllLocations() {
+    this.apiService.getLocations().subscribe(res => {
+      console.log('all locations', res);
+      // this.allLocations = res;
+      this.buildLocations(res);
+    });
+  }
+
+  buildLocations(locations) {
+    for (let state of locations) {
+      console.log('state', state.name);
+      this.renderLocations.push({
+        name: state.name,
+        id: state.id,
+        active: false,
+      });
+      for (let city of state.children) {
+        console.log('city', city.name);
+        if (city.children.length === 1 && city.name === city.children[0].name) {
+          this.renderLocations.push({
+            name: '-' + city.children[0].name,
+            id: city.children[0].id,
+            active: true,
+          });
+        } else {
+          this.renderLocations.push({
+            name: '-' + city.name,
+            id: city.id,
+            active: false,
+          });
+          for (let location of city.children) {
+            console.log('location', location.name);
+            this.renderLocations.push({
+              name: '--' + location.name,
+              id: location.id,
+              active: true,
+            });
+          }
+        }
+      }
+    }
+    console.log(this.renderLocations);
   }
 
 

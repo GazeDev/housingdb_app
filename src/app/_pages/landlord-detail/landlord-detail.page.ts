@@ -39,7 +39,6 @@ export class LandlordDetailPage implements OnInit {
       this.getAccount();
     }
     this.route.paramMap.subscribe(params => {
-      console.log('params', params);
       this.landlordId = params.get('id');
       this.getLandlord();
       this.getLandlordProperties();
@@ -50,7 +49,6 @@ export class LandlordDetailPage implements OnInit {
 
   getAccount() {
     this.apiService.getAccount().subscribe(res => {
-      console.log('userAccount', res);
       this.userAccount = res;
     });
   }

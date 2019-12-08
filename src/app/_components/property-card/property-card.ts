@@ -27,11 +27,13 @@ export class PropertyCardComponent {
 
   }
 
-  ngOnInit() {
-    // If the property has a Location and it wasn't loaded for us, 
+  ngOnChanges(changes: any) {
+    // If the property has a Location and it wasn't loaded for us,
     // load it ourselves
-    if (this.property.LocationId && !this.location) {
-      this.loadLocation();
+    if (changes.hasOwnProperty('property')) {
+      if (this.property.LocationId && !this.location) {
+        this.loadLocation();
+      }
     }
   }
 
