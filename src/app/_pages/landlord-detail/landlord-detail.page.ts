@@ -17,6 +17,7 @@ export class LandlordDetailPage implements OnInit {
   public landlordId: string;
   public landlord: Landlord;
   public properties: Property[];
+  public locations: any;
   public reviews: any;
   public externalReviews: any;
 
@@ -28,6 +29,7 @@ export class LandlordDetailPage implements OnInit {
   ) {
     this.landlord = {};
     this.properties = [];
+    this.locations = {};
     this.reviews = [];
   }
 
@@ -37,7 +39,6 @@ export class LandlordDetailPage implements OnInit {
       this.getAccount();
     }
     this.route.paramMap.subscribe(params => {
-      console.log('params', params);
       this.landlordId = params.get('id');
       this.getLandlord();
       this.getLandlordProperties();
@@ -48,7 +49,6 @@ export class LandlordDetailPage implements OnInit {
 
   getAccount() {
     this.apiService.getAccount().subscribe(res => {
-      console.log('userAccount', res);
       this.userAccount = res;
     });
   }
@@ -65,6 +65,7 @@ export class LandlordDetailPage implements OnInit {
   getLandlordProperties() {
     this.apiService.getLandlordProperties(this.landlordId).subscribe(res => {
       this.properties = res;
+      this.loadPropertiesLocations();
     },
     err => {
       console.log('error getting landlord properties', err);
@@ -92,6 +93,29 @@ export class LandlordDetailPage implements OnInit {
     },
     err => {
       console.log('error getting landlord external reviews', err);
+    });
+  }
+
+  loadPropertiesLocations() {
+    for (let property of this.properties) {
+      if (property.LocationId && !this.locations.hasOwnProperty(property.LocationId)) {
+        this.loadLocation(property);
+      }
+    }
+  }
+
+  loadLocation(property: any) {
+    // set a placeholder so we know not to load it again
+    this.locations[property.LocationId] = true;
+    this.apiService.getLocation(property.LocationId).subscribe(
+    res => {
+      // create a keyed array so we only have to load each landlord once
+      // and can access it in O(1).
+      this.locations[property.LocationId] = res;
+    },
+    err => {
+      console.log('error loading location');
+      console.log(err);
     });
   }
 }

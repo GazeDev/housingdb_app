@@ -26,7 +26,11 @@
     </a>
   </h2>
   <div class="property-cards" *ngIf="properties.length > 0">
-    <property-card *ngFor="let property of properties" [property]="property" [landlord]="landlord"></property-card>
+    <property-card *ngFor="let property of properties"
+      [property]="property"
+      [landlord]="landlord"
+      [location]="locations[property.LocationId]"
+    ></property-card>
   </div>
   <a id="reviews"></a>
   <h2>

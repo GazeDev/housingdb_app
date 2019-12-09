@@ -11,7 +11,11 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-  <property-card [property]="property" [landlord]="landlord" [showTitle]="false"></property-card>
+  <property-card
+    [property]="property"
+    [landlord]="landlord"
+    [showTitle]="false"
+  ></property-card>
 
   <div *ngIf="property.website">
     <h3>Website</h3>
