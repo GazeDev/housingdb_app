@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Property } from '_models/property.model';
 import { Landlord } from '_models/landlord.model';
+import { emptyish } from '_helpers/emptyish';
+
 
 @Injectable({
   providedIn: 'root'
@@ -43,8 +45,21 @@ export class ApiService {
   * Property Methods
   */
 
-  getProperties() {
-    return this.httpClient.get<Property[]>(`${this.apiUrl}/properties`);
+  getProperties(options = {}) {
+    let params = {};
+    for (var key in options) {
+      if (
+        emptyish(options[key])
+        || options[key] == undefined
+      ) {
+        continue;
+      }
+      console.log('val:', options[key]);
+      params[key] = options[key];
+    }
+    return this.httpClient.get<Property[]>(`${this.apiUrl}/properties`, {
+      params: params,
+    });
   }
 
   getProperty(id: string) {

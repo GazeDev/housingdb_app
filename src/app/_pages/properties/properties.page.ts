@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '_services/api.service';
-
 import { Property } from '_models/property.model';
 
 @Component({
@@ -13,16 +13,38 @@ export class PropertiesPage {
   properties: Property[];
   landlords: any;
   locations: any;
-  renderLocations: any[];
-  // properties: any;
+  allLocations: any;
+
+  @ViewChild('ngFormDirective') formDirective;
+  form: FormGroup;
+  submitAttempt: boolean;
+  currentlySubmitting: boolean;
+
+  filtersOpen: boolean = false;
+  originalOrder: any;
 
   constructor(
+    private formBuilder: FormBuilder,
     private apiService: ApiService,
   ) {
     this.properties = [];
     this.landlords = {};
     this.locations = {};
-    this.renderLocations = [];
+    this.allLocations = {};
+
+    this.submitAttempt = false;
+    this.currentlySubmitting = false;
+    this.form = this.formBuilder.group({
+      name: [''],
+      address: [''],
+      bedrooms: [''],
+      locations: [''],
+    });
+
+    // used to preserve order in the keyvalue pipe in the template
+    this.originalOrder = (a: any, b: any): number => {
+      return 0;
+    }
   }
 
   ngOnInit() {
@@ -30,8 +52,8 @@ export class PropertiesPage {
     this.loadAllLocations();
   }
 
-  getProperties() {
-    this.apiService.getProperties().subscribe(res => {
+  getProperties(options = {}) {
+    this.apiService.getProperties(options).subscribe(res => {
       this.properties = res;
       this.loadPropertiesLandlords();
       this.loadPropertiesLocations();
@@ -93,53 +115,55 @@ export class PropertiesPage {
       this.locations[property.LocationId] = res;
     },
     err => {
-      console.log('error loading location');
-      console.log(err);
+      console.log('Error loading location', err);
     });
   }
 
   loadAllLocations() {
     this.apiService.getLocations().subscribe(res => {
-      console.log('all locations', res);
-      // this.allLocations = res;
-      this.buildLocations(res);
+      this.buildAllLocations(res);
     });
   }
 
-  buildLocations(locations) {
+  buildAllLocations(locations) {
     for (let state of locations) {
-      console.log('state', state.name);
-      this.renderLocations.push({
-        name: state.name,
-        id: state.id,
-        active: false,
-      });
       for (let city of state.children) {
-        console.log('city', city.name);
         if (city.children.length === 1 && city.name === city.children[0].name) {
-          this.renderLocations.push({
-            name: '-' + city.children[0].name,
-            id: city.children[0].id,
-            active: true,
-          });
+          this.allLocations[city.children[0].id] = {
+            name: city.children[0].name,
+          };
         } else {
-          this.renderLocations.push({
-            name: '-' + city.name,
-            id: city.id,
-            active: false,
-          });
+          this.allLocations[city.id] = {
+            name: city.name,
+            children: {},
+          };
           for (let location of city.children) {
-            console.log('location', location.name);
-            this.renderLocations.push({
-              name: '--' + location.name,
-              id: location.id,
-              active: true,
-            });
+            this.allLocations[city.id].children[location.id] = {
+              name: location.name,
+            };
           }
         }
       }
     }
-    console.log(this.renderLocations);
+  }
+
+  toggleFilters() {
+    if (this.filtersOpen === true) {
+      this.filtersOpen = false;
+    } else {
+      this.filtersOpen = true;
+    }
+  }
+
+  resetForm() {
+    this.form.reset();
+    this.formDirective.resetForm();
+    // if we're clearing the form, we're clearing the filters, so we re-submit
+    this.submit();
+  }
+
+  submit() {
+    this.getProperties(this.form.value);
   }
 
 
