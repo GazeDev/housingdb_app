@@ -4,22 +4,88 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
+<div class="filters-container" [ngClass]="{'filters-open': filtersOpen}">
+
   <div class="actions">
+    <button mat-stroked-button (click)="toggleFilters()">
+      <mat-icon title="Filters">filter_list</mat-icon> <span class="icon-label">Filters</span>
+    </button>
     <a routerLink="/properties/add" mat-raised-button color="primary">
       Add Property
     </a>
   </div>
-  <!-- <div class="filters">
-    <mat-form-field>
-      <mat-label>Neighborhood(s)</mat-label>
-      <mat-select multiple>
-        <mat-option *ngFor="let location of renderLocations" [value]="location.id" [disabled]="!location.active">
-          <span *ngIf="location.active">{{location.name}}</span>
-          <strong *ngIf="!location.active">{{location.name}}</strong>
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div> -->
+
+  <div class="filters-panel">
+    <h3>Filters</h3>
+    <div class="filters">
+      <form (submit)="submit()" [formGroup]="form" #ngFormDirective="ngForm" [ngClass]="{'submit-attempt': submitAttempt}">
+        <mat-form-field appearance="standard" floatLabel="always">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field appearance="standard" floatLabel="always">
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="address">
+        </mat-form-field>
+        <mat-form-field appearance="standard" floatLabel="always">
+          <mat-label>Bedrooms</mat-label>
+          <mat-select formControlName="bedrooms">
+            <mat-option>- Select -</mat-option>
+            <mat-option *ngFor="let bedroom of [0,1,2,3,4,5,6,7,8,9,10]" [value]="bedroom">
+              <span *ngIf="bedroom === 0">Studio</span>
+              <span *ngIf="bedroom !== 0 && bedroom !== 10">{{ bedroom }}</span>
+              <span *ngIf="bedroom === 10">10+</span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!--
+        TODO: figure out if there's an accessible way to have parent items be
+        used to select child items and display all/some/none checked indicator
+
+        mat-option needs a function to update location selects.
+        if a non-active parent/muni is clicked then the children need to
+        be toggled. if parent is all/some, then it should switch to none,
+        and children de-selected. If it is none, then switched to all and
+        children should be selected.
+
+        If a child/location is clicked it needs to toggle itself and parent.
+        if toggled on then parent needs to be set to 'some' (maybe all if all?)
+        if toggled off, then parent should switch to some, or none.
+
+        parent: updateSelects([muni.key])
+        child: updateSelects([muni.key, location.key])
+      -->
+        <mat-form-field appearance="standard" floatLabel="always">
+          <mat-label>Neighborhood(s)</mat-label>
+          <mat-select multiple formControlName="locations">
+            <ng-container *ngFor="let muni of allLocations | keyvalue: originalOrder">
+              <ng-container *ngIf="muni.value.hasOwnProperty('children')">
+                <mat-optgroup [label]="muni.value.name">
+                  <ng-container *ngFor="let location of muni.value.children | keyvalue: originalOrder">
+                    <mat-option [value]="location.key">
+                      <span>{{location.value.name}}</span>
+                    </mat-option>
+                  </ng-container>
+                </mat-optgroup>
+              </ng-container>
+              <ng-container *ngIf="!muni.value.hasOwnProperty('children')">
+                <mat-option [value]="muni.key">
+                  <span>{{muni.value.name}}</span>
+                </mat-option>
+              </ng-container>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="form-actions">
+          <button mat-raised-button type="button" (click)="resetForm()">Clear</button>
+          <button mat-raised-button color="primary" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div class="cards">
     <property-card *ngFor="let property of properties"
       [property]="property"
@@ -27,3 +93,5 @@
       [location]="locations[property.LocationId]"
     ></property-card>
   </div>
+
+</div>
