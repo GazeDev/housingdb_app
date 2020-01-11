@@ -1,6 +1,7 @@
 import { KeycloakService } from 'keycloak-angular';
 
-import { KEYCLOAK_CONFIG } from '../app.config';
+// import { KEYCLOAK_CONFIG } from '../app.config';
+import { environment } from '_environment';
 
 export function initializer(keycloak: KeycloakService): () => Promise<any> {
   return (): Promise<any> => {
@@ -9,7 +10,7 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
     let initPromise = new Promise(async (resolve, reject) => {
       try {
         await keycloak.init({
-          config: KEYCLOAK_CONFIG,
+          config: environment.keycloak,
           initOptions: {
             onLoad: 'check-sso',
             checkLoginIframeInterval: 5,

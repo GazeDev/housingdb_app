@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { environment } from '_environment';
 import { APP_CONFIG } from './app.config';
 import { AuthenticationService } from '_services/index';
 import { ApiService } from '_services/api.service';
@@ -16,7 +16,8 @@ export class AppComponent {
     private authService: AuthenticationService,
   ) {
     this.initializeApp();
-    this.apiService.setUrl(APP_CONFIG.apiURL);
+    // this.apiService.setUrl(APP_CONFIG.apiURL);
+    this.apiService.setUrl(environment.apiURL);
   }
 
   async initializeApp() {

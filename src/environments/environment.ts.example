@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   mapbox: {
-    accessToken: 'pk.eyJ1IjoiZ2F6ZWRldiIsImEiOiJjazU5eHdndGswdWpiM2RteTc0aGd1OGtqIn0.wzWy_oq9B3oK0YL6CXDu_A'
+    accessToken: 'MAPBOX_ACCESS_TOKEN'
   },
   apiURL: 'http://localhost:23085',
   keycloak: {
