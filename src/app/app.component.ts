@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { environment } from '_environment';
-import { APP_CONFIG } from './app.config';
+// import { APP_CONFIG } from './app.config';
 import { AuthenticationService } from '_services/index';
 import { ApiService } from '_services/api.service';
 
