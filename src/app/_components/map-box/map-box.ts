@@ -45,10 +45,10 @@ export class MapBoxComponent implements OnInit{
     });
 
 
-    /// Add map controls
+    // Add map controls
     this.map.addControl(new mapboxgl.NavigationControl());
-
-    /// Add realtime firebase data on map load
+    this.map.scrollZoom.disable();
+    // Add data on map load
     this.map.on('load', (event) => {
 
       this.map.addSource('propertyMarkers', {
