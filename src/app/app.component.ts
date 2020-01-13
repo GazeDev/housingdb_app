@@ -13,7 +13,7 @@ export class AppComponent {
 
   constructor(
     private apiService: ApiService,
-    private authService: AuthenticationService,
+    public authService: AuthenticationService,
   ) {
     this.initializeApp();
     // this.apiService.setUrl(APP_CONFIG.apiURL);
