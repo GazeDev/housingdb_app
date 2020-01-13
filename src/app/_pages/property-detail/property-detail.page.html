@@ -36,6 +36,11 @@
     <p [innerHTML]="content.body(property.body)"></p>
   </div>
 
+  <map-box [coordinates]="[
+    property?.GeoCoordinate?.longitude,
+    property?.GeoCoordinate?.latitude
+  ]"></map-box>
+
   <a id="reviews"></a>
   <h2>
     Reviews ({{ property?.metadata?.reviewCount || 0 }})

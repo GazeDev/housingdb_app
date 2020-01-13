@@ -21,6 +21,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActionSnackBarComponent } from './action-snack-bar/action-snack-bar';
 import { PropertyCardComponent } from './property-card/property-card';
 import { LandlordCardComponent } from './landlord-card/landlord-card';
+import { MapBoxComponent } from './map-box/map-box';
 import { ReviewCardComponent } from './review-card/review-card';
 import { StarsDisplayComponent } from './stars-display/stars-display';
 
@@ -29,6 +30,7 @@ import { StarsDisplayComponent } from './stars-display/stars-display';
     ActionSnackBarComponent,
     PropertyCardComponent,
     LandlordCardComponent,
+    MapBoxComponent,
     ReviewCardComponent,
     StarsDisplayComponent,
   ],
@@ -77,6 +79,7 @@ import { StarsDisplayComponent } from './stars-display/stars-display';
     ActionSnackBarComponent,
     PropertyCardComponent,
     LandlordCardComponent,
+    MapBoxComponent,
     ReviewCardComponent,
     StarsDisplayComponent,
   ],

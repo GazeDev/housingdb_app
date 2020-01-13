@@ -9,5 +9,6 @@ export class Landlord {
   phoneExtension?: string;
   website?: string;
   email?: string;
-  OwnerId?: string; // guid
+  AuthorId?: string; // guid
+  metadata?: any; // metadata object with more info
 }

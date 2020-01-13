@@ -34,4 +34,8 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 
 src/app/app.config.ts
+variables.env
 variables-deploy.env
+# Environment files should be ignored, .example files should not
+src/environments/environment.ts
+src/environments/environment.prod.ts

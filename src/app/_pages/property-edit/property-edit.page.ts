@@ -12,7 +12,7 @@ import { emptyish } from '_helpers/emptyish';
 @Component({
   selector: 'property-edit-page',
   templateUrl: './property-edit.page.html',
-  styleUrls: ['/property-edit.page.scss']
+  styleUrls: ['./property-edit.page.scss']
 })
 export class PropertyEditPage {
   public propertyId: string;
