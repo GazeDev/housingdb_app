@@ -39,6 +39,9 @@ fi
 
 TARGET_PATH="./src/environments/${TARGET_FILE}"
 
+# We need environment.ts no matter what or angular will complain when replacing
+touch ./src/environments/environment.ts
+
 cp ${TARGET_PATH}.example ${TARGET_PATH}
 
 # ENVIRONMENT VARIABLE REPLACEMENTS
