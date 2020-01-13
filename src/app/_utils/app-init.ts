@@ -1,6 +1,4 @@
 import { KeycloakService } from 'keycloak-angular';
-
-// import { KEYCLOAK_CONFIG } from '../app.config';
 import { environment } from '_environment';
 
 export function initializer(keycloak: KeycloakService): () => Promise<any> {

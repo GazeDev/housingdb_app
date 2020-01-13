@@ -16,7 +16,6 @@ export class AppComponent {
     public authService: AuthenticationService,
   ) {
     this.initializeApp();
-    // this.apiService.setUrl(APP_CONFIG.apiURL);
     this.apiService.setUrl(environment.apiURL);
   }
 
