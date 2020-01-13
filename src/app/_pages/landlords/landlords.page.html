@@ -1,21 +1,14 @@
-<ion-header>
-  <ion-toolbar>
-    <a slot="start" class="nav-icon" routerLink="/" title="Home">
-      <ion-icon name="arrow-back"></ion-icon>
-    </a>
-    <ion-title>
-      Landlords
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<mat-toolbar class="page-info">
+  <mat-toolbar-row>
+    Landlords
+  </mat-toolbar-row>
+</mat-toolbar>
 
-<ion-content padding>
   <div class="actions">
-    <a routerLink="/landlords/add">
-      <ion-button color="primary">Add Landlord</ion-button>
+    <a routerLink="/landlords/add" mat-raised-button color="primary">
+      Add Landlord
     </a>
   </div>
   <div class="cards">
     <landlord-card *ngFor="let landlord of landlords" [landlord]="landlord"></landlord-card>
   </div>
-</ion-content>

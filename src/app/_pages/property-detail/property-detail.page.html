@@ -1,55 +1,75 @@
-<ion-header>
-  <ion-toolbar>
-    <a slot="start" class="nav-icon" routerLink="/properties" title="Properties">
-      <ion-icon name="arrow-back"></ion-icon>
-    </a>
-    <ion-title>{{ property?.name }}</ion-title>
-  </ion-toolbar>
-</ion-header>
+<mat-toolbar class="page-info">
+  <mat-toolbar-row>
+    {{ property?.name }}
+    <span class="edit"
+    *ngIf="authenticationService.isAuthenticated &&
+      userAccount?.id == property?.AuthorId">
+      <a routerLink="/property/{{ propertyId }}/edit" mat-icon-button aria-label="Edit Property" title="Edit Property">
+        <mat-icon>edit</mat-icon>
+      </a>
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>
 
-<ion-content padding>
-  <property-card [property]="property" [landlord]="landlord"></property-card>
+  <property-card
+    [property]="property"
+    [landlord]="landlord"
+    [showTitle]="false"
+  ></property-card>
+
+  <div *ngIf="property.website">
+    <h3>Website</h3>
+    <p>
+      <a [href]="property.website" target="_blank" rel="noopener noreferrer nofollow">{{ property.website }}</a>
+    </p>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div *ngIf="property.contact">
+    <h3>Contact</h3>
+    <p>{{ property.contact }}</p>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div class="body" *ngIf="property.body">
+    <h3>Body</h3>
+    <p [innerHTML]="content.body(property.body)"></p>
+  </div>
+
+  <map-box [coordinates]="[
+    property?.GeoCoordinate?.longitude,
+    property?.GeoCoordinate?.latitude
+  ]"></map-box>
+
   <a id="reviews"></a>
   <h2>
     Reviews ({{ property?.metadata?.reviewCount || 0 }})
+    <a *ngIf="authenticationService.isAuthenticated" routerLink="/property/{{ propertyId }}/add-reviews">
+      <button mat-raised-button color="primary">Add a Review</button>
+    </a>
+    <a *ngIf="!authenticationService.isAuthenticated" (click)="authenticationService.login()">
+      <button mat-raised-button color="primary">Login to Add a Review</button>
+    </a>
   </h2>
-  <section class="reviews">
-    <ion-card *ngFor="let review of reviews" >
-      <ion-card-header>
-        <ion-card-title>
-          <stars-display [rating]="review.rating"></stars-display>
-          {{ review?.subject }}
-        </ion-card-title>
-        <ion-card-subtitle>
-          Created {{ review?.createdAt | date : 'medium' }}
-        </ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content class="clearfix">
-        <p>
-          {{ review.body }}
-        </p>
-      </ion-card-content>
-    </ion-card>
+  <section class="reviews" *ngIf="reviews.length > 0">
+    <review-card *ngFor="let review of reviews" [review]="review"></review-card>
   </section>
   <a id="external-reviews"></a>
   <h2>
     External Reviews ({{ property?.metadata?.externalReviewCount || 0 }})
   </h2>
   <section class="external-reviews">
-    <ion-card *ngFor="let externalReview of externalReviews" >
-      <ion-card-header>
-        <ion-card-title>
-          {{ externalReview.name }}
-        </ion-card-title>
-        <ion-card-subtitle>
-          Dated {{ externalReview?.date | date : 'mediumDate' }}
-        </ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content class="clearfix">
-        <a href="{{externalReview.url}}" target="_blank" rel="nofollow">
+    <mat-card *ngFor="let externalReview of externalReviews" >
+      <mat-card-title>
+        {{ externalReview.name }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        Dated {{ externalReview?.date | date : 'mediumDate' }}
+      </mat-card-subtitle>
+      <mat-card-content class="clearfix">
+        <a href="{{externalReview.url}}" target="_blank" rel="noopener noreferrer nofollow">
           {{ externalReview.url }}
         </a>
-      </ion-card-content>
-    </ion-card>
+      </mat-card-content>
+    </mat-card>
   </section>
-</ion-content>

@@ -1,0 +1,15 @@
+h2 {
+  margin-top: 3rem;
+}
+
+.cards {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  landlord-card,
+  property-card {
+    width: 31rem;
+  }
+}

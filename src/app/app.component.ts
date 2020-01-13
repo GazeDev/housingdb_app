@@ -1,35 +1,37 @@
 import { Component } from '@angular/core';
-
-import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-
-import { APP_CONFIG } from './app.config';
+import { environment } from '_environment';
+// import { APP_CONFIG } from './app.config';
 import { AuthenticationService } from '_services/index';
 import { ApiService } from '_services/api.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html'
+  templateUrl: 'app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
 
   constructor(
-    private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
     private apiService: ApiService,
-    private authenticationService: AuthenticationService,
+    public authService: AuthenticationService,
   ) {
     this.initializeApp();
-    this.apiService.setUrl(APP_CONFIG.apiURL);
+    this.apiService.setUrl(environment.apiURL);
   }
 
   async initializeApp() {
-    await this.authenticationService.init();
-    this.platform.ready().then(() => {
-      // this.statusBar.styleDefault();
-      // this.splashScreen.hide();
-    });
+    await this.authService.init();
+  }
+
+  async doLogin() {
+    await this.authService.login();
+  }
+
+  async doLogout() {
+    await this.authService.logout();
+  }
+
+  async accountManagement() {
+    await this.authService.account();
   }
 }

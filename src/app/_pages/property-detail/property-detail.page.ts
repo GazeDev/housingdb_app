@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from '_services/api.service';
+import { ApiService, ContentService } from '_services/index';
+import { AuthenticationService } from '_services/index';
 import { Property } from '_models/property.model';
 import { switchMap } from 'rxjs/operators';
 import { Landlord } from '_models/landlord.model';
@@ -12,27 +13,43 @@ import { Landlord } from '_models/landlord.model';
 })
 export class PropertyDetailPage implements OnInit {
 
+  public userAccount: any;
   public propertyId: string;
-  public property: Property;
+  // public property: Property;
+  public property: any;
   public landlordId: string;
-  public landlord: Landlord;
+  public landlord: any;
   public reviews: any;
-    public externalReviews: any;
+  public externalReviews: any;
 
   constructor(
     private route: ActivatedRoute,
+    public content: ContentService,
     private apiService: ApiService,
+    public authenticationService: AuthenticationService,
   ) {
     this.property = <Property>{};
     this.landlord = {};
+    this.reviews = [];
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.authenticationService.checkLogin();
+    if (this.authenticationService.isAuthenticated) {
+      this.getAccount();
+    }
+
     this.route.paramMap.subscribe(params => {
       this.propertyId = params.get('id');
       this.getProperty();
       this.getPropertyReviews();
       this.getPropertyExternalReviews();
+    });
+  }
+
+  getAccount() {
+    this.apiService.getAccount().subscribe(res => {
+      this.userAccount = res;
     });
   }
 
@@ -50,7 +67,7 @@ export class PropertyDetailPage implements OnInit {
     this.apiService.getProperty(this.propertyId).subscribe(res => {
       this.property = res;
       if (this.property.LandlordId) {
-        this.landlordId = this.property.LandlordId
+        this.landlordId = this.property.LandlordId;
         this.loadPropertiesLandlords();
       }
     },

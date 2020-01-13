@@ -1,5 +1,12 @@
+h1.example-app-name {
+  margin-left: .5rem;
+}
+
 .actions {
-  margin: .625rem;
+  margin-bottom: 1rem;
+  button {
+    margin-right: 1rem;
+  }
 }
 
 .cards {
@@ -8,7 +15,46 @@
   justify-content: flex-start;
   flex-flow: row wrap;
   align-content: flex-start;
-  ion-card {
-    width: 30rem;
+  property-card {
+    width: 31rem;
+  }
+}
+
+.filters {
+  button {
+    margin-right: 1rem;
+  }
+}
+
+.filters-container .filters-panel {
+  display: none;
+  border-bottom: 1px solid grey;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+
+.filters-container.filters-open .filters-panel {
+  display: block;
+}
+
+@media (min-width: 48rem) {
+
+  .filters-container .filters-panel {
+    float: left;
+    width: 15rem;
+    border-right: 1px solid grey;
+    padding-right: 1rem;
+    margin-right: 1rem;
+    border-bottom: none;
+  }
+
+  .filters-container.filters-open .actions {
+    float: right;
+    width: 100%;
+    width: calc(100% - 16rem);
+  }
+
+  .filters-container .cards {
+    clear: right;
   }
 }

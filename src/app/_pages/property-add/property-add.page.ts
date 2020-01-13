@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
 import { ApiService } from '_services/api.service';
 import { AlertService } from '_services/alert.service';
 import { AuthenticationService } from '_services/index';
 import { NumberRangeValidator, NumberRangeItemValidator } from '_validators/range-validator';
+import { UrlValidator } from '_validators/url-validator';
+import { emptyish } from '_helpers/emptyish';
 
 @Component({
   selector: 'app-property-add',
@@ -15,6 +16,7 @@ import { NumberRangeValidator, NumberRangeItemValidator } from '_validators/rang
 })
 export class PropertyAddPage implements OnInit {
 
+  @ViewChild('ngFormDirective') formDirective;
   form: FormGroup;
   submitAttempt: boolean;
   currentlySubmitting: boolean;
@@ -24,15 +26,14 @@ export class PropertyAddPage implements OnInit {
     private apiService: ApiService,
     private router: Router,
     private alertService: AlertService,
-    public authenticationService: AuthenticationService,
-    private toastController: ToastController,
+    public authService: AuthenticationService,
   ) {
     this.submitAttempt = false;
     this.currentlySubmitting = false;
     this.form = this.formBuilder.group({
       address: ['', Validators.compose([Validators.required])],
       landlordQuickInfo: [''],
-      // iOwn: [''],
+      claimOwnership: [false],
       name: [''],
       bedrooms: this.formBuilder.group({
         min: ['', this.bedroomItemValidator()],
@@ -46,12 +47,14 @@ export class PropertyAddPage implements OnInit {
       }, {
         validator: NumberRangeValidator
       }),
+      website: ['', UrlValidator],
+      contact: [''],
       body: [''],
     });
   }
 
   async ngOnInit() {
-    await this.authenticationService.checkLogin();
+    await this.authService.checkLogin();
   }
 
   bedroomItemValidator() {
@@ -117,28 +120,72 @@ export class PropertyAddPage implements OnInit {
     }
 
     let formValues = this.form.value;
-    let property: any = {};
     let landlord: any = {};
     let landlordQuickInfo: boolean = false;
+
+    if (
+      formValues.landlordQuickInfo !== '' &&
+      formValues.landlordQuickInfo !== null
+    ) {
+      landlord.quickInfo = formValues.landlordQuickInfo;
+      landlordQuickInfo = true;
+    }
+
+    let property = this.propertyMapLocalToApi(formValues);
+
+    if (formValues.claimOwnership === true) {
+      this.apiService.getAccount().subscribe(
+        response => {
+          property.AuthorId = response.id;
+          if (landlordQuickInfo) {
+            this.addProperty(property, landlord);
+          } else {
+            this.addProperty(property);
+          }
+        },
+      );
+    } else {
+      if (landlordQuickInfo) {
+        this.addProperty(property, landlord);
+      } else {
+        this.addProperty(property);
+      }
+    }
+
+
+  }
+
+  propertyMapLocalToApi(formValues) {
+    let property: any = {};
+    // let landlord: any = {};
     for (var key in formValues) {
       console.log(key, formValues[key]);
-      if (formValues[key] === '') {
+      if (
+        emptyish(formValues[key])
+      ) {
         continue;
       }
 
       switch (key) {
+        case 'claimOwnership':
+          // we'll manually check this later and look up account info if checked
+          // but we do need to prevent it from being added to property as is
+          break;
         case 'landlordQuickInfo':
-          landlord.quickInfo = formValues[key];
-          landlordQuickInfo = true;
+          // we don't want to to be added to the property object
           break;
         case 'bedrooms':
-          if (formValues.bedrooms.min !== '') {
+          if (
+            !emptyish(formValues.bedrooms.min)
+          ) {
             property.bedroomsMin = formValues.bedrooms.min;
             property.bedroomsMax = formValues.bedrooms.max;
           }
           break;
         case 'bathrooms':
-          if (formValues.bathrooms.min !== '') {
+          if (
+            !emptyish(formValues.bathrooms.min)
+          ) {
             property.bathroomsMin = formValues.bathrooms.min;
             property.bathroomsMax = formValues.bathrooms.max;
           }
@@ -147,20 +194,22 @@ export class PropertyAddPage implements OnInit {
           property[key] = formValues[key];
       }
     }
+    return property;
+  }
 
+  addProperty(property, landlord: any = undefined) {
     this.apiService.addProperty(property).subscribe(propertyResponse => {
 
       let propertyId = propertyResponse.id;
-      if (landlordQuickInfo) {
-
+      if (landlord !== undefined) {
         this.apiService.addLandlord(landlord).subscribe(
           landlordRequestResponse => {
             let landlordResponse = landlordRequestResponse.body;
             this.apiService.addLandlordToProperty(propertyResponse.id, landlordResponse.id).subscribe(updateResponse => {
 
               this.displayPropertyCreatedToast(propertyId);
-
               this.form.reset();
+              this.formDirective.resetForm();
             });
           },
           landlordErrorResponse => {
@@ -170,33 +219,30 @@ export class PropertyAddPage implements OnInit {
               this.apiService.addLandlordToProperty(propertyResponse.id, contentLocation).subscribe(updateResponse => {
 
                 this.displayPropertyCreatedToast(propertyId);
-
                 this.form.reset();
+                this.formDirective.resetForm();
               });
             }
           }
         );
-
       } else { // no landlord info, we're done
         this.displayPropertyCreatedToast(propertyId);
+        this.form.reset();
+        this.formDirective.resetForm();
       }
     });
-
-
   }
 
-  async displayPropertyCreatedToast(propertyId) {
-    let toast = await this.toastController.create({
-      message: 'The property has been created.',
-      color: 'success',
-      duration: 4000,
-      showCloseButton: true,
-      closeButtonText: 'View Property'
+  displayPropertyCreatedToast(propertyId) {
+    this.alertService.action({
+      data: {
+        message: 'The property has been created.',
+        action: {
+          text: 'View Property',
+          navigateTo: `/property/${propertyId}`,
+        },
+      }
     });
-    toast.onWillDismiss().then(() => {
-      this.router.navigate([`/property/${propertyId}`]);
-    });
-    toast.present();
   }
 
 }

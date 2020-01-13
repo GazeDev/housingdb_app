@@ -1,65 +1,87 @@
-<ion-header>
-  <ion-toolbar>
-    <a slot="start" class="nav-icon" routerLink="/landlords" title="Landlords">
-      <ion-icon name="arrow-back"></ion-icon>
-    </a>
-    <ion-title>Add Landlord</ion-title>
-  </ion-toolbar>
-</ion-header>
+<mat-toolbar class="page-info">
+  <mat-toolbar-row>
+    Add Landlord
+  </mat-toolbar-row>
+</mat-toolbar>
 
-  <ion-content padding>
-<ion-card>
-  <ion-card-content>
-    <form id="form" (submit)="submit()" [formGroup]="form" [ngClass]="{'submit-attempt': submitAttempt}">
+  <form (submit)="submit()" [formGroup]="form" #ngFormDirective="ngForm" [ngClass]="{'submit-attempt': submitAttempt}">
 
-      <ion-item>
-        <ion-label position="stacked">Landlord</ion-label>
-        <div class="description">
-          You can use this field to quickly autofill the following fields: landlord name, phone number, email address.<br>
-          Ex: Awesome Landlord 412-333-4444 landlord@example.com
-        </div>
-        <ion-input formControlName="landlordQuickInfo" required></ion-input>
-      </ion-item>
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Landlord Quick Info</mat-label>
+      <input matInput formControlName="landlordQuickInfo">
+      <mat-hint>
+        You can use this field to quickly autofill the following fields: landlord name, phone number, email address.<br>
+        Ex: Awesome Landlord 412-333-4444 landlord@example.com
+      </mat-hint>
+      <mat-error *ngIf="form.errors?.landlordQuickInfoNotSet">
+        Landlord Quick Info is a required field.
+      </mat-error>
+      <mat-error *ngIf="form.errors?.nameNotSet">
+        Landlord Quick Info or the Advanced Name field must be filled out.
+      </mat-error>
+    </mat-form-field>
 
-      <!--
-      <ion-item>
-        <ion-checkbox formControlName="iAm" slot="start"></ion-checkbox>
-        <ion-label>
-          I am this landlord, or manage for them <br>
-          <span class="sublabel">
-            Only check this if you are this landlord or are authorized by them to manage the profile on their behalf.
-          </span>
-        </ion-label>
-      </ion-item>
+    <p *ngIf="!authService.isAuthenticated">
+      <a mat-stroked-button color="accent" (click)="authService.login()">
+        Login
+      </a>
+      To access advanced fields like property name, phone, email, website, bio, and claiming ownership of the landlord profile with an account.
+    </p>
 
-      <ion-item>
-        <ion-label position="stacked">Name</ion-label>
-        <ion-input formControlName="name"></ion-input>
-      </ion-item>
+    <mat-expansion-panel class="advanced" *ngIf="authService.isAuthenticated">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Advanced Fields
+        </mat-panel-title>
+        <mat-panel-description>
+          Name, Phone, Email, Website, Bio, Ownership
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-      <ion-item>
-        <ion-label position="stacked">Phone</ion-label>
-        <ion-input formControlName="phone"></ion-input>
-      </ion-item>
+      <mat-checkbox formControlName="claimOwnership">
+        Claim Ownership: I am this landlord, or manage for them <br>
+        <span class="sublabel">
+          Only check this if you are this landlord or are authorized by them to manage the profile on their behalf.
+        </span>
+      </mat-checkbox>
 
-      <ion-item>
-        <ion-label position="stacked">Email</ion-label>
-        <ion-input formControlName="email"></ion-input>
-      </ion-item>
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+        <mat-error *ngIf="form.errors?.nameNotSet">
+          Landlord Quick Info or the Advanced Name field must be filled out.
+        </mat-error>
+      </mat-form-field>
 
-      <ion-item>
-        <ion-label position="stacked">Website</ion-label>
-        <ion-input formControlName="website"></ion-input>
-      </ion-item>
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Phone</mat-label>
+        <input matInput type="tel" formControlName="phone">
+        <mat-hint>
+          Formatted like (412) 444-5555 ext 45
+        </mat-hint>
+      </mat-form-field>
 
-      <ion-item>
-        <ion-label position="stacked">Bio</ion-label>
-        <ion-textarea formControlName="body" required></ion-textarea>
-      </ion-item>
-      -->
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email">
+      </mat-form-field>
 
-      <ion-button type="submit">Save</ion-button>
-    </form>
-  </ion-card-content>
-</ion-card>
-</ion-content>
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Website</mat-label>
+        <input matInput type="url" formControlName="website">
+        <mat-hint>
+          https://example.com
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Bio</mat-label>
+          <textarea matInput formControlName="body"></textarea>
+      </mat-form-field>
+
+    </mat-expansion-panel>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </div>
+  </form>

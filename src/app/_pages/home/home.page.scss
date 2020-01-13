@@ -1,8 +1,5 @@
-.account-nav {
-  width: 100%;
-  text-align: right;
-  flex: 1;
-  padding: 0 12px;
+:host {
+  text-align: center;
 }
 
 .add-types {
@@ -16,7 +13,6 @@
 }
 
 section {
-  // max-width: 62.5rem;
   max-width: 82.5rem;
   padding: .5rem;
   margin-left: auto;
@@ -24,7 +20,24 @@ section {
   margin-bottom: 2rem;
 }
 
-button {
+section.header {
+  margin-left: -1rem;
+  margin-right: -1rem;
+  width: auto;
+  max-width: unset;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  h2 {
+    font-size: 3rem;
+    line-height: 1.6;
+  }
+  .actions {
+    margin-top: 3rem;
+  }
+}
+
+.mat-raised-button {
   margin-right: 1rem;
   margin-left: 1rem;
+  margin-bottom: 2rem;
 }

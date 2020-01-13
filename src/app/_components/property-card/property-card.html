@@ -1,8 +1,10 @@
-<ion-card title="Property" (click)="goToProperty()" itemscope itemtype="http://schema.org/Hotel">
-  <ion-card-header>
-    <ion-card-title>{{ property.name }}</ion-card-title>
-  </ion-card-header>
-  <ion-card-content class="clearfix">
+<mat-card itemscope itemtype="http://schema.org/Hotel">
+  <mat-card-title *ngIf="showTitle">
+    <a routerLink="/property/{{ property.id }}">
+      {{ property.name }}
+    </a>
+  </mat-card-title>
+  <mat-card-content class="clearfix">
     <div class="units-reviews-stamp clearfix">
       <div class="units clearfix">
         <!-- TODO: Get units -->
@@ -52,21 +54,28 @@
     </div>
     <div class="location-landlord-stamp">
       <div class="neighborhood">
-        {{ extractNeighborhood(property) }}
+        <ng-container *ngIf="location?.name; else locationPlaceholder;">
+          {{ location?.name }}
+        </ng-container>
+        <ng-template #locationPlaceholder>
+          &nbsp;
+        </ng-template>
       </div>
       <div class="address" [title]="extractAddress(property)">
         {{ extractAddress(property) }}
       </div>
       <div class="landlord">
         <span *ngIf="property.LandlordId;">
-          <ng-container *ngIf="landlord; else loading;">
-            {{ landlord.name }}
-          </ng-container>
-          <ng-template #loading>
-            Loading Landlord
-          </ng-template>
+          <a routerLink="/landlord/{{ property.LandlordId }}">
+            <ng-container *ngIf="landlord; else loading;">
+              {{ landlord.name }}
+            </ng-container>
+            <ng-template #loading>
+              Loading Landlord
+            </ng-template>
+          </a>
         </span>
       </div>
     </div>
-  </ion-card-content>
-</ion-card>
+  </mat-card-content>
+</mat-card>

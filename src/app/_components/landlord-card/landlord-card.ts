@@ -11,14 +11,13 @@ export class LandlordCardComponent {
   @Input('landlord')
   public landlord: any;
 
+  @Input('showTitle')
+  public showTitle: boolean = true;
+
   constructor (
     private router: Router,
   ) {
 
-  }
-
-  goToLandlord() {
-    this.router.navigate([`/landlord/${ this.landlord.id }`]);
   }
 
 }

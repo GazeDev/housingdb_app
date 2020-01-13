@@ -1,0 +1,56 @@
+<mat-toolbar class="page-info">
+  <mat-toolbar-row>
+    Dashboard
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<p>
+  This is your dashboard, where you can add content and view the content you have.
+</p>
+
+<h2>
+  Landlords
+  <a routerLink="/landlords/add">
+    <button mat-raised-button color="primary">Add Landlord</button>
+  </a>
+</h2>
+
+<p *ngIf="landlords.length === 0">
+  You don't have any landlords right now, you can click above to add one.
+</p>
+
+<div class="cards">
+  <landlord-card *ngFor="let landlord of landlords" [landlord]="landlord"></landlord-card>
+</div>
+
+<h2>
+  Properties
+  <a routerLink="/properties/add">
+    <button mat-raised-button color="primary">Add Property</button>
+  </a>
+</h2>
+
+<p *ngIf="properties.length === 0">
+  You don't have any properties right now, you can click above to add one.
+</p>
+
+<div class="cards">
+  <property-card *ngFor="let property of properties"
+    [property]="property"
+    [landlord]="landlordsMap[property.LandlordId]"
+    [location]="locations[property.LocationId]"
+  ></property-card>
+</div>
+
+<h2>
+  Reviews
+  <a routerLink="/reviews/add">
+    <!-- <button mat-raised-button color="primary">Add Review</button> -->
+  </a>
+</h2>
+
+<p *ngIf="reviews.length === 0">
+  You don't have any reviews right now, you can click above to add one.
+</p>
+
+<review-card *ngFor="let review of reviews" [review]="review"></review-card>

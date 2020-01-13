@@ -1,0 +1,53 @@
+<mat-toolbar class="page-info">
+  <mat-toolbar-row>
+    Add Landlord Review
+  </mat-toolbar-row>
+</mat-toolbar>
+
+  <form (submit)="submit()" [formGroup]="form" #ngFormDirective="ngForm" [ngClass]="{'submit-attempt': submitAttempt}">
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Reviewing</mat-label>
+      <input matInput [value]="landlord?.name" required disabled>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Subject</mat-label>
+      <input matInput formControlName="subject" required>
+      <mat-error>
+        Subject is a required field in order to add a review.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="stars-wrapper" title="Rating: {{ form.get('rating').value }}">
+      <span class="star-container" *ngFor="let i of [1,2,3,4,5]">
+        <ng-container *ngIf="i - form.get('rating').value <= 0">
+          <mat-icon class="full-star">star</mat-icon>
+        </ng-container>
+        <mat-icon class="empty-star" (click)="setRating(i)">star_border</mat-icon>
+      </span>
+    </div>
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>
+        Rating
+      </mat-label>
+      <select formControlName="rating" placeholder="Select your rating" matNativeControl required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Please enter your review here</mat-label>
+      <textarea matInput formControlName="body"></textarea>
+    </mat-form-field>
+
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </div>
+  </form>

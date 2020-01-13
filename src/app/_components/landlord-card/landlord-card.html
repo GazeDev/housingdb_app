@@ -1,8 +1,10 @@
-<ion-card itemscope itemtype="" (click)="goToLandlord()">
-  <ion-card-header>
-    <ion-card-title>{{ landlord?.name }}</ion-card-title>
-  </ion-card-header>
-  <ion-card-content class="clearfix">
+<mat-card itemscope itemtype="">
+  <mat-card-title *ngIf="showTitle">
+    <a routerLink="/landlord/{{ landlord.id }}">
+      {{ landlord?.name }}
+    </a>
+  </mat-card-title>
+  <mat-card-content class="clearfix">
     <div class="units-reviews-stamp clearfix">
       <div class="units clearfix">
         <span class="bedrooms">
@@ -26,14 +28,17 @@
     </div>
     <div class="location-landlord-stamp">
       <div class="neighborhood">
-        {{ landlord.phone }}<ng-container *ngIf="!landlord.phone">&nbsp;</ng-container>
+        <a [href]="'tel:'+landlord.phone" target="_blank" rel="noopener noreferrer nofollow">{{ landlord.phone }}</a>
+        <ng-container *ngIf="!landlord.phone">&nbsp;</ng-container>
       </div>
       <div class="address">
-        {{ landlord.website }}<ng-container *ngIf="!landlord.website">&nbsp;</ng-container>
+        <a [href]="landlord.website" target="_blank" rel="noopener noreferrer nofollow">{{ landlord.website }}</a>
+        <ng-container *ngIf="!landlord.website">&nbsp;</ng-container>
       </div>
       <div class="landlord">
-        {{ landlord.email }}<ng-container *ngIf="!landlord.email">&nbsp;</ng-container>
+        <a [href]="'mailto:'+landlord.email" target="_blank" rel="noopener noreferrer nofollow">{{ landlord.email }}</a>
+        <ng-container *ngIf="!landlord.email">&nbsp;</ng-container>
       </div>
     </div>
-  </ion-card-content>
-</ion-card>
+  </mat-card-content>
+</mat-card>
