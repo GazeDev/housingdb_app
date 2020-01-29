@@ -1,3 +1,23 @@
+.form-actions {
+  margin-top: 2rem;
+}
+
+.reviewable-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: -.25rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+button.clear-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: -.25rem;
+}
+
 .stars-wrapper {
   display: flex;
 }

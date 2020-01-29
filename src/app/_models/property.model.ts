@@ -6,3 +6,11 @@ export class Property {
   LocationId: string; // guid
   LandlordId: string; // guid
 }
+
+export class PropertyGetOptions {
+  search?: string;
+  name?: string;
+  address?: string;
+  bedrooms?: number;
+  locations?: string; // guid[,guid][,guid]
+}

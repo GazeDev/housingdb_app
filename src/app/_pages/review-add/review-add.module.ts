@@ -5,12 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '_components/angular-material.module';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LandlordAddReviewsPage } from './landlord-add-reviews.page';
+import { ReviewAddPage } from './review-add.page';
 
 const routes: Routes = [
   {
-    path: 'landlord/:id/add-reviews',
-    component: LandlordAddReviewsPage
+    path: 'reviews/add',
+    component: ReviewAddPage
   }
 ];
 
@@ -22,6 +22,6 @@ const routes: Routes = [
     AngularMaterialModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [LandlordAddReviewsPage]
+  declarations: [ReviewAddPage]
 })
-export class LandlordAddReviewsPageModule {}
+export class ReviewAddPageModule {}
