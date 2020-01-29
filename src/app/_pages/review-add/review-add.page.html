@@ -1,0 +1,118 @@
+<mat-toolbar class="page-info">
+  <mat-toolbar-row>
+    Add Review
+  </mat-toolbar-row>
+</mat-toolbar>
+
+  <form (submit)="submit()" [formGroup]="form" #ngFormDirective="ngForm" [ngClass]="{'submit-attempt': submitAttempt}">
+
+    <p *ngIf="!authService.isAuthenticated">
+      <a mat-stroked-button color="accent" (click)="authService.login()">
+        Login
+      </a>
+      You must be logged in to add a Review.
+    </p>
+
+    <div class="reviewable-info">
+      <input type="hidden" formControlName="reviewableType">
+      <input type="hidden" formControlName="reviewableId">
+      <mat-form-field *ngIf="reviewableType && reviewableId" appearance="standard" floatLabel="always">
+        <mat-label>Reviewing</mat-label>
+        <input matInput [value]="reviewable?.name ? reviewable?.name : 'Loading...'" required disabled>
+        <button type="button" mat-icon-button class="clear-input" (click)="clearReviewable()">
+          <mat-icon title="Clear reviewable field" aria-label="Clear reviewable field">close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field *ngIf="!(reviewableType && reviewableId)" appearance="standard" floatLabel="always">
+      <mat-label>Reviewable Lookup</mat-label>
+      <input type="text" matInput formControlName="reviewableLookup"
+      [matAutocomplete]="lookupOptionsEl" [required]="form?.get('reviewableId').errors?.required">
+      <mat-hint>
+        Search for a Landlord (by name, phone, or email) or Property (by name or address) using this field.
+        <!-- <br>If the landlord or property don't exist, you can enter the Property or Landlord information in the field and select 'Add Property' or 'Add Landlord' from the dropdown. -->
+      </mat-hint>
+      <mat-error *ngIf="form?.get('reviewableId').errors?.required">You must select an item to review</mat-error>
+    </mat-form-field>
+
+    <mat-autocomplete #lookupOptionsEl="matAutocomplete">
+      <mat-optgroup label="Landlords">
+        <mat-option *ngIf="form.get('reviewableLookup').value == ''; else landlordResultsEl" value="" disabled>Start typing to begin search</mat-option>
+        <ng-template #landlordResultsEl>
+          <mat-option *ngIf="(landlordOptions | async)?.length == 0; else landlordOptionsEl" value="" disabled>No Landlord Results</mat-option>
+          <ng-template #landlordOptionsEl>
+            <mat-option
+              *ngFor="let option of landlordOptions | async"
+              (onSelectionChange)="setSelection('landlord', option)"
+              [value]="form.get('reviewableLookup').value"
+            >
+              {{ option.name }}<span *ngIf="option.phone"> | {{ option.phone }}</span><span *ngIf="option.email"> | {{ option.email }}</span>
+            </mat-option>
+          </ng-template>
+        </ng-template>
+        <!-- <mat-option class="two-lines" (onSelectionChange)="addItem('landlord', form.get('reviewableLookup').value)" [value]="form.get('reviewableLookup').value">
+          <span>+ Add Landlord: {{form.get('reviewableLookup').value}}</span><br>
+          <small>Allowed info: landlord name, phone number, email address</small>
+        </mat-option> -->
+      </mat-optgroup>
+      <mat-optgroup label="Properties">
+        <mat-option *ngIf="form.get('reviewableLookup').value?.length == 0; else propertyResultsEl" value="" disabled>Start typing to begin search</mat-option>
+        <ng-template #propertyResultsEl>
+          <mat-option *ngIf="(propertyOptions | async)?.length == 0; else propertyOptionsEl" disabled>No Property Results</mat-option>
+          <ng-template #propertyOptionsEl>
+            <mat-option
+              *ngFor="let option of propertyOptions | async"
+              (onSelectionChange)="setSelection('property', option)"
+              [value]="form.get('reviewableLookup').value"
+            >
+              {{ option.name }}<span *ngIf="option.name !== option.PostalAddresses[0].address"> | {{ option.PostalAddresses[0].address }}</span>
+            </mat-option>
+          </ng-template>
+        </ng-template>
+        <!-- <mat-option class="two-lines" (onSelectionChange)="addItem('property', form.get('reviewableLookup').value)">
+          <span>+ Add Property: {{form.get('reviewableLookup').value}}</span><br>
+          <small>Allowed info: property address</small>
+        </mat-option> -->
+      </mat-optgroup>
+    </mat-autocomplete>
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Subject</mat-label>
+      <input matInput formControlName="subject" required>
+      <mat-error>
+        Subject is a required field in order to add a review.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="stars-wrapper" title="Rating: {{ form.get('rating').value }}">
+      <span class="star-container" *ngFor="let i of [1,2,3,4,5]">
+        <ng-container *ngIf="i - form.get('rating').value <= 0">
+          <mat-icon class="full-star">star</mat-icon>
+        </ng-container>
+        <mat-icon class="empty-star" (click)="setRating(i)">star_border</mat-icon>
+      </span>
+    </div>
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>
+        Rating
+      </mat-label>
+      <select formControlName="rating" placeholder="Select your rating" matNativeControl required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Please enter your review here</mat-label>
+      <textarea matInput formControlName="body"></textarea>
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </div>
+  </form>

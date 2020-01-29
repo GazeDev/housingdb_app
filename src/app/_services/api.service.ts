@@ -54,7 +54,6 @@ export class ApiService {
       ) {
         continue;
       }
-      console.log('val:', options[key]);
       params[key] = options[key];
     }
     return this.httpClient.get<Property[]>(`${this.apiUrl}/properties`, {
@@ -78,8 +77,20 @@ export class ApiService {
   * Landlord Methods
   */
 
-  getLandlords() {
-    return this.httpClient.get<Landlord[]>(`${this.apiUrl}/landlords`);
+  getLandlords(options = {}) {
+    let params = {};
+    for (var key in options) {
+      if (
+        emptyish(options[key])
+        || options[key] == undefined
+      ) {
+        continue;
+      }
+      params[key] = options[key];
+    }
+    return this.httpClient.get<Landlord[]>(`${this.apiUrl}/landlords`, {
+      params: params,
+    });
   }
 
   getLandlord(id) {
@@ -152,6 +163,16 @@ export class ApiService {
 
   addPropertyReview(propertyId, propertyReview) {
     return this.httpClient.post<any>(`${this.apiUrl}/properties/${propertyId}/reviews`, propertyReview);
+  }
+
+  addReview(reviewableType, reviewableId, review) {
+    if (reviewableType === 'landlord') {
+      return this.httpClient.post<any>(`${this.apiUrl}/landlords/${reviewableId}/reviews`, review);
+    } else if (reviewableType === 'property') {
+      return this.httpClient.post<any>(`${this.apiUrl}/properties/${reviewableId}/reviews`, review);
+    } else {
+      throw 'Err. Not a valid reviewableType';
+    }
   }
 
   /*
