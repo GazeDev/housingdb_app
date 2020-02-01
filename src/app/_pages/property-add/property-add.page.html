@@ -14,14 +14,58 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="standard" floatLabel="always">
+    <!-- <mat-form-field appearance="standard" floatLabel="always">
       <mat-label>Landlord</mat-label>
       <input matInput formControlName="landlordQuickInfo">
       <mat-hint>
         You can use this field to quickly autofill the following fields: landlord name, phone number, email address.<br>
         Ex: Awesome Landlord 412-333-4444 landlord@example.com
       </mat-hint>
+    </mat-form-field> -->
+
+    <div class="landlord-info">
+      <input type="hidden" formControlName="landlordId">
+      <mat-form-field *ngIf="landlordId" appearance="standard" floatLabel="always">
+        <mat-label>Landlord</mat-label>
+        <input matInput [value]="landlord?.name ? landlord?.name : 'Loading...'" required disabled>
+        <button type="button" mat-icon-button class="clear-input" (click)="clearLandlord()">
+          <mat-icon title="Clear landlord field" aria-label="Clear landlord field">close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field *ngIf="!(landlordId)" appearance="standard" floatLabel="always">
+      <mat-label>Landlord Lookup</mat-label>
+      <input type="text" matInput formControlName="landlordLookup"
+      [matAutocomplete]="lookupOptionsEl">
+      <mat-hint>
+        Search for a Landlord (by name, phone, or email).
+        <!-- <br>If the landlord or property don't exist, you can enter the Property or Landlord information in the field and select 'Add Property' or 'Add Landlord' from the dropdown. -->
+      </mat-hint>
+      <mat-error *ngIf="form?.get('landlordId').errors?.required">You must select an item to review</mat-error>
     </mat-form-field>
+
+    <mat-autocomplete #lookupOptionsEl="matAutocomplete">
+      <mat-optgroup label="Landlords">
+        <mat-option *ngIf="form.get('landlordLookup').value == ''; else landlordResultsEl" value="" disabled>Start typing to begin search</mat-option>
+        <ng-template #landlordResultsEl>
+          <mat-option *ngIf="(landlordOptions | async)?.length == 0; else landlordOptionsEl" value="" disabled>No Landlord Results</mat-option>
+          <ng-template #landlordOptionsEl>
+            <mat-option
+              *ngFor="let option of landlordOptions | async"
+              (onSelectionChange)="setSelection(option)"
+              [value]="form.get('landlordLookup').value"
+            >
+              {{ option.name }}<span *ngIf="option.phone"> | {{ option.phone }}</span><span *ngIf="option.email"> | {{ option.email }}</span>
+            </mat-option>
+          </ng-template>
+        </ng-template>
+        <mat-option class="two-lines" (onSelectionChange)="addItem(form.get('landlordLookup').value)" value="">
+          <span>+ Add Landlord: {{form.get('landlordLookup').value}}</span><br>
+          <small>Allowed info: landlord name, phone number, email address</small>
+        </mat-option>
+      </mat-optgroup>
+    </mat-autocomplete>
 
     <p *ngIf="!authService.isAuthenticated">
       <a mat-stroked-button color="accent" (click)="authService.login()">

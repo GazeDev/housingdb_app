@@ -2,12 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { ApiService } from '_services/api.service';
 import { AlertService } from '_services/alert.service';
 import { AuthenticationService } from '_services/index';
 import { NumberRangeValidator, NumberRangeItemValidator } from '_validators/range-validator';
 import { UrlValidator } from '_validators/url-validator';
 import { emptyish } from '_helpers/emptyish';
+import { Landlord } from '_models/landlord.model';
 
 @Component({
   selector: 'app-property-add',
@@ -20,6 +22,9 @@ export class PropertyAddPage implements OnInit {
   form: FormGroup;
   submitAttempt: boolean;
   currentlySubmitting: boolean;
+  landlord: Landlord;
+  landlordId: string;
+  landlordOptions: Observable<Landlord[]>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,6 +37,8 @@ export class PropertyAddPage implements OnInit {
     this.currentlySubmitting = false;
     this.form = this.formBuilder.group({
       address: ['', Validators.compose([Validators.required])],
+      landlordId: [''],
+      landlordLookup: [''],
       landlordQuickInfo: [''],
       claimOwnership: [false],
       name: [''],
@@ -51,6 +58,9 @@ export class PropertyAddPage implements OnInit {
       contact: [''],
       body: [''],
     });
+    this.form.get('landlordLookup').valueChanges.subscribe(value => {
+      this.landlordOptions = this.getLandlordOptions(value);
+    });
   }
 
   async ngOnInit() {
@@ -62,6 +72,53 @@ export class PropertyAddPage implements OnInit {
       modulo: 1,
       min: 0,
       max: 10,
+    });
+  }
+
+  getLandlordOptions(value: string): Observable<Landlord[]> {
+    let results = this.apiService.getLandlords({search: value});
+    return results;
+  }
+
+  clearLandlord() {
+    this.landlord = undefined;
+    this.landlordId = undefined;
+    this.form.patchValue({
+      landlordId: '',
+    });
+  }
+
+  setSelection(landlord: Landlord) {
+    this.landlord = landlord;
+    this.landlordId = landlord.id;
+    this.form.patchValue({
+      landlordId: landlord.id,
+    });
+  }
+
+  addItem(value: string) {
+    this.landlord = true;
+    this.apiService.addLandlord({quickInfo: value}).subscribe(
+      landlordRequestResponse => {
+        let landlordResponse = landlordRequestResponse.body;
+        this.setSelection(landlordResponse);
+      },
+      landlordErrorResponse => {
+        let contentLocation = landlordErrorResponse.headers.get('Content-Location');
+        if (landlordErrorResponse.status === 422 && contentLocation) {
+          // landlord already exists and we should use that id to attach to our property
+          this.getLandlord(contentLocation);
+        }
+      }
+    );
+  }
+
+  getLandlord(landlordId) {
+    this.apiService.getLandlord(landlordId).subscribe(res => {
+      this.setSelection(res);
+    },
+    err => {
+      console.log('error getting landlord', err)
     });
   }
 
@@ -126,6 +183,16 @@ export class PropertyAddPage implements OnInit {
     if (
       formValues.landlordQuickInfo !== '' &&
       formValues.landlordQuickInfo !== null
+    ) {
+      landlord.quickInfo = formValues.landlordQuickInfo;
+      landlordQuickInfo = true;
+    }
+
+    console.log('form values', formValues);
+
+    if (
+      formValues.landlordLookup !== '' &&
+      formValues.landlordLookup !== null
     ) {
       landlord.quickInfo = formValues.landlordQuickInfo;
       landlordQuickInfo = true;

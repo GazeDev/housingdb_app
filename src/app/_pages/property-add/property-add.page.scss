@@ -25,3 +25,10 @@
   font-size: .65625rem;
   opacity: .7;
 }
+
+button.clear-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: -.25rem;
+}
