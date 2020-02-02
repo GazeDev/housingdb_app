@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/assets/fonts/MaterialIcons-Regular.eot'); /* For IE6-8 */
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url('/assets/fonts/MaterialIcons-Regular.woff2') format('woff2'),
+       url('/assets/fonts/MaterialIcons-Regular.woff') format('woff'),
+       url('/assets/fonts/MaterialIcons-Regular.ttf') format('truetype');
+}
+
 @import '~@angular/material/theming';
 
 // NOTE: Theming is currently experimental and not yet publically released!
@@ -42,6 +54,24 @@ $theme: mat-light-theme($primary, $accent);
   app-home {
     section.header {
       background-color: mat-color($dark-primary);
+      a:not([class*=-button]):not(.mat-list-item) {
+        // Applies to unvisited links
+        &:link {
+          color: #303030;
+        }
+
+        // Applies to visited links
+        &:visited {
+          color: #424242;
+        }
+
+        // Applies to elements that are being hovered over.
+        &:hover,
+        // Applies to elements that have the focus
+        &:focus {
+          outline: 1px dotted;
+        }
+      }
     }
   }
 
@@ -77,6 +107,31 @@ $theme: mat-light-theme($primary, $accent);
     color: #81d0ff;
   }
 
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
 }
 
 html, body {
