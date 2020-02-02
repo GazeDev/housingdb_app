@@ -39,3 +39,5 @@ variables-deploy.env
 # Environment files should be ignored, .example files should not
 src/environments/environment.ts
 src/environments/environment.prod.ts
+# Ignore the _redirects file as it will be generated from its .example file
+src/_redirects
