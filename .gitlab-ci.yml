@@ -3,12 +3,10 @@ image: node:10.15.3
 variables:
 # See Gitlab CI
 
-test master:
+test build:
   stage: test
   script:
   - npm install
   - sh -c ./set-env.sh -e prod
   - npm run build
-  - echo "Production Build Successful"
-  only:
-  - master
+  - echo "Build Successful"
