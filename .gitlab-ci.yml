@@ -7,6 +7,7 @@ test build:
   stage: test
   script:
   - npm install
-  - sh -c ./set-env.sh -e prod
+  - ls -lah
+  - sh ./set-env.sh -e prod
   - npm run build
   - echo "Build Successful"
