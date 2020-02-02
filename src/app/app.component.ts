@@ -10,6 +10,7 @@ import { ApiService } from '_services/api.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  public env: any = environment;
 
   constructor(
     private apiService: ApiService,

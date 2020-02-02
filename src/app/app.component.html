@@ -5,12 +5,6 @@
         <button mat-stroked-button (click)="sidenav.close()">
           <mat-icon title="Close">close</mat-icon> <span class="icon-label">Close</span>
         </button>
-
-        <a mat-button routerLink="/">
-          <h1 class="app-name">
-            HousingDB
-          </h1>
-        </a>
       </mat-toolbar-row>
     </mat-toolbar>
     <mat-nav-list (click)="sidenav.close()">
@@ -32,7 +26,7 @@
 
         <a mat-button routerLink="/">
           <h1 class="app-name">
-            HousingDB
+            {{ env.siteName }}
           </h1>
         </a>
 
