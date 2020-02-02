@@ -3,7 +3,7 @@ services:
   app:
     build: .
     hostname: housing
-    command: ["sh", "-c", "./set-env.sh -e dev && npm run start -- --host=0.0.0.0"]
+    command: ["bash", "-c", "./set-env.sh -e dev && npm run start -- --host=0.0.0.0"]
     env_file:
       - variables.env
     volumes:

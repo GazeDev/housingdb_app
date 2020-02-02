@@ -8,7 +8,7 @@ test build:
   script:
   - npm install
   - ls -lah
-  - which sh
-  - sh -c ./set-env.sh -e prod
+  - which bash
+  - bash -c ./set-env.sh -e prod
   - npm run build
   - echo "Build Successful"
