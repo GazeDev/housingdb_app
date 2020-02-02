@@ -9,6 +9,6 @@ test build:
   - npm install
   - ls -lah
   - which bash
-  - bash -c ./set-env.sh -e prod
+  - bash -c "./set-env.sh -e prod"
   - npm run build
   - echo "Build Successful"
