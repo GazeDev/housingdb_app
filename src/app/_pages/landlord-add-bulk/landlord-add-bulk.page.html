@@ -7,6 +7,13 @@
 
 <form (submit)="submit()" [formGroup]="form" #ngFormDirective="ngForm" [ngClass]="{'submit-attempt': submitAttempt}">
 
+  <p *ngIf="!authService.isAuthenticated">
+    <a mat-stroked-button color="accent" (click)="authService.login()">
+      Login
+    </a>
+    You must be logged in to use some of this feature.
+  </p>
+
   <mat-form-field appearance="standard" floatLabel="always">
     <mat-label>Please paste your Landlord List Json here</mat-label>
     <textarea matInput formControlName="landlords"></textarea>
