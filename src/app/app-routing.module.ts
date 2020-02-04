@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: '', loadChildren: '_pages/landlord-detail/landlord-detail.module#LandlordDetailPageModule' },
   { path: '', loadChildren: '_pages/landlord-edit/landlord-edit.module#LandlordEditPageModule' },
   { path: '', loadChildren: '_pages/landlord-add/landlord-add.module#LandlordAddPageModule' },
+  { path: '', loadChildren: '_pages/landlord-add-bulk/landlord-add-bulk.module#LandlordAddBulkPageModule' },
   { path: '', loadChildren: '_pages/review-add/review-add.module#ReviewAddPageModule' },
 
 ];
