@@ -50,10 +50,7 @@ export class LandlordAddBulkPage {
 
     let landlords = this.form.get('landlords').value;
 
-    // console.log(JSON.parse(landlords));
-
     this.landlords = JSON.parse(landlords);
-    console.log(this.landlords);
 
     for (let landlord of this.landlords) {
 
@@ -62,7 +59,8 @@ export class LandlordAddBulkPage {
         landlord.id = landlordResponse.body.id;
       },
       err => {
-        landlord.error = err;
+        console.log(err);
+        landlord.error = err.error ? err.error.message : err;
       });
     }
 
