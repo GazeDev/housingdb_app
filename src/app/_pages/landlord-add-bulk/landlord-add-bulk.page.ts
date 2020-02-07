@@ -57,12 +57,12 @@ export class LandlordAddBulkPage {
 
     for (let landlord of this.landlords) {
 
-      this.apiService.addLandlord(landlord).subscribe(res => {
+      this.apiService.addLandlord(landlord).subscribe(landlordResponse => {
         landlord.submitted = true;
-        landlord.id = res.id
+        landlord.id = landlordResponse.body.id;
       },
       err => {
-        landlord.error = true;
+        landlord.error = err;
       });
     }
 

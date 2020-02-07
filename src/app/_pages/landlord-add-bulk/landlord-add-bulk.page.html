@@ -26,12 +26,21 @@
 
 <div class="landlords">
   <div class="landlord" *ngFor="let landlord of landlords">
-    <span *ngIf="landlord.submitted">Submitted </span>
-    <span *ngIf="landlord.error">Error </span>
-    <span *ngIf="landlord.id"><a routerLink="/landlord/{{ landlord.id }}">Link</a></span>
+    <span *ngIf="landlord.submitted">
+      <mat-icon aria-label="Submitted">check</mat-icon>
+    </span>
+    <span *ngIf="landlord.error">
+      <mat-icon aria-label="Error">close</mat-icon>
+    </span>
+    <span *ngIf="landlord.id">
+      <a routerLink="/landlord/{{ landlord.id }}"><mat-icon>link</mat-icon></a>
+    </span>
     {{ landlord.name }}
     <span *ngIf="landlord.phone"> | {{ landlord.phone }}</span>
     <span *ngIf="landlord.email"> | {{ landlord.email }}</span>
     <span *ngIf="landlord.website"> | {{ landlord.website }}</span>
+    <div *ngIf="landlord.error" class="error-message warn-color">
+      {{ landlord.error }}
+    </div>
   </div>
 </div>

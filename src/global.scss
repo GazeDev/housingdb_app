@@ -47,6 +47,10 @@ $theme: mat-light-theme($primary, $accent);
     }
   }
 
+  .warn-color {
+    color: mat-color($dark-warn);
+  }
+
   mat-toolbar.page-info {
     background-color: #424242;
   }
