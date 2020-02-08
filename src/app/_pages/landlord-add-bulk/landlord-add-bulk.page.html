@@ -1,0 +1,46 @@
+
+<mat-toolbar class="page-info">
+  <mat-toolbar-row>
+    Add Review
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<form (submit)="submit()" [formGroup]="form" #ngFormDirective="ngForm" [ngClass]="{'submit-attempt': submitAttempt}">
+
+  <p *ngIf="!authService.isAuthenticated">
+    <a mat-stroked-button color="accent" (click)="authService.login()">
+      Login
+    </a>
+    You must be logged in to use some of this feature.
+  </p>
+
+  <mat-form-field appearance="standard" floatLabel="always">
+    <mat-label>Please paste your Landlord List Json here</mat-label>
+    <textarea matInput formControlName="landlords"></textarea>
+  </mat-form-field>
+
+  <div class="form-actions">
+    <button mat-raised-button color="primary" type="submit">Parse</button>
+  </div>
+</form>
+
+<div class="landlords">
+  <div class="landlord" *ngFor="let landlord of landlords">
+    <span *ngIf="landlord.submitted">
+      <mat-icon aria-label="Submitted">check</mat-icon>
+    </span>
+    <span *ngIf="landlord.error">
+      <mat-icon aria-label="Error">close</mat-icon>
+    </span>
+    <span *ngIf="landlord.id">
+      <a routerLink="/landlord/{{ landlord.id }}"><mat-icon>link</mat-icon></a>
+    </span>
+    {{ landlord.name }}
+    <span *ngIf="landlord.phone"> | {{ landlord.phone }}</span>
+    <span *ngIf="landlord.email"> | {{ landlord.email }}</span>
+    <span *ngIf="landlord.website"> | {{ landlord.website }}</span>
+    <div *ngIf="landlord.error" class="error-message warn-color">
+      {{ landlord.error }}
+    </div>
+  </div>
+</div>
