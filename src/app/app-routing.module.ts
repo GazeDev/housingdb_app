@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: '', loadChildren: '_pages/property-detail/property-detail.module#PropertyDetailPageModule' },
   { path: '', loadChildren: '_pages/property-edit/property-edit.module#PropertyEditPageModule' },
   { path: '', loadChildren: '_pages/property-add/property-add.module#PropertyAddPageModule' },
-  // { path: '', loadChildren: '_pages/property-detail/property-detail.module#PropertyDetailPageModule' },
+  { path: '', loadChildren: '_pages/property-add-bulk/property-add-bulk.module#PropertyAddBulkPageModule' },
   { path: '', loadChildren: '_pages/landlords/landlords.module#LandlordsPageModule' },
   { path: '', loadChildren: '_pages/landlord-detail/landlord-detail.module#LandlordDetailPageModule' },
   { path: '', loadChildren: '_pages/landlord-edit/landlord-edit.module#LandlordEditPageModule' },
