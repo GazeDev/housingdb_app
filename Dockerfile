@@ -7,10 +7,6 @@ WORKDIR /usr/src/app
 # For npm@5 or later, copy package-lock.json as well
 COPY package.json package-lock.json ./
 
-RUN npm install --unsafe-perm -gq ionic@4.5.0 --no-interactive
-
-RUN npm install -g surge --no-interactive
-
 RUN npm install
 
 # Bundle app source

@@ -1,0 +1,32 @@
+.properties {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.property mat-icon {
+  vertical-align: middle;
+}
+.error-message {
+  margin-left: 1.75rem;
+}
+.landlord {
+  margin-left: 1.75rem;
+  &.property-error .name {
+    text-decoration: line-through;
+  }
+}
+
+.pulse {
+  animation: pulse .600s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .7;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,89 @@
+<mat-toolbar class="page-info">
+  <mat-toolbar-row>
+    Bulk Add Properties
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<form (submit)="submit()" [formGroup]="form" #ngFormDirective="ngForm" [ngClass]="{'submit-attempt': submitAttempt}">
+
+  <p *ngIf="!authService.isAuthenticated">
+    <a mat-stroked-button color="accent" (click)="authService.login()">
+      Login
+    </a>
+    You must be logged in to use some of this feature.
+  </p>
+
+  <mat-form-field appearance="standard" floatLabel="always">
+    <mat-label>Please paste your Property List Json here</mat-label>
+    <textarea matInput formControlName="properties"></textarea>
+  </mat-form-field>
+
+  <div class="form-actions">
+    <button mat-raised-button color="primary" type="submit">Parse</button>
+  </div>
+</form>
+
+<div class="properties">
+  <div class="property" *ngFor="let property of properties">
+    <span *ngIf="false !== property.loading">
+      <mat-icon class="pulse" aria-label="pending">swap_vert</mat-icon>
+    </span>
+    <span *ngIf="property.submitted">
+      <mat-icon aria-label="Submitted">check</mat-icon>
+    </span>
+    <span *ngIf="property.error">
+      <mat-icon aria-label="Error">close</mat-icon>
+    </span>
+    <ng-container *ngIf="property.id; else noPropertyId">
+      <a routerLink="/property/{{ property.id }}">
+        {{ property.name }}
+        <span *ngIf="property.phone"> | {{ property.phone }}</span>
+        <span *ngIf="property.email"> | {{ property.email }}</span>
+        <span *ngIf="property.website"> | {{ property.website }}</span>
+      </a>
+    </ng-container>
+    <ng-template #noPropertyId>
+      {{ property.name }}
+      <span *ngIf="property.phone"> | {{ property.phone }}</span>
+      <span *ngIf="property.email"> | {{ property.email }}</span>
+      <span *ngIf="property.website"> | {{ property.website }}</span>
+    </ng-template>
+    <div *ngIf="property.error" class="error-message warn-color">
+      {{ property.error }}
+    </div>
+    <div *ngIf="property.landlord" class="landlord" [ngClass]="{'property-error': property.error}">
+      <span *ngIf="false !== property.landlord?.loading">
+        <mat-icon class="pulse" aria-label="pending">swap_vert</mat-icon>
+      </span>
+      <span *ngIf="property.landlord?.submitted">
+        <mat-icon aria-label="Submitted">check</mat-icon>
+      </span>
+      <span *ngIf="property.landlord?.error">
+        <mat-icon aria-label="Error">close</mat-icon>
+      </span>
+      <ng-container *ngIf="property.landlord?.id; else noLandlordId">
+        <a routerLink="/landlord/{{ property.landlord.id }}">
+          <span class="name" *ngIf="typeOf(property.landlord) == 'string'">{{ property.landlord }}</span>
+          <span class="name" *ngIf="property.landlord?.quickInfo">{{ property.landlord.quickInfo }}</span>
+        </a>
+      </ng-container>
+      <ng-template #noLandlordId>
+        <span class="name" *ngIf="typeOf(property.landlord) == 'string'">{{ property.landlord }}</span>
+        <span class="name" *ngIf="property.landlord?.quickInfo">{{ property.landlord.quickInfo }}</span>
+      </ng-template>
+      <div *ngIf="property.landlord?.error" class="error-message warn-color">
+        {{ property.landlord?.error }}
+      </div>
+      <div *ngIf="property.error" class="error-message warn-color">
+        Landlord not submitted nor connected due to a property error.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="results">
+  <mat-form-field appearance="standard" floatLabel="always">
+    <mat-label>Resulting JSON</mat-label>
+    <textarea matInput [(ngModel)]="propertiesResults"></textarea>
+  </mat-form-field>
+</div>
