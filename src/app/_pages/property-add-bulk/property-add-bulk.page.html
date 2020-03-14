@@ -36,13 +36,16 @@
     </span>
     <ng-container *ngIf="property.id; else noPropertyId">
       <a routerLink="/property/{{ property.id }}">
+        <span *ngIf="property.name !== property.address">{{ property.address }} | </span>
         {{ property.name }}
         <span *ngIf="property.phone"> | {{ property.phone }}</span>
         <span *ngIf="property.email"> | {{ property.email }}</span>
         <span *ngIf="property.website"> | {{ property.website }}</span>
+        <br><span class="saved-address">{{ property.savedAddress }}</span>
       </a>
     </ng-container>
     <ng-template #noPropertyId>
+      <span *ngIf="property.name !== property.address">{{ property.address }} | </span>
       {{ property.name }}
       <span *ngIf="property.phone"> | {{ property.phone }}</span>
       <span *ngIf="property.email"> | {{ property.email }}</span>

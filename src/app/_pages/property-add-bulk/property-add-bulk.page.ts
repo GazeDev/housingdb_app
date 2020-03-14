@@ -60,7 +60,7 @@ export class PropertyAddBulkPage implements OnInit {
       } else {
         this.addProperty(property);
       }
-      await this.sleep(2000);
+      await this.sleep(500);
     }
 
   }
@@ -76,6 +76,8 @@ export class PropertyAddBulkPage implements OnInit {
     this.apiService.addProperty(submitProperty).subscribe(propertyResponse => {
       let propertyId = propertyResponse.id;
       property.id = propertyId;
+      let addr = propertyResponse.PostalAddresses[0];
+      property.savedAddress = `${addr.streetAddress}, ${addr.addressLocality}, ${addr.addressRegion} ${addr.postalCode}`;
       property.loading = false;
       property.submitted = true;
       if (landlord !== undefined) {
