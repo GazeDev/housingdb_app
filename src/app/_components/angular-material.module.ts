@@ -22,6 +22,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActionSnackBarComponent } from './action-snack-bar/action-snack-bar';
 import { PropertyCardComponent } from './property-card/property-card';
 import { LandlordCardComponent } from './landlord-card/landlord-card';
+import { LoadingBlockComponent } from './loading-block/loading-block';
+import { NoContentComponent } from './no-content/no-content';
 import { MapBoxComponent } from './map-box/map-box';
 import { ReviewCardComponent } from './review-card/review-card';
 import { StarsDisplayComponent } from './stars-display/stars-display';
@@ -31,7 +33,9 @@ import { StarsDisplayComponent } from './stars-display/stars-display';
     ActionSnackBarComponent,
     PropertyCardComponent,
     LandlordCardComponent,
+    LoadingBlockComponent,
     MapBoxComponent,
+    NoContentComponent,
     ReviewCardComponent,
     StarsDisplayComponent,
   ],
@@ -60,6 +64,14 @@ import { StarsDisplayComponent } from './stars-display/stars-display';
         component: LandlordCardComponent,
       },
       {
+        path: 'loading-block',
+        component: LoadingBlockComponent,
+      },
+      {
+        path: 'no-content',
+        component: NoContentComponent,
+      },
+      {
         path: 'review-card',
         component: ReviewCardComponent,
       },
@@ -82,7 +94,9 @@ import { StarsDisplayComponent } from './stars-display/stars-display';
     ActionSnackBarComponent,
     PropertyCardComponent,
     LandlordCardComponent,
+    LoadingBlockComponent,
     MapBoxComponent,
+    NoContentComponent,
     ReviewCardComponent,
     StarsDisplayComponent,
   ],

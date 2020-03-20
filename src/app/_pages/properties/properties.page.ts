@@ -10,6 +10,7 @@ import { Property } from '_models/property.model';
 })
 export class PropertiesPage {
 
+  loading: boolean = true;
   properties: Property[];
   landlords: any;
   locations: any;
@@ -53,14 +54,17 @@ export class PropertiesPage {
   }
 
   getProperties(options = {}) {
+    this.loading = true;
     this.apiService.getProperties(options).subscribe(res => {
       this.properties = res;
       this.loadPropertiesLandlords();
       this.loadPropertiesLocations();
+      this.loading = false;
     },
     err => {
       console.log('error');
       console.log(err);
+      this.loading = false;
     });
   }
 
@@ -163,6 +167,7 @@ export class PropertiesPage {
   }
 
   submit() {
+    this.loading = true;
     this.getProperties(this.form.value);
   }
 
