@@ -4,11 +4,26 @@
   margin-right: auto;
 }
 
-.raccoon {
-  display: block;
+.raccoon-container {
+  position: relative;
   width: 50%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.raccoon {
+  position: absolute;
+  display: block;
+  width: 100%;
+  filter: saturate(30%);
+  opacity: .2;
+}
+
+.raccoon-overlay {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  opacity: .9;
 }
 
 .text {
