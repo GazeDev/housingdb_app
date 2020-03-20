@@ -10,6 +10,7 @@ import { Landlord } from '_models/landlord.model';
 })
 export class LandlordsPage {
 
+  loading: boolean = true;
   landlords: Landlord[];
 
   constructor(
@@ -23,12 +24,15 @@ export class LandlordsPage {
   }
 
   getLandlords() {
+    this.loading = true;
     this.apiService.getLandlords().subscribe(res => {
       this.landlords = res;
+      this.loading = false;
     },
     err => {
       console.log('error');
       console.log(err);
+      this.loading = false;
     });
   }
 

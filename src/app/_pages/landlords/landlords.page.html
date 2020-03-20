@@ -9,6 +9,8 @@
       Add Landlord
     </a>
   </div>
+  <loading-block *ngIf="loading"></loading-block>
   <div class="cards">
     <landlord-card *ngFor="let landlord of landlords" [landlord]="landlord"></landlord-card>
+    <no-content *ngIf="landlords.length ==0"></no-content>
   </div>

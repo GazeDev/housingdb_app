@@ -1,0 +1,89 @@
+.text {
+  border-top: 2px solid black;
+  padding-top: .5rem;
+  width:100%;
+  text-align: center;
+}
+.size-position {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.loading-container {
+  position: relative;
+  width: 100%;
+  padding-top: 62.5%;
+  padding-bottom: 2rem;
+  height: 0;
+  overflow: hidden;
+}
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 2rem;
+  padding-top: 12.5%;
+  overflow: hidden;
+}
+.moon-container {
+  margin: 0 auto 0 auto;
+  position: relative;
+  width: 75%;
+  height: 150%;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 50%;
+  transition: transform linear;
+  animation-duration: 6s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-name: rotate;
+  animation-fill-mode: forwards;
+}
+.moon {
+  position: absolute;
+  width: 25%;
+  height: auto;
+  transition: transform linear;
+  animation-duration: 6s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-name: rotate-reverse;
+  animation-fill-mode: forwards;
+  top: -12.5%;   /* -child size/2 */
+  left: 37.5%;   /* parent size/2 - child size/2 */
+}
+.raccoon {
+  position: absolute;
+  display: block;
+  width: 25%;
+  bottom: 0;
+  left: 37.5%;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(135deg);
+  }
+
+  50% {
+    transform: rotate(0deg)
+  }
+
+  to {
+    transform: rotate(-135deg);
+  }
+}
+@keyframes rotate-reverse {
+  from {
+    transform: rotate(-135deg);
+  }
+
+  50% {
+    transform: rotate(0deg)
+  }
+
+  to {
+    transform: rotate(135deg);
+  }
+}
