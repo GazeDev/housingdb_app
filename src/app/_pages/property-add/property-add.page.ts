@@ -109,6 +109,11 @@ export class PropertyAddPage implements OnInit {
     maxControl.setValue(minValue);
   }
 
+  resetForm() {
+    this.form.reset();
+    this.formDirective.resetForm();
+  }
+
   submit() {
     this.currentlySubmitting = true;
     this.submitAttempt = true;
@@ -151,8 +156,6 @@ export class PropertyAddPage implements OnInit {
         this.addProperty(property);
       }
     }
-
-
   }
 
   propertyMapLocalToApi(formValues) {
@@ -198,45 +201,65 @@ export class PropertyAddPage implements OnInit {
   }
 
   addProperty(property, landlord: any = undefined) {
-    this.apiService.addProperty(property).subscribe(propertyResponse => {
-
-      let propertyId = propertyResponse.id;
-      if (landlord !== undefined) {
-        this.apiService.addLandlord(landlord).subscribe(
-          landlordRequestResponse => {
-            let landlordResponse = landlordRequestResponse.body;
-            this.apiService.addLandlordToProperty(propertyResponse.id, landlordResponse.id).subscribe(updateResponse => {
-
-              this.displayPropertyCreatedToast(propertyId);
-              this.form.reset();
-              this.formDirective.resetForm();
-            });
-          },
-          landlordErrorResponse => {
-            let contentLocation = landlordErrorResponse.headers.get('Content-Location');
-            if (landlordErrorResponse.status === 422 && contentLocation) {
-              // landlord already exists and we should use that id to attach to our property
-              this.apiService.addLandlordToProperty(propertyResponse.id, contentLocation).subscribe(updateResponse => {
+    this.apiService.addProperty(property).subscribe(
+      propertyResponse => {
+        let propertyId = propertyResponse.id;
+        if (landlord !== undefined) {
+          this.apiService.addLandlord(landlord).subscribe(
+            landlordRequestResponse => {
+              let landlordResponse = landlordRequestResponse.body;
+              this.apiService.addLandlordToProperty(propertyResponse.id, landlordResponse.id).subscribe(updateResponse => {
 
                 this.displayPropertyCreatedToast(propertyId);
-                this.form.reset();
-                this.formDirective.resetForm();
+                this.resetForm();
               });
+            },
+            landlordErrorResponse => {
+              let contentLocation = landlordErrorResponse.headers.get('Content-Location');
+              if (landlordErrorResponse.status === 422 && contentLocation) {
+                // landlord already exists and we should use that id to attach to our property
+                this.apiService.addLandlordToProperty(propertyResponse.id, contentLocation).subscribe(updateResponse => {
+
+                  this.displayPropertyCreatedToast(propertyId);
+                  this.resetForm();
+                });
+              }
             }
-          }
-        );
-      } else { // no landlord info, we're done
-        this.displayPropertyCreatedToast(propertyId);
-        this.form.reset();
-        this.formDirective.resetForm();
+          );
+        } else { // no landlord info, we're done
+          this.displayPropertyCreatedToast(propertyId);
+          this.resetForm();
+        }
+      },
+      propertyErrorResponse => {
+        let contentLocation = propertyErrorResponse.headers.get('Content-Location');
+        if (propertyErrorResponse.status === 422 && contentLocation) {
+          // Property already exists and we should let the user know
+          this.displayPropertyExistsToast(contentLocation);
+          this.resetForm();
+        } else {
+          console.log('Error adding the property. Not 422, or no contentLocation', propertyErrorResponse);
+        }
       }
-    });
+    );
   }
 
   displayPropertyCreatedToast(propertyId) {
     this.alertService.action({
       data: {
         message: 'The property has been created.',
+        action: {
+          text: 'View Property',
+          navigateTo: `/property/${propertyId}`,
+        },
+      }
+    });
+  }
+
+  displayPropertyExistsToast(propertyId) {
+    this.alertService.action({
+      data: {
+        message: 'It looks like we already have a property with that address.',
         action: {
           text: 'View Property',
           navigateTo: `/property/${propertyId}`,
