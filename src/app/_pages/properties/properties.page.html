@@ -11,8 +11,21 @@
       <mat-icon title="Filters">filter_list</mat-icon> <span class="icon-label">Filters</span>
     </button>
     <a routerLink="/properties/add" mat-raised-button color="primary">
+      <!-- TODO: In the future, move this up to the page-info toolbar.
+      Navigate away actions should be a counterpart to page-info,
+      along with breadcrumbs. Breadcrumbs are for going back. Page info for
+      where you are. And navigate away actions for where you could go. -->
       Add Property
     </a>
+    <div class="mini-pager-area">
+      <mat-paginator class="condensed" [length]="properties.length"
+        [pageSize]="page.size"
+        [pageIndex]="page.offset"
+        [pageSizeOptions]="[10,25,50,100]"
+        (page)="pageUpdated($event)">
+      </mat-paginator>
+    </div>
+
   </div>
 
   <div class="filters-panel">
@@ -89,7 +102,7 @@
   <loading-block *ngIf="loading"></loading-block>
 
   <div class="cards" *ngIf="!loading">
-    <property-card *ngFor="let property of properties"
+    <property-card *ngFor="let property of properties | slice:(page.offset * page.size):((page.offset+1)*page.size)"
       [property]="property"
       [landlord]="landlords[property.LandlordId]"
       [location]="locations[property.LocationId]"
@@ -97,5 +110,12 @@
 
     <no-content *ngIf="properties.length == 0"></no-content>
   </div>
+
+  <mat-paginator [length]="properties.length"
+    [pageSize]="page.size"
+    [pageIndex]="page.offset"
+    [pageSizeOptions]="[10,25,50,100]"
+    (page)="pageUpdated($event)">
+  </mat-paginator>
 
 </div>

@@ -12,6 +12,7 @@ export class PropertiesPage {
 
   loading: boolean = true;
   properties: Property[];
+  page: any;
   landlords: any;
   locations: any;
   allLocations: any;
@@ -33,6 +34,11 @@ export class PropertiesPage {
     this.locations = {};
     this.allLocations = {};
 
+    this.page = {
+      offset: 0,
+      size: 25,
+    };
+
     this.submitAttempt = false;
     this.currentlySubmitting = false;
     this.form = this.formBuilder.group({
@@ -53,6 +59,11 @@ export class PropertiesPage {
     this.loadAllLocations();
   }
 
+  pageUpdated($event) {
+    this.page.offset = $event.pageIndex;
+    this.page.size = $event.pageSize;
+  }
+
   getProperties(options = {}) {
     this.loading = true;
     this.apiService.getProperties(options).subscribe(res => {
@@ -62,8 +73,7 @@ export class PropertiesPage {
       this.loading = false;
     },
     err => {
-      console.log('error');
-      console.log(err);
+      console.log('Error getting Properties', err);
       this.loading = false;
     });
   }
@@ -96,8 +106,7 @@ export class PropertiesPage {
       this.landlords[property.LandlordId] = res;
     },
     err => {
-      console.log('error loading landlord');
-      console.log(err);
+      console.log('Error loading Landlord', err);
     });
   }
 

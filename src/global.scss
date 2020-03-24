@@ -215,3 +215,39 @@ mat-card {
     margin-bottom: 2rem;
   }
 }
+
+mat-paginator {
+  .mat-paginator-container {
+    // we want the top-down order to match left-right in ltr
+    flex-wrap: wrap;
+  }
+}
+
+mat-paginator.condensed {
+  border-radius: 4px;
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+  .mat-paginator-container {
+    min-height: 0;
+  }
+  .mat-paginator-page-size {
+    max-height: 36px;
+    align-items: center;
+  }
+  .mat-paginator-page-size-select {
+    margin-top: 0;
+    max-height: 100%;
+  }
+    .mat-form-field-flex {
+      height: 36px;
+    }
+  .mat-paginator-range-actions {
+    max-height: 100%;
+  }
+  .mat-icon-button {
+    height: 36px;
+    line-height: 1;
+    width: 36px;
+  }
+}
