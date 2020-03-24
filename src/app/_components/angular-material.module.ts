@@ -14,6 +14,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -49,6 +50,7 @@ import { StarsDisplayComponent } from './stars-display/stars-display';
     MatExpansionModule,
     MatIconModule,
     MatListModule,
+    MatPaginatorModule,
     MatSelectModule,
     MatSidenavModule,
     MatSnackBarModule,
@@ -87,6 +89,7 @@ import { StarsDisplayComponent } from './stars-display/stars-display';
     MatExpansionModule,
     MatIconModule,
     MatListModule,
+    MatPaginatorModule,
     MatSelectModule,
     MatSidenavModule,
     MatSnackBarModule,

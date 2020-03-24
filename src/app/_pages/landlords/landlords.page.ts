@@ -12,15 +12,26 @@ export class LandlordsPage {
 
   loading: boolean = true;
   landlords: Landlord[];
+  page: any;
 
   constructor(
     private apiService: ApiService,
   ) {
     this.landlords = [];
+
+    this.page = {
+      offset: 0,
+      size: 25,
+    };
   }
 
   ngOnInit() {
     this.getLandlords();
+  }
+
+  pageUpdated($event) {
+    this.page.offset = $event.pageIndex;
+    this.page.size = $event.pageSize;
   }
 
   getLandlords() {

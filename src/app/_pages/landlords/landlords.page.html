@@ -8,9 +8,28 @@
     <a routerLink="/landlords/add" mat-raised-button color="primary">
       Add Landlord
     </a>
+    <div class="mini-pager-area">
+      <mat-paginator class="condensed" [length]="landlords.length"
+        [pageSize]="page.size"
+        [pageIndex]="page.offset"
+        [pageSizeOptions]="[10,25,50,100]"
+        (page)="pageUpdated($event)">
+      </mat-paginator>
+    </div>
   </div>
   <loading-block *ngIf="loading"></loading-block>
-  <div class="cards">
-    <landlord-card *ngFor="let landlord of landlords" [landlord]="landlord"></landlord-card>
+  <div class="cards" *ngIf="!loading">
+    <landlord-card
+      *ngFor="let landlord of landlords | slice:(page.offset * page.size):((page.offset+1)*page.size)"
+      [landlord]="landlord"
+    ></landlord-card>
+    
     <no-content *ngIf="landlords.length ==0"></no-content>
   </div>
+
+  <mat-paginator [length]="landlords.length"
+    [pageSize]="page.size"
+    [pageIndex]="page.offset"
+    [pageSizeOptions]="[10,25,50,100]"
+    (page)="pageUpdated($event)">
+  </mat-paginator>
