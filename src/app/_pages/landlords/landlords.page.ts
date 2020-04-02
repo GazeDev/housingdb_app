@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '_services/api.service';
-
 import { Landlord } from '_models/landlord.model';
 
 @Component({
@@ -14,7 +14,15 @@ export class LandlordsPage {
   landlords: Landlord[];
   page: any;
 
+  @ViewChild('ngFormDirective') formDirective;
+  form: FormGroup;
+  submitAttempt: boolean;
+  currentlySubmitting: boolean;
+
+  filtersOpen: boolean = false;
+
   constructor(
+    private formBuilder: FormBuilder,
     private apiService: ApiService,
   ) {
     this.landlords = [];
@@ -23,6 +31,15 @@ export class LandlordsPage {
       offset: 0,
       size: 25,
     };
+
+    this.submitAttempt = false;
+    this.currentlySubmitting = false;
+    this.form = this.formBuilder.group({
+      search: [''],
+      name: [''],
+      phone: [''],
+      email: [''],
+    });
   }
 
   ngOnInit() {
@@ -34,9 +51,9 @@ export class LandlordsPage {
     this.page.size = $event.pageSize;
   }
 
-  getLandlords() {
+  getLandlords(options = {}) {
     this.loading = true;
-    this.apiService.getLandlords().subscribe(res => {
+    this.apiService.getLandlords(options).subscribe(res => {
       this.landlords = res;
       this.loading = false;
     },
@@ -45,6 +62,26 @@ export class LandlordsPage {
       console.log(err);
       this.loading = false;
     });
+  }
+
+  toggleFilters() {
+    if (this.filtersOpen === true) {
+      this.filtersOpen = false;
+    } else {
+      this.filtersOpen = true;
+    }
+  }
+
+  resetForm() {
+    this.form.reset();
+    this.formDirective.resetForm();
+    // if we're clearing the form, we're clearing the filters, so we re-submit
+    this.submit();
+  }
+
+  submit() {
+    this.loading = true;
+    this.getLandlords(this.form.value);
   }
 
 }

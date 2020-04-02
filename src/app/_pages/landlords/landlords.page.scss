@@ -4,6 +4,10 @@
   flex-wrap: wrap;
   align-items: center;
   margin-bottom: 1rem;
+  button {
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+  }
   a {
     margin-right: 1rem;
     margin-bottom: 1rem;
@@ -22,5 +26,44 @@
   align-content: flex-start;
   landlord-card {
     width: 31rem;
+  }
+}
+
+.filters {
+  button {
+    margin-right: 1rem;
+  }
+}
+
+.filters-container .filters-panel {
+  display: none;
+  border-bottom: 1px solid grey;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+
+.filters-container.filters-open .filters-panel {
+  display: block;
+}
+
+@media (min-width: 48rem) {
+
+  .filters-container .filters-panel {
+    float: left;
+    width: 15rem;
+    border-right: 1px solid grey;
+    padding-right: 1rem;
+    margin-right: 1rem;
+    border-bottom: none;
+  }
+
+  .filters-container.filters-open .filters-main {
+    float: right;
+    width: 100%;
+    width: calc(100% - 16rem);
+  }
+
+  .filters-container .cards {
+    clear: right;
   }
 }
