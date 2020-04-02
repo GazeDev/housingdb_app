@@ -6,7 +6,7 @@
 
 <div class="filters-container" [ngClass]="{'filters-open': filtersOpen}">
 
-  <div class="actions">
+  <div class="actions filters-main">
     <button mat-stroked-button (click)="toggleFilters()">
       <mat-icon title="Filters">filter_list</mat-icon> <span class="icon-label">Filters</span>
     </button>
@@ -98,24 +98,24 @@
       </form>
     </div>
   </div>
+  <div class="filters-main">
+    <loading-block *ngIf="loading"></loading-block>
 
-  <loading-block *ngIf="loading"></loading-block>
+    <div class="cards" *ngIf="!loading">
+      <property-card *ngFor="let property of properties | slice:(page.offset * page.size):((page.offset+1)*page.size)"
+        [property]="property"
+        [landlord]="landlords[property.LandlordId]"
+        [location]="locations[property.LocationId]"
+      ></property-card>
 
-  <div class="cards" *ngIf="!loading">
-    <property-card *ngFor="let property of properties | slice:(page.offset * page.size):((page.offset+1)*page.size)"
-      [property]="property"
-      [landlord]="landlords[property.LandlordId]"
-      [location]="locations[property.LocationId]"
-    ></property-card>
+      <no-content *ngIf="properties.length == 0"></no-content>
+    </div>
 
-    <no-content *ngIf="properties.length == 0"></no-content>
+    <mat-paginator [length]="properties.length"
+      [pageSize]="page.size"
+      [pageIndex]="page.offset"
+      [pageSizeOptions]="[10,25,50,100]"
+      (page)="pageUpdated($event)">
+    </mat-paginator>
   </div>
-
-  <mat-paginator [length]="properties.length"
-    [pageSize]="page.size"
-    [pageIndex]="page.offset"
-    [pageSizeOptions]="[10,25,50,100]"
-    (page)="pageUpdated($event)">
-  </mat-paginator>
-
 </div>
