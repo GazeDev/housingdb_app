@@ -17,6 +17,7 @@ export class LandlordDetailPage implements OnInit {
   public landlordId: string;
   public landlord: Landlord;
   public properties: Property[];
+  public propertiesPage: any;
   public locations: any;
   public reviews: any;
   public externalReviews: any;
@@ -29,6 +30,10 @@ export class LandlordDetailPage implements OnInit {
   ) {
     this.landlord = {};
     this.properties = [];
+    this.propertiesPage = {
+      offset: 0,
+      size: 4,
+    };
     this.locations = {};
     this.reviews = [];
   }
@@ -45,6 +50,11 @@ export class LandlordDetailPage implements OnInit {
       this.getLandlordReviews();
       this.getLandlordExternalReviews();
     });
+  }
+
+  pageUpdated($event) {
+    this.propertiesPage.offset = $event.pageIndex;
+    this.propertiesPage.size = $event.pageSize;
   }
 
   getAccount() {
