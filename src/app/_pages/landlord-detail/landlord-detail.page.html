@@ -19,14 +19,24 @@
   </div>
 
   <a id="properties"></a>
-  <h2>
-    Properties ({{ landlord?.metadata?.propertyCount || 0 }})
+  <div class="header-actions">
+    <h2>
+      Properties ({{ landlord?.metadata?.propertyCount || 0 }})
+    </h2>
     <a routerLink="/properties/add">
       <button mat-raised-button color="primary">Add Property</button>
     </a>
-  </h2>
+    <div class="mini-pager-area">
+      <mat-paginator class="condensed" [length]="properties.length"
+        [pageSize]="propertiesPage.size"
+        [pageIndex]="propertiesPage.offset"
+        [pageSizeOptions]="[4,10,25,50,100]"
+        (page)="pageUpdated($event)">
+      </mat-paginator>
+    </div>
+  </div>
   <div class="property-cards" *ngIf="properties.length > 0">
-    <property-card *ngFor="let property of properties"
+    <property-card *ngFor="let property of properties | slice:(propertiesPage.offset * propertiesPage.size):((propertiesPage.offset+1)*propertiesPage.size)"
       [property]="property"
       [landlord]="landlord"
       [location]="locations[property.LocationId]"
