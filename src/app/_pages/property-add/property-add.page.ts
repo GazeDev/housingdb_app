@@ -205,40 +205,47 @@ export class PropertyAddPage implements OnInit {
       propertyResponse => {
         let propertyId = propertyResponse.id;
         if (landlord !== undefined) {
-          this.apiService.addLandlord(landlord).subscribe(
-            landlordRequestResponse => {
-              let landlordResponse = landlordRequestResponse.body;
-              this.apiService.addLandlordToProperty(propertyResponse.id, landlordResponse.id).subscribe(updateResponse => {
-
-                this.displayPropertyCreatedToast(propertyId);
-                this.resetForm();
-              });
-            },
-            landlordErrorResponse => {
-              let contentLocation = landlordErrorResponse.headers.get('Content-Location');
-              if (landlordErrorResponse.status === 422 && contentLocation) {
-                // landlord already exists and we should use that id to attach to our property
-                this.apiService.addLandlordToProperty(propertyResponse.id, contentLocation).subscribe(updateResponse => {
-
-                  this.displayPropertyCreatedToast(propertyId);
-                  this.resetForm();
-                });
-              }
-            }
-          );
+          this.displayPropertyCreatedToast(propertyId);
+          this.addPropertyLandlord(propertyId, landlord);
         } else { // no landlord info, we're done
           this.displayPropertyCreatedToast(propertyId);
           this.resetForm();
         }
       },
       propertyErrorResponse => {
-        let contentLocation = propertyErrorResponse.headers.get('Content-Location');
-        if (propertyErrorResponse.status === 422 && contentLocation) {
+        let propertyId = propertyErrorResponse.headers.get('Content-Location');
+        if (propertyErrorResponse.status === 422 && propertyId) {
           // Property already exists and we should let the user know
-          this.displayPropertyExistsToast(contentLocation);
-          this.resetForm();
+          if (landlord !== undefined) {
+            this.addPropertyLandlord(propertyId, landlord);
+          } else { // no landlord info, we're done
+            this.displayPropertyExistsToast(propertyId);
+            this.resetForm();
+          }
         } else {
           console.log('Error adding the property. Not 422, or no contentLocation', propertyErrorResponse);
+        }
+      }
+    );
+  }
+
+  addPropertyLandlord(propertyId, landlord) {
+    this.apiService.addLandlord(landlord).subscribe(
+      landlordRequestResponse => {
+        let landlordResponse = landlordRequestResponse.body;
+        this.apiService.addLandlordToProperty(propertyId, landlordResponse.id).subscribe(updateResponse => {
+          this.displayPropertyUpdatedToast(propertyId);
+          this.resetForm();
+        });
+      },
+      landlordErrorResponse => {
+        let contentLocation = landlordErrorResponse.headers.get('Content-Location');
+        if (landlordErrorResponse.status === 422 && contentLocation) {
+          // landlord already exists and we should use that id to attach to our property
+          this.apiService.addLandlordToProperty(propertyId, contentLocation).subscribe(updateResponse => {
+            this.displayPropertyUpdatedToast(propertyId);
+            this.resetForm();
+          });
         }
       }
     );
@@ -248,6 +255,18 @@ export class PropertyAddPage implements OnInit {
     this.alertService.action({
       data: {
         message: 'The property has been created.',
+        action: {
+          text: 'View Property',
+          navigateTo: `/property/${propertyId}`,
+        },
+      }
+    });
+  }
+
+  displayPropertyUpdatedToast(propertyId) {
+    this.alertService.action({
+      data: {
+        message: 'The property has been updated with the landlord.',
         action: {
           text: 'View Property',
           navigateTo: `/property/${propertyId}`,
