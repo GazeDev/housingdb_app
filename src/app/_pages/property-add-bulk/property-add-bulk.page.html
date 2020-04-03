@@ -41,7 +41,7 @@
         <span *ngIf="property.phone"> | {{ property.phone }}</span>
         <span *ngIf="property.email"> | {{ property.email }}</span>
         <span *ngIf="property.website"> | {{ property.website }}</span>
-        <br><span class="saved-address">{{ property.savedAddress }}</span>
+        <span *ngIf="property.savedAddress" class="saved-address"><br>{{ property.savedAddress }}</span>
       </a>
     </ng-container>
     <ng-template #noPropertyId>
@@ -54,7 +54,7 @@
     <div *ngIf="property.error" class="error-message warn-color">
       {{ property.error }}
     </div>
-    <div *ngIf="property.landlord" class="landlord" [ngClass]="{'property-error': property.error}">
+    <div *ngIf="property.landlord" class="landlord" [ngClass]="{'landlord-error': property.landlord?.error}">
       <span *ngIf="false !== property.landlord?.loading">
         <mat-icon class="pulse" aria-label="pending">swap_vert</mat-icon>
       </span>
@@ -76,9 +76,6 @@
       </ng-template>
       <div *ngIf="property.landlord?.error" class="error-message warn-color">
         {{ property.landlord?.error }}
-      </div>
-      <div *ngIf="property.error" class="error-message warn-color">
-        Landlord not submitted nor connected due to a property error.
       </div>
     </div>
   </div>

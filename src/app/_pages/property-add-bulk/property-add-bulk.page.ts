@@ -81,37 +81,7 @@ export class PropertyAddBulkPage implements OnInit {
       property.loading = false;
       property.submitted = true;
       if (landlord !== undefined) {
-        this.apiService.addLandlord(landlord).subscribe(
-          landlordRequestResponse => {
-            let landlordResponse = landlordRequestResponse.body;
-            property.landlord.id = landlordResponse.id;
-            property.landlord.loading = false;
-            this.apiService.addLandlordToProperty(propertyResponse.id, landlordResponse.id).subscribe(updateResponse => {
-              // NOTE: call termination
-              this.updatePropertiesResults();
-            });
-          },
-          landlordErrorResponse => {
-            let contentLocation = landlordErrorResponse.headers.get('Content-Location');
-            if (landlordErrorResponse.status === 422 && contentLocation) {
-              // landlord already exists and we should use that id to attach to our property
-              property.landlord.id = contentLocation;
-              property.landlord.loading = false;
-              property.landlord.submitted = true;
-              this.apiService.addLandlordToProperty(propertyResponse.id, contentLocation).subscribe(updateResponse => {
-                // NOTE: call termination
-                // TODO: should this status/errors show?
-                this.updatePropertiesResults();
-              });
-            } else {
-              // NOTE: call termination
-              property.landlord.loading = false;
-              let err = landlordErrorResponse.body;
-              property.landlord.error = err.error ? err.error.message : err;
-              this.updatePropertiesResults();
-            }
-          }
-        );
+        this.addPropertyLandlord(property, landlord);
       } else { // no landlord info, we're done
         // NOTE: call termination
         this.updatePropertiesResults();
@@ -120,11 +90,56 @@ export class PropertyAddBulkPage implements OnInit {
     propertyErrorResponse => {
       property.loading = false;
       property.error = propertyErrorResponse.error ? propertyErrorResponse.error.message : propertyErrorResponse;
-      if (property.landlord !== undefined) {
-        property.landlord.loading = false;
-      }
+      // we are setting the property id even though the property already existed
+      // this should allow linking, and use in addPropertyLandlord
+      property.id = propertyErrorResponse.headers.get('Content-Location');
       this.updatePropertiesResults();
+      if (landlord !== undefined) {
+        if (propertyErrorResponse.status === 422 && property.id) {
+          // Property already exists, if there was landlord info we should still attach it
+            this.addPropertyLandlord(property, landlord);
+        } else {
+          property.landlord.loading = false;
+          property.landlord.error = 'Landlord not submitted nor connected due to a property error.';
+          this.updatePropertiesResults();
+        }
+      }
+
     });
+  }
+
+  addPropertyLandlord(property, landlord) {
+    this.apiService.addLandlord(landlord).subscribe(
+      landlordRequestResponse => {
+        let landlordResponse = landlordRequestResponse.body;
+        property.landlord.id = landlordResponse.id;
+        property.landlord.loading = false;
+        this.apiService.addLandlordToProperty(property.id, landlordResponse.id).subscribe(updateResponse => {
+          // NOTE: call termination
+          this.updatePropertiesResults();
+        });
+      },
+      landlordErrorResponse => {
+        let contentLocation = landlordErrorResponse.headers.get('Content-Location');
+        if (landlordErrorResponse.status === 422 && contentLocation) {
+          // landlord already exists and we should use that id to attach to our property
+          property.landlord.id = contentLocation;
+          property.landlord.loading = false;
+          property.landlord.submitted = true;
+          this.apiService.addLandlordToProperty(property.id, contentLocation).subscribe(updateResponse => {
+            // NOTE: call termination
+            // TODO: should this status/errors show?
+            this.updatePropertiesResults();
+          });
+        } else {
+          // NOTE: call termination
+          property.landlord.loading = false;
+          let err = landlordErrorResponse.body;
+          property.landlord.error = err.error ? err.error.message : err;
+          this.updatePropertiesResults();
+        }
+      }
+    );
   }
 
   updatePropertiesResults() {
