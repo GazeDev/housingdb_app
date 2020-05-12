@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActionSnackBarComponent } from '_components/action-snack-bar/action-snack-bar';
+import { ActionSnackConfig } from '_models/action-snack';
 
 @Injectable()
 export class AlertService {
@@ -11,7 +12,7 @@ export class AlertService {
 
     }
 
-    action(config: any) {
+    action(config: ActionSnackConfig) {
       this.snackBar.openFromComponent(ActionSnackBarComponent, config);
     }
 

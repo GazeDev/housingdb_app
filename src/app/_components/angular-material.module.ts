@@ -15,6 +15,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -51,6 +52,7 @@ import { StarsDisplayComponent } from './stars-display/stars-display';
     MatIconModule,
     MatListModule,
     MatPaginatorModule,
+    MatRadioModule,
     MatSelectModule,
     MatSidenavModule,
     MatSnackBarModule,
@@ -90,6 +92,7 @@ import { StarsDisplayComponent } from './stars-display/stars-display';
     MatIconModule,
     MatListModule,
     MatPaginatorModule,
+    MatRadioModule,
     MatSelectModule,
     MatSidenavModule,
     MatSnackBarModule,
