@@ -1,3 +1,5 @@
+import { MatSnackBarConfig } from '@angular/material/snack-bar';
+
 export class ActionSnackData {
   public action?: {
     text: string,
@@ -10,5 +12,16 @@ export class ActionSnackData {
 
   ) {
     this.close = "Close";
+  }
+}
+
+export class ActionSnackConfig extends MatSnackBarConfig {
+
+  public data: ActionSnackData;
+
+  constructor (
+
+  ) {
+    super();
   }
 }

@@ -33,7 +33,15 @@ export class AuthenticationService {
             if (error.status === 404) {
               this.apiService.createAccount().subscribe(
                 async success => {
-                  this.alertService.success('We have created an account for you. Welcome!');
+                  this.alertService.action({
+                    data: {
+                      message: 'We have started a Profile for you. Welcome!',
+                      action: {
+                        text: 'Go to Profile',
+                        navigateTo: `/profile`,
+                      },
+                    }
+                  });
                 },
                 error => {
                   console.log("Error when calling createAccount(): ", error)

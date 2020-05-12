@@ -133,6 +133,11 @@ export class ApiService {
     return this.httpClient.post<any>(`${this.apiUrl}/accounts`, '');
   }
 
+  patchAccount(accountId, account) {
+    let patchAccount = removeEmptyishFromObjectRecursive(account);
+    return this.httpClient.patch<any>(`${this.apiUrl}/accounts/${accountId}`, patchAccount);
+  }
+
   getAccountLandlords() {
     return this.httpClient.get<any>(`${this.apiUrl}/accounts/landlords`);
   }
@@ -199,4 +204,37 @@ export class ApiService {
     return this.httpClient.get<any>(`${this.apiUrl}/locations/${id}`);
   }
 
+}
+
+function removeEmptyishFromObjectRecursive(value) {
+  // iterate through passed in value
+  // assume we are passed an object to start
+  // if value[i] is type object, recurse
+  // save response of recurse function
+  // keep value if returned value isn't false
+  // if value[i] is not type object, add it to a holding object and return at end
+  if (Object.keys(value).length == 0) {
+    return null;
+  }
+  let builder = {};
+  for (var key in value) {
+    if (typeof value[key] == 'object') {
+      let result = removeEmptyishFromObjectRecursive(value[key]);
+      if (result !== null) {
+        builder[key] = result;
+      }
+    } else {
+      if (
+        emptyish(value[key])
+        || value[key] == undefined
+      ) {
+        continue;
+      }
+      builder[key] = value[key];
+    }
+  }
+  if (Object.keys(builder).length == 0) {
+    return null;
+  }
+  return builder;
 }

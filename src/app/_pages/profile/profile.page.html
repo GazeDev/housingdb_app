@@ -1,0 +1,56 @@
+<mat-toolbar class="page-info">
+  <mat-toolbar-row>
+    Edit Profile
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<p *ngIf="!authService.isAuthenticated">
+  <a mat-stroked-button color="accent" (click)="authService.login()">
+    Login
+  </a>
+  You must be logged in to use this feature.
+</p>
+
+<ng-container *ngIf="authService.isAuthenticated">
+  <p>
+    This information is completely optional, and won't be shared with others. We ask for it to understand our users better, and provide better resources and functionality on the site.
+  </p>
+
+  <form (submit)="submit()" [formGroup]="form" #ngFormDirective="ngForm" [ngClass]="{'submit-attempt': submitAttempt}">
+    <ng-container formGroupName="userData">
+      <ng-container formGroupName="info">
+        <div class="mock-form-field">
+          <label class="mat-form-field-label" id="user-type">Which of these best describes you? Select an option:</label>
+          <mat-radio-group matInput aria-labelledby="user-type" formControlName="userType" class="tenant-selection">
+            <mat-radio-button value="tenant">Tenant</mat-radio-button>
+            <mat-radio-button value="landlord">Landlord</mat-radio-button>
+            <mat-radio-button value="other">Other</mat-radio-button>
+            <mat-radio-button class="no-answer" value="">Prefer not to answer</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div *ngIf="form?.value.userData.info.userType == 'tenant'">
+          <mat-form-field appearance="standard" floatLabel="always">
+            <mat-label>Who is your Landlord?</mat-label>
+            <input matInput formControlName="landlord">
+            <mat-hint>We won't share that this is your landlord, but it may help us fill out data in the system, and suggest useful features to you.</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="standard" floatLabel="always">
+            <mat-label>What is your Address?</mat-label>
+            <input matInput formControlName="address">
+            <mat-hint>We won't share that this is your address, but it may help us fill out data in the system, and suggest useful features to you.</mat-hint>
+          </mat-form-field>
+        </div>
+        <div *ngIf="form?.value.userData.info.userType == 'other'">
+          <mat-form-field appearance="standard" floatLabel="always">
+            <mat-label>How would you describe yourself?</mat-label>
+            <input matInput formControlName="userTypeOther">
+            <mat-hint>We won't share that this is your answer, but we may use it to inform features we build in the future.</mat-hint>
+          </mat-form-field>
+        </div>
+      </ng-container>
+    </ng-container>
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </div>
+  </form>
+</ng-container>
