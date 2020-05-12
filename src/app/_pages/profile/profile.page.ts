@@ -25,7 +25,7 @@ export class ProfilePage {
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private alertService: AlertService,
-    private authService: AuthenticationService,
+    public authService: AuthenticationService,
   ) {
     this.form = this.formBuilder.group({
       userData: this.formBuilder.group({
