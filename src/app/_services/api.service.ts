@@ -65,6 +65,10 @@ export class ApiService {
     return this.httpClient.get<Property>(`${this.apiUrl}/properties/${id}`);
   }
 
+  getPropertyByMachineName(machineName: string) {
+    return this.httpClient.get<Property>(`${this.apiUrl}/properties/machine-name/${machineName}`);
+  }
+
   addProperty(property: Property) {
     return this.httpClient.post<Property>(`${this.apiUrl}/properties`, property);
   }
