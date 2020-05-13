@@ -40,11 +40,21 @@ export class PropertyDetailPage implements OnInit {
     }
 
     this.route.paramMap.subscribe(params => {
-      this.propertyId = params.get('id');
-      this.getProperty();
-      this.getPropertyReviews();
-      this.getPropertyExternalReviews();
+      if (!this.isUuid(params.get('id'))) {
+        this.apiService.getPropertyByMachineName(params.get('id')).subscribe(res => {
+          this.propertyId = res.id;
+          this.getPropertyAndRelatedContent(this.propertyId)
+        });
+      } else {
+        this.propertyId = params.get('id');
+        this.getPropertyAndRelatedContent(this.propertyId)
+      }
     });
+  }
+
+  isUuid(input) {
+    const regex = RegExp(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
+    return regex.test(input);
   }
 
   getAccount() {
@@ -53,9 +63,14 @@ export class PropertyDetailPage implements OnInit {
     });
   }
 
-  loadPropertiesLandlords() {
-    this.apiService.getLandlord(this.landlordId).subscribe(res => {
-      this.landlord = res;
+  getPropertyAndRelatedContent(identifier) {
+    this.loadRelatedPropertyContent();
+    this.apiService.getProperty(this.propertyId).subscribe(res => {
+      this.property = res;
+      if (this.property.LandlordId) {
+        this.landlordId = this.property.LandlordId;
+        this.loadPropertiesLandlords();
+      }
     },
     err => {
       console.log('error');
@@ -63,13 +78,14 @@ export class PropertyDetailPage implements OnInit {
     });
   }
 
-  getProperty() {
-    this.apiService.getProperty(this.propertyId).subscribe(res => {
-      this.property = res;
-      if (this.property.LandlordId) {
-        this.landlordId = this.property.LandlordId;
-        this.loadPropertiesLandlords();
-      }
+  loadRelatedPropertyContent() {
+    this.getPropertyReviews();
+    this.getPropertyExternalReviews();
+  }
+
+  loadPropertiesLandlords() {
+    this.apiService.getLandlord(this.landlordId).subscribe(res => {
+      this.landlord = res;
     },
     err => {
       console.log('error');
