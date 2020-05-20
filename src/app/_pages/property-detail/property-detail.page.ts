@@ -43,11 +43,11 @@ export class PropertyDetailPage implements OnInit {
       if (!this.isUuid(params.get('id'))) {
         this.apiService.getPropertyByMachineName(params.get('id')).subscribe(res => {
           this.propertyId = res.id;
-          this.getPropertyAndRelatedContent(this.propertyId)
+          this.getPropertyAndRelatedContent();
         });
       } else {
         this.propertyId = params.get('id');
-        this.getPropertyAndRelatedContent(this.propertyId)
+        this.getPropertyAndRelatedContent();
       }
     });
   }
@@ -63,13 +63,14 @@ export class PropertyDetailPage implements OnInit {
     });
   }
 
-  getPropertyAndRelatedContent(identifier) {
-    this.loadRelatedPropertyContent();
+  getPropertyAndRelatedContent() {
+    this.getPropertyReviews();
+    this.getPropertyExternalReviews();
     this.apiService.getProperty(this.propertyId).subscribe(res => {
       this.property = res;
       if (this.property.LandlordId) {
         this.landlordId = this.property.LandlordId;
-        this.loadPropertiesLandlords();
+        this.loadPropertyLandlord();
       }
     },
     err => {
@@ -78,12 +79,7 @@ export class PropertyDetailPage implements OnInit {
     });
   }
 
-  loadRelatedPropertyContent() {
-    this.getPropertyReviews();
-    this.getPropertyExternalReviews();
-  }
-
-  loadPropertiesLandlords() {
+  loadPropertyLandlord() {
     this.apiService.getLandlord(this.landlordId).subscribe(res => {
       this.landlord = res;
     },

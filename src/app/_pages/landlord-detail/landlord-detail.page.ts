@@ -44,11 +44,15 @@ export class LandlordDetailPage implements OnInit {
       this.getAccount();
     }
     this.route.paramMap.subscribe(params => {
-      this.landlordId = params.get('id');
-      this.getLandlord();
-      this.getLandlordProperties();
-      this.getLandlordReviews();
-      this.getLandlordExternalReviews();
+      if (!this.isUuid(params.get('id'))) {
+        this.apiService.getLandlordByMachineName(params.get('id')).subscribe(res => {
+          this.landlordId = res.id;
+          this.getLandlordAndRelatedContent()
+        });
+      } else {
+        this.landlordId = params.get('id');
+        this.getLandlordAndRelatedContent()
+      }
     });
   }
 
@@ -57,10 +61,22 @@ export class LandlordDetailPage implements OnInit {
     this.propertiesPage.size = $event.pageSize;
   }
 
+  isUuid(input) {
+    const regex = RegExp(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
+    return regex.test(input);
+  }
+
   getAccount() {
     this.apiService.getAccount().subscribe(res => {
       this.userAccount = res;
     });
+  }
+
+  getLandlordAndRelatedContent() {
+    this.getLandlord();
+    this.getLandlordProperties();
+    this.getLandlordReviews();
+    this.getLandlordExternalReviews();
   }
 
   getLandlord() {

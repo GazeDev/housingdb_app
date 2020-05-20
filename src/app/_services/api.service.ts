@@ -101,6 +101,10 @@ export class ApiService {
     return this.httpClient.get<Landlord>(`${this.apiUrl}/landlords/${id}`);
   }
 
+  getLandlordByMachineName(machineName: string) {
+    return this.httpClient.get<Landlord>(`${this.apiUrl}/landlords/machine-name/${machineName}`);
+  }
+
   getLandlordProperties(landlordId) {
     return this.httpClient.get<Property[]>(`${this.apiUrl}/landlords/${landlordId}/properties`);
   }
