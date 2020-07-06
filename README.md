@@ -10,16 +10,21 @@ and [docker compose](https://docs.docker.com/compose/install/). You'll need to r
 commands below via command line to get started:
 
 ---
-NOTE: We are going to use a bash alias to make running docker-compose files a bit less verbose. You can run the following to create `docker-compose-local` and `docker-compose-deploy` alias commands:
+NOTE: We are going to use a bash alias to make running docker-compose files a bit less verbose. You can run the following to create `docker-compose-local`, `docker-compose-deploy`, and `docker-compose-test` alias commands:
 ```
 echo "alias docker-compose-local='docker-compose --file=docker-compose-local.yml'" >> ~/.bashrc
 echo "alias docker-compose-deploy='docker-compose --file=docker-compose-deploy.yml'" >> ~/.bashrc
+source ~/.bashrc
+echo "alias docker-compose-test='docker-compose --file=docker-compose-test.yml'" >> ~/.bashrc
 source ~/.bashrc
 ```
 ---
 
 Copy the app config (ready for running locally):
-`cp src/app/app.config.example.ts src/app/app.config.ts`
+`cp variables.env.example variables.env`
+
+You should edit the variables.env and set the MAPBOX_ACCESS_TOKEN:
+`nano variables.env`
 
 Compile the initial image, or if the Dockerfile changes:
 `docker-compose build app`
@@ -30,7 +35,7 @@ Bring up the container. This will tie the running process and logs to your termi
 You can now view the app in your browser:
 [http://localhost:4201](http://localhost:4201)
 
-To instead run it detached, you can run the following:
+To instead run a container detached, you can run the following:
 `docker-compose up -d app`
 
 To view a detached container's logs as they are generated:
