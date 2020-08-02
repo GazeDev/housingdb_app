@@ -50,7 +50,7 @@ sed -i -e "s|API_URL|${API_URL}|" ${TARGET_PATH}
 sed -i -e "s|KEYCLOAK_URL|${KEYCLOAK_URL}|" ${TARGET_PATH}
 sed -i -e "s|KEYCLOAK_REALM|${KEYCLOAK_REALM}|" ${TARGET_PATH}
 sed -i -e "s|KEYCLOAK_CLIENT_ID|${KEYCLOAK_CLIENT_ID}|" ${TARGET_PATH}
-sed -i -e "s|SITE_NAME|${SITE_NAME}|" ${TARGET_PATH}
+sed -i -e "s|INSTANCE_NAME|${INSTANCE_NAME}|" ${TARGET_PATH}
 
 # Make replacements in the netlify _redirects file
 REDIRECTS_PATH="./src/_redirects"

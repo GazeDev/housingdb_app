@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  siteName: 'SITE_NAME',
+  siteName: 'INSTANCE_NAME',
   mapbox: {
     accessToken: 'MAPBOX_ACCESS_TOKEN'
   },
