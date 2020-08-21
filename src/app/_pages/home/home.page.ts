@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-
-import { AuthenticationService } from '_services/index';
+import { AuthenticationService, HeadService } from '_services/index';
 
 import { environment } from '_environment';
 
@@ -14,8 +13,17 @@ export class HomePage {
 
   constructor(
     public authService: AuthenticationService,
+    private headService: HeadService,
   ) {
     this.env = environment;
+  }
+
+  ngOnInit() {
+    this.headService.setPageTitle('Home');
+  }
+
+  ngOnDestroy() {
+    this.headService.setPageTitle('');
   }
 
   async doLogin() {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService, ContentService } from '_services/index';
-import { AuthenticationService } from '_services/index';
+import { ApiService, AuthenticationService, ContentService, HeadService } from '_services/index';
 import { Property } from '_models/property.model';
 import { switchMap } from 'rxjs/operators';
 import { Landlord } from '_models/landlord.model';
@@ -27,6 +26,7 @@ export class PropertyDetailPage implements OnInit {
     public content: ContentService,
     private apiService: ApiService,
     public authenticationService: AuthenticationService,
+    public headService: HeadService,
   ) {
     this.property = <Property>{};
     this.landlord = {};
@@ -52,6 +52,10 @@ export class PropertyDetailPage implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.headService.setPageTitle('');
+  }
+
   isUuid(input) {
     const regex = RegExp(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
     return regex.test(input);
@@ -68,6 +72,7 @@ export class PropertyDetailPage implements OnInit {
     this.getPropertyExternalReviews();
     this.apiService.getProperty(this.propertyId).subscribe(res => {
       this.property = res;
+      this.headService.setPageTitle(this.property.name);
       if (this.property.LandlordId) {
         this.landlordId = this.property.LandlordId;
         this.loadPropertyLandlord();

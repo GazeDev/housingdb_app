@@ -34,6 +34,14 @@ export class ApiService {
   }
 
   /*
+  * Generic get
+  */
+
+  getJSONUrl(url) {
+    return this.httpClient.get<any>(url);
+  }
+
+  /*
   * Backend Status
   */
 

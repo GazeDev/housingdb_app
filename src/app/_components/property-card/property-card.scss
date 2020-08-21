@@ -1,8 +1,15 @@
 .units-reviews-stamp,
 .location-landlord-stamp {
-  border: 2px solid white;
+  border: 2px solid black;
   text-align: center;
   padding: .25rem;
+}
+
+.app-dark {
+  .units-reviews-stamp,
+  .location-landlord-stamp {
+    border-color: white;
+  }
 }
 
 .units-reviews-stamp {
@@ -49,8 +56,12 @@
 .units-reviews-divider {
   hr {
     margin: .25rem -.25rem;
-    border-color: #fff;
+    border-color: black;
   }
+}
+
+.app-dark .units-reviews-divider hr {
+  border-color: white;
 }
 
 .stars,

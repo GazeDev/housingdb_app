@@ -25,7 +25,10 @@
           <mat-icon title="Menu">menu</mat-icon> <span class="icon-label">Menu</span>
         </button>
 
-        <a mat-button routerLink="/">
+        <a mat-button class="home" routerLink="/">
+          <ng-container *ngIf="env.custom.logoUrl">
+            <img class="logo" alt="home" [src]="env.custom.logoUrl">
+          </ng-container>
           <h1 class="app-name">
             {{ env.siteName }}
           </h1>
@@ -35,6 +38,24 @@
           <button mat-button *ngIf="authService.isAuthenticated" (click)="accountManagement()">My Account</button>
           <button mat-button *ngIf="authService.isAuthenticated"  (click)="doLogout()">Log out</button>
           <button mat-button *ngIf="!authService.isAuthenticated" (click)="doLogin()">Log in/Sign up</button>
+          <ng-container *ngIf="appMenu">
+            <details class="app-switcher">
+              <summary aria-haspopup="true" role="button" title="Open App Menu">
+                Open App Menu
+              </summary>
+              <ul class="dropdown">
+                <ng-template #recursiveMenu let-menu>
+                  <li *ngFor="let item of menu">
+                    <a href="{{item.url}}">{{item.text}}</a>
+                    <ul *ngIf="item.children && item.children.length > 0">
+                      <ng-container *ngTemplateOutlet="recursiveMenu; context:{ $implicit: item.children }"></ng-container>
+                    </ul>
+                  </li>
+                </ng-template>
+                <ng-container *ngTemplateOutlet="recursiveMenu; context:{ $implicit: appMenu }"></ng-container>
+              </ul>
+            </details>
+          </ng-container>
         </div>
       </mat-toolbar-row>
     </mat-toolbar>

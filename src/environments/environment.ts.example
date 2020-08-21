@@ -6,6 +6,12 @@
 export const environment = {
   production: false,
   siteName: 'INSTANCE_NAME',
+  custom: {
+    faviconUrl: 'CUSTOM_FAVICON_URL',
+    logoUrl: 'CUSTOM_LOGO_URL',
+    stylesheetUrl: 'CUSTOM_STYLESHEET_URL',
+    appMenuUrl: 'CUSTOM_APP_MENU_URL',
+  },
   mapbox: {
     accessToken: 'MAPBOX_ACCESS_TOKEN'
   },

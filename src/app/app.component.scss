@@ -17,13 +17,63 @@ mat-sidenav {
   z-index: 1;
 
   .account-nav {
-    width: 100%;
-    text-align: right;
-    flex: 1;
-    padding: 0 12px;
+    display: flex;
+    margin-left: auto;
+    align-items: center;
 
     button {
       margin-right: .5rem;
+      margin-left: .5rem;
+    }
+  }
+
+  .app-switcher {
+    padding: .25rem;
+    position: relative;
+    border-bottom: none;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill-opacity="0.0"/><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z" fill="%23f1f1f1"/></svg>');
+      background-position-x: center;
+      background-position-y: center;
+      background-repeat: no-repeat;
+      background-size: auto;
+    font-size: 1.1rem;
+    summary {
+      border-bottom: transparent !important;
+      text-align: left;
+      text-indent: -99999px;
+      overflow: hidden;
+      width: 4rem;
+      cursor: pointer;
+    }
+    .dropdown {
+      display: none;
+      list-style: none;
+      position: absolute;
+      z-index: 9999;
+      top: 100%;
+      padding-top: 1rem;
+      margin-top: 0;
+      padding-bottom: 1rem;
+    }
+    &[open] .dropdown {
+      display: block;
+    }
+    .dropdown {
+      right: 0;
+      text-align: left;
+      padding-left: .5rem;
+      padding-right: .5rem;
+      margin-right: -.25rem;
+    }
+
+    .dropdown li {
+      margin-top: .25rem;
+      margin-bottom: .25rem;
+    }
+
+    .dropdown ul {
+      padding: 0;
+      list-style: none;
       margin-left: .5rem;
     }
   }

@@ -10,6 +10,17 @@
        url('/assets/fonts/MaterialIcons-Regular.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Roboto'),
+       local('Roboto-Regular'),
+       url("/assets/fonts/Roboto-Regular.ttf") format("truetype");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 @import '~@angular/material/theming';
 
 // NOTE: Theming is currently experimental and not yet publically released!
@@ -111,6 +122,10 @@ $theme: mat-light-theme($primary, $accent);
     color: #81d0ff;
   }
 
+  mat-radio-group mat-radio-button {
+    background-color: #424242;
+  }
+
 }
 
 .material-icons {
@@ -168,6 +183,25 @@ body {
 
 .mat-typography {
   line-height: 1.4;
+}
+
+.mat-toolbar.mat-primary {
+  background-color: #1A1A1A;
+}
+
+.mat-toolbar.mat-primary a.home .mat-button-wrapper {
+  display: flex;
+  align-items: center;
+  img {
+    max-width: 3rem;
+  }
+}
+
+.app-switcher .dropdown {
+  background-color: #1A1A1A;
+  a {
+    color: #fff;
+  }
 }
 
 mat-toolbar.page-info {
@@ -257,7 +291,7 @@ mat-radio-group {
   flex-direction: column;
   mat-radio-button {
     position: relative;
-    background-color: #424242;
+    background-color: #fff;
     border-radius: .25rem;
     padding: .5rem;
     padding-left: 1rem;

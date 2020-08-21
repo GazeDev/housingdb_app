@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { environment } from '_environment';
 // import { APP_CONFIG } from './app.config';
-import { AuthenticationService } from '_services/index';
-import { ApiService } from '_services/api.service';
+import { HttpClient } from '@angular/common/http';
+import { ApiService, AuthenticationService, HeadService } from '_services/index';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +11,40 @@ import { ApiService } from '_services/api.service';
 })
 export class AppComponent {
   public env: any = environment;
+  public appMenu: any = false;
 
   constructor(
+    private headService: HeadService,
     private apiService: ApiService,
     public authService: AuthenticationService,
+    public httpClient: HttpClient,
   ) {
+    this.setCustomizations();
     this.initializeApp();
     this.apiService.setUrl(environment.apiURL);
   }
+
+  setCustomizations() {
+    console.log(this.env.custom.logoUrl);
+    if (this.env.siteName) {
+      this.headService.setSiteTitle(this.env.siteName);
+    }
+    let custom = this.env.custom;
+    if (custom.faviconUrl) {
+      this.headService.setFavicon(custom.faviconUrl);
+    }
+    if (custom.stylesheetUrl) {
+      this.headService.setCustomStylesheet(custom.stylesheetUrl);
+    }
+    if(custom.appMenuUrl) {
+      this.httpClient.get<any>(custom.appMenuUrl).subscribe(res=> {
+        console.log('menu json', res);
+        this.appMenu = res;
+      });
+    }
+  }
+
+
 
   async initializeApp() {
     await this.authService.init();

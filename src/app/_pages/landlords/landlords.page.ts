@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '_services/api.service';
+import { ApiService, HeadService } from '_services/index';
 import { Landlord } from '_models/landlord.model';
 
 @Component({
@@ -24,6 +24,7 @@ export class LandlordsPage {
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
+    private headService: HeadService,
   ) {
     this.landlords = [];
 
@@ -43,7 +44,12 @@ export class LandlordsPage {
   }
 
   ngOnInit() {
+    this.headService.setPageTitle('Landlords');
     this.getLandlords();
+  }
+
+  ngOnDestroy() {
+    this.headService.setPageTitle('');
   }
 
   pageUpdated($event) {
