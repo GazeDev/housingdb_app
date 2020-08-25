@@ -25,11 +25,13 @@ export class AppComponent {
   }
 
   setCustomizations() {
-    console.log(this.env.custom.logoUrl);
     if (this.env.siteName) {
       this.headService.setSiteTitle(this.env.siteName);
     }
     let custom = this.env.custom;
+    if (custom.manifestUrl) {
+      this.headService.setManifest(custom.manifestUrl);
+    }
     if (custom.faviconUrl) {
       this.headService.setFavicon(custom.faviconUrl);
     }
@@ -44,7 +46,20 @@ export class AppComponent {
     }
   }
 
+  sameOrigin(url) {
+    // determines whether the passed in url is of the same origin as the window location
+    return url.indexOf(window.location.origin) === 0;
+  }
 
+  routerifiedLink(url) {
+    // removes the origin of a url
+    let origin = new URL(url).origin;
+    let link = url.slice(origin.length);
+    if (link.length === 0) {
+      return '/';
+    }
+    return link;
+  }
 
   async initializeApp() {
     await this.authService.init();

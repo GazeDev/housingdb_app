@@ -7,6 +7,7 @@ export const environment = {
   production: false,
   siteName: 'INSTANCE_NAME',
   custom: {
+    manifestUrl: 'CUSTOM_MANIFEST_URL',
     faviconUrl: 'CUSTOM_FAVICON_URL',
     logoUrl: 'CUSTOM_LOGO_URL',
     stylesheetUrl: 'CUSTOM_STYLESHEET_URL',

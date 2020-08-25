@@ -45,6 +45,13 @@ export class HeadService {
     return this.title.getTitle();
   }
 
+  setManifest(href) {
+    // link[rel=manifest].href
+    let manifest = this.doc.querySelector('link[rel=manifest]');
+    manifest.href = href;
+    manifest.disabled = false;
+  }
+
   setFavicon(href) {
     // link[rel=icon].href
     let favicon = this.doc.querySelector('link[rel=icon]');

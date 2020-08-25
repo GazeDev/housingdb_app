@@ -46,7 +46,12 @@
               <ul class="dropdown">
                 <ng-template #recursiveMenu let-menu>
                   <li *ngFor="let item of menu">
-                    <a href="{{item.url}}">{{item.text}}</a>
+                    <ng-container *ngIf="sameOrigin(item.url); else normalLink">
+                      <a routerLink="{{routerifiedLink(item.url)}}">{{item.text}}</a>
+                    </ng-container>
+                    <ng-template #normalLink>
+                      <a href="{{item.url}}">{{item.text}}</a>
+                    </ng-template>
                     <ul *ngIf="item.children && item.children.length > 0">
                       <ng-container *ngTemplateOutlet="recursiveMenu; context:{ $implicit: item.children }"></ng-container>
                     </ul>
