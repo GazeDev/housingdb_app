@@ -17,6 +17,7 @@ export class ApiService {
   public prevPage: string = "";
   public nextPage: string = "";
   public lastPage: string = "";
+  getHousingAvailable: any;
 
 
   constructor(
@@ -165,6 +166,15 @@ export class ApiService {
   getAccountReviews() {
     return this.httpClient.get<any>(`${this.apiUrl}/accounts/reviews`);
   }
+
+
+  /*
+   * Housing Available methods;
+   */
+  getHousingAvailables() {
+    return this.httpClient.get<any>(`${this.apiUrl}/housing-available`);
+  }
+
 
   /*
   * Review Methods

@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService, HeadService } from '_services/index';
-import { Property } from '_models/property.model';
+import { HousingAvailable } from '_models/housing-available.model';
 
 @Component({
   selector: 'housing-availables-page',
@@ -39,16 +39,14 @@ export class HousingAvailablesPage {
     this.page.size = $event.pageSize;
   }
 
-  getHousingAvailables(options = {}) {
+  getHousingAvailables() {
     this.loading = true;
-    this.apiService.getProperties(options).subscribe(res => {
-      this.properties = res;
-      this.loadPropertiesLandlords();
-      this.loadPropertiesLocations();
+    this.apiService.getHousingAvailables().subscribe(res => {
+      this.housingAvailables = res;
       this.loading = false;
     },
     err => {
-      console.log('Error getting Properties', err);
+      console.log('Error getting HousingAvailables', err);
       this.loading = false;
     });
   }
