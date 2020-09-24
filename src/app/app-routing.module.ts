@@ -8,6 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 //   'home',
 //   'dashboard',
 //   'profile',
+//   'housing-availables',
 //   'properties',
 //   'property-detail',
 //   'property-edit',
@@ -88,7 +89,11 @@ let routes: Routes = [
   {
     "path": "",
     "loadChildren": "_pages/review-add/review-add.module#ReviewAddPageModule"
-  }
+  },
+  {
+    "path": "",
+    "loadChildren": "_pages/housing-availables/housing-availables.module#HousingAvailablesPageModule"
+  },
 ];
 
 @NgModule({

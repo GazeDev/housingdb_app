@@ -167,14 +167,12 @@ export class ApiService {
     return this.httpClient.get<any>(`${this.apiUrl}/accounts/reviews`);
   }
 
-
   /*
    * Housing Available methods;
    */
   getHousingAvailables() {
     return this.httpClient.get<any>(`${this.apiUrl}/housing-available`);
   }
-
 
   /*
   * Review Methods
