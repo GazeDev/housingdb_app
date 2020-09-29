@@ -33,6 +33,28 @@ h1.example-app-name {
   }
 }
 
+.housing-available-block {
+  width: 31rem;
+  border: 3px solid black;
+  background-color: rgb(238, 68, 201);
+  padding: 10px;
+  text-align: left;
+  margin: 10px;
+}
+
+.details {
+  float: right;
+  background-color: rgb(61, 128, 167);
+}
+
+// .title {
+//   color: rgb(78, 46, 223);
+// }
+
+// .body {
+//   background-color: beige;
+// }
+
 .filters {
   button {
     margin-right: 1rem;
