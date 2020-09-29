@@ -1,0 +1,27 @@
+.range {
+  margin-bottom: 1.176rem;
+  .range-items {
+    display: flex;
+    flex-direction: row;
+  }
+  .range-divider {
+    font-size: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-top: 1rem;
+  }
+  > .mat-form-field-subscript-wrapper {
+    margin-top: -1.176rem;
+    // margin-bottom: 1.176rem;
+  }
+
+}
+
+.form-actions {
+  margin-top: 2rem;
+}
+
+.sublabel {
+  font-size: .65625rem;
+  opacity: .7;
+}

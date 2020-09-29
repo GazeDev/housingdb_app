@@ -1,0 +1,155 @@
+<mat-toolbar class="page-info">
+  <mat-toolbar-row>
+    Add Property
+  </mat-toolbar-row>
+</mat-toolbar>
+
+  <form (submit)="submit()" [formGroup]="form" #ngFormDirective="ngForm" [ngClass]="{'submit-attempt': submitAttempt}">
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="address" required>
+      <mat-error>
+        Address is a required field in order to add a property.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Landlord</mat-label>
+      <input matInput formControlName="landlordQuickInfo">
+      <mat-hint>
+        You can use this field to quickly autofill the following fields: landlord name, phone number, email address.<br>
+        Ex: Awesome Landlord 412-333-4444 landlord@example.com
+      </mat-hint>
+    </mat-form-field>
+
+    <p *ngIf="!authService.isAuthenticated">
+      <a mat-stroked-button color="accent" (click)="authService.login()">
+        Login
+      </a>
+      To access advanced fields like property name, bedrooms, bathrooms, description, and claiming ownership of the property with an account.
+    </p>
+
+    <mat-expansion-panel class="advanced" *ngIf="authService.isAuthenticated">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Advanced Fields
+        </mat-panel-title>
+        <mat-panel-description>
+          Ownership, Name, Bedrooms, Bathrooms, Website, Contact, Description
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-checkbox formControlName="claimOwnership">
+        Claim Ownership: I own or manage this property <br>
+        <span class="sublabel">
+          Only check this if you own this property or are authorized by the owner to manage it on their behalf.
+        </span>
+      </mat-checkbox>
+
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+        <mat-hint>
+          If this property has a formalized name, you can enter it here. e.g. Excellence Apartments
+        </mat-hint>
+      </mat-form-field>
+
+      <fieldset class="range" formGroupName="bedrooms">
+        <legend>Bedrooms</legend>
+        <div class="range-items">
+          <mat-form-field class="min" appearance="standard" floatLabel="always">
+            <mat-label>From</mat-label>
+            <input matInput type="text" formControlName="min">
+            <mat-error *ngFor="let item of form.get('bedrooms.min').errors | keyvalue">
+              {{ item.value.message }}
+            </mat-error>
+          </mat-form-field>
+          <span class="range-divider">-</span>
+          <mat-form-field class="max" appearance="standard" floatLabel="always">
+            <mat-label>To</mat-label>
+            <input matInput type="text" formControlName="max">
+            <mat-error *ngFor="let item of form.get('bedrooms.max').errors | keyvalue">
+              {{ item.value.message }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="mat-form-field-subscript-wrapper">
+          <div class="mat-form-field-hint-wrapper">
+            <mat-hint>
+              Enter the number of bedrooms, 0-10. (0 is Studio, 10 is 10+).<br>
+              Ex: A 2 bedroom house would be "From 2 - To 2". An Apartment with units ranging from studios to 4 bedrooms would be "From 0 - To 4"
+            </mat-hint>
+          </div>
+        </div>
+        <ng-container *ngIf="
+        ((form.get('bedrooms.min').dirty || form.get('bedrooms.min').touched) && !form.get('bedrooms.min').invalid) &&
+        ((form.get('bedrooms.max').dirty || form.get('bedrooms.max').touched) && !form.get('bedrooms.max').invalid)
+        " class="errors">
+          <mat-error *ngIf="form?.controls.bedrooms.errors?.incompleteSetError">Both From and To values should be filled out. To fix: <button mat-stroked-button (click)="bedroomValueDuplicate()">Duplicate value</button></mat-error>
+          <mat-error *ngIf="form?.controls.bedrooms.errors?.outOfOrderError">The From value should be lower than the To value. To fix: <button mat-stroked-button (click)="bedroomValuesSwitch()">Switch To and From values</button></mat-error>
+        </ng-container>
+      </fieldset>
+
+      <fieldset class="range" formGroupName="bathrooms">
+        <legend>Bathrooms</legend>
+        <div class="range-items">
+          <mat-form-field class="min" appearance="standard" floatLabel="always">
+            <mat-label>From</mat-label>
+            <input matInput type="text" formControlName="min">
+            <mat-error *ngFor="let item of form.get('bathrooms.min').errors | keyvalue">
+              {{ item.value.message }}
+            </mat-error>
+          </mat-form-field>
+          <span class="range-divider">-</span>
+          <mat-form-field class="max" appearance="standard" floatLabel="always">
+            <mat-label>To</mat-label>
+            <input matInput type="text" formControlName="max">
+            <mat-error *ngFor="let item of form.get('bathrooms.max').errors | keyvalue">
+              {{ item.value.message }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="mat-form-field-subscript-wrapper">
+          <div class="mat-form-field-hint-wrapper">
+            <mat-hint>
+              Enter the number of bathrooms in half units, 1-9. (ex. 1, 1.5, etc. 9 is 9+)
+            </mat-hint>
+          </div>
+        </div>
+        <ng-container *ngIf="
+        ((form.get('bathrooms.min').dirty || form.get('bathrooms.min').touched) && !form.get('bathrooms.min').invalid) &&
+        ((form.get('bathrooms.max').dirty || form.get('bathrooms.max').touched) && !form.get('bathrooms.max').invalid)
+        " class="errors">
+          <mat-error *ngIf="form?.get('bathrooms').errors?.incompleteSetError">Both From and To values should be filled out. To fix: <button mat-stroked-button (click)="bathroomValueDuplicate()">Duplicate value</button></mat-error>
+          <mat-error *ngIf="form?.get('bathrooms').errors?.outOfOrderError">The From value should be lower than the To value. To fix: <button mat-stroked-button (click)="bathroomValuesSwitch()">Switch To and From values</button></mat-error>
+        </ng-container>
+      </fieldset>
+
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Website</mat-label>
+        <input matInput type="url" formControlName="website">
+        <mat-hint>
+          A link to find more info about the property. Format: https://example.com
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Contact</mat-label>
+        <input matInput formControlName="contact">
+        <mat-hint>
+          Contact information if it is different from the landlord info
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="standard" floatLabel="always">
+        <mat-label>Description</mat-label>
+          <textarea matInput formControlName="body"></textarea>
+      </mat-form-field>
+
+    </mat-expansion-panel>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </div>
+  </form>
