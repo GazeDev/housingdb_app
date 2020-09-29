@@ -1,17 +1,17 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService, HeadService } from '_services/index';
 import { HousingAvailable } from '_models/housing-available.model';
+import { Body } from '@angular/http/src/body';
 
 @Component({
-  selector: 'housing-availables-page',
+  selector: 'housing-availables-page', // should be also "-page"?
   templateUrl: 'housing-availables.page.html',
   styleUrls: ['housing-availables.page.scss'],
 })
 export class HousingAvailablesPage {
 
   loading: boolean = true;
-  housingAvailables: any;
+  housingAvailables: HousingAvailable[]; // should be "any"?
   page: any;
 
   constructor(

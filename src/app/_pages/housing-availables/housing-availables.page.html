@@ -1,28 +1,49 @@
-<mat-toolbar class="page-info">
-  <mat-toolbar-row>
-    Get Housing Availables
-  </mat-toolbar-row>
-</mat-toolbar>
 
-<loading-block *ngIf="loading"></loading-block>
+<mat-card itemscope itemtype="http://schema.org/Hotel">
+  <mat-card-title *ngIf="showTitle">
+    Housing Available
+  </mat-card-title>
+  <mat-toolbar class="page-info">
+    <mat-toolbar-row>
+      Get Housing Availables
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-card-content class="clearfix">
+  <loading-block *ngIf="loading"></loading-block>
 
-<div class="cards" *ngIf="!loading">
-  <!-- <property-card *ngFor="let property of properties | slice:(page.offset * page.size):((page.offset+1)*page.size)"
-    [property]="property"
-    [landlord]="landlords[property.LandlordId]"
-    [location]="locations[property.LocationId]"
-  ></property-card> -->
-  <div *ngFor="let housingAvailable of housingAvailables">
-    <h2>{{housingAvailable.title}}</h2>
-      <p>{{housingAvailable.body}}</p>
-  </div>
+  <div class="cards" *ngIf="!loading">
+    <no-content *ngIf="housingAvailables.length == 0">No content to display.</no-content>
+      <div *ngFor="let housingAvailable of housingAvailables">
 
-  <no-content *ngIf="properties.length == 0"></no-content>
+        <h2>{{housingAvailable.title}}</h2>
+        <p>{{housingAvailable.body}}</p>
+        <p>{{housingAvailable.contact}}</p>
+        <p>{{housingAvailable.website}}</p>
+        <p>{{housingAvailable.address}}</p>
+        <p>{{housingAvailable.status}}</p>
+        <p>{{housingAvailable.bedrooms}}</p>
+        <p>{{housingAvailable.bathrooms}}</p>
+        <p>{{housingAvailable.details}}</p>
 
-  <!-- <mat-paginator [length]="properties.length"
-    [pageSize]="page.size"
-    [pageIndex]="page.offset"
-    [pageSizeOptions]="[10,25,50,100]"
-    (page)="pageUpdated($event)">
-  </mat-paginator> -->
-  </div>
+
+      </div>
+
+
+        <!-- <a routerLink="/landlord/{{ property.LandlordId }}">
+          <ng-container *ngIf="landlord; else loading;">
+            {{ landlord.name }}
+          </ng-container>
+          <ng-template #loading>
+            Loading Landlord
+          </ng-template>
+        </a> -->
+
+    <!-- <mat-paginator [length]="properties.length"
+      [pageSize]="page.size"
+      [pageIndex]="page.offset"
+      [pageSizeOptions]="[10,25,50,100]"
+      (page)="pageUpdated($event)">
+    </mat-paginator> -->
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -22,4 +22,4 @@ import { HousingAvailablesPage } from './housing-availables.page';
   ],
   declarations: [HousingAvailablesPage]
 })
-export class HousingAvailablesPageModule {}
+export class HousingAvailablesPageModule {};
