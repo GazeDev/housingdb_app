@@ -1,46 +1,27 @@
-
-<mat-card itemscope itemtype="http://schema.org/Hotel">
-  <mat-card-title *ngIf="showTitle">
+<mat-toolbar class="page-info">
+  <mat-toolbar-row>
     Housing Available
-  </mat-card-title>
-  <mat-toolbar class="page-info">
-    <mat-toolbar-row>
-      Housing Available
-    </mat-toolbar-row>
-  </mat-toolbar>
-  <mat-card-content class="clearfix">
-  <loading-block *ngIf="loading"></loading-block>
-
-  <div class="cards" *ngIf="!loading">
-    <no-content *ngIf="housingAvailables.length == 0">No content to display.</no-content>
-      <div class="housing-available-block" *ngFor="let housingAvailable of housingAvailables">
-        <h2>{{housingAvailable.title}}</h2>
-        <p>{{housingAvailable.body}}</p>
-        <p>Contact: {{housingAvailable.contact}}</p>
-        <p>Website: {{housingAvailable.website}}</p>
-        <p>Address: {{housingAvailable.address}}</p>
-        <p>Listing Status:  {{housingAvailable.status}}</p>
-        <p>Bedrooms: {{housingAvailable.bedrooms}}</p>
-        <p>Bathrooms: {{housingAvailable.bathrooms}}</p>
-        <p class="housing-available-block.details">Additional Details: {{housingAvailable.details}}</p>
-      </div>
+  </mat-toolbar-row>
+</mat-toolbar>
 
 
-        <!-- <a routerLink="/landlord/{{ property.LandlordId }}">
-          <ng-container *ngIf="landlord; else loading;">
-            {{ landlord.name }}
-          </ng-container>
-          <ng-template #loading>
-            Loading Landlord
-          </ng-template>
-        </a> -->
 
-    <!-- <mat-paginator [length]="properties.length"
-      [pageSize]="page.size"
-      [pageIndex]="page.offset"
-      [pageSizeOptions]="[10,25,50,100]"
-      (page)="pageUpdated($event)">
-    </mat-paginator> -->
-    </div>
-  </mat-card-content>
-</mat-card>
+<loading-block *ngIf="loading"></loading-block>
+<div class="cards" *ngIf="!loading">
+  <no-content *ngIf="housingAvailables.length == 0"></no-content>
+  <mat-card class="housing-available-block" *ngFor="let housingAvailable of housingAvailables">
+    <mat-card-title class="title">
+      {{housingAvailable.title}}
+    </mat-card-title>
+    <mat-card-content class="clearfix">
+      <p>{{housingAvailable.body}}</p>
+      <p>Contact: {{housingAvailable.contact}}</p>
+      <p>Website: {{housingAvailable.website}}</p>
+      <p>Address: {{housingAvailable.address}}</p>
+      <p>Listing Status:  {{housingAvailable.status}}</p>
+      <p>Bedrooms: {{housingAvailable.bedrooms}}</p>
+      <p>Bathrooms: {{housingAvailable.bathrooms}}</p>
+      <p class="details">Additional Details: {{housingAvailable.details}}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
