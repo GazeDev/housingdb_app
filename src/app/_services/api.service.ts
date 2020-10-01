@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Property } from '_models/property.model';
 import { Landlord } from '_models/landlord.model';
-// import { HousingAvailable } from '_models/housing-available.model';
+import { HousingAvailable } from '_models/housing-available.model';
 import { emptyish } from '_helpers/emptyish';
 
 
@@ -18,8 +18,7 @@ export class ApiService {
   public prevPage: string = "";
   public nextPage: string = "";
   public lastPage: string = "";
-  getHousingAvailable: any;
-
+  getHousingAvailable: any; // TODO: is necessary?
 
   constructor(
     private httpClient: HttpClient
@@ -144,7 +143,6 @@ export class ApiService {
     } else {
       return this.httpClient.get<any>(`${this.apiUrl}/accounts`);
     }
-
   }
 
   createAccount() {
@@ -173,6 +171,10 @@ export class ApiService {
    */
   getHousingAvailables() {
     return this.httpClient.get<any>(`${this.apiUrl}/housing-available`);
+  }
+
+  addHousingAvailable(housingAvailable: HousingAvailable) {
+    return this.httpClient.post<any>(`${this.apiUrl}/housing-available`, housingAvailable, {observe: 'response'});
   }
 
   /*

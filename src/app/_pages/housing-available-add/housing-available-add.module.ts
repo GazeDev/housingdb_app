@@ -5,12 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '_components/angular-material.module';
 import { Routes, RouterModule } from '@angular/router';
 
-import { PropertyAddPage } from './housing-available-add.page';
+import { HousingAvailableAddPage } from './housing-available-add.page';
 
 const routes: Routes = [
   {
-    path: 'properties/add',
-    component: PropertyAddPage
+    path: 'housing-available-add',
+    component: HousingAvailableAddPage
   }
 ];
 
@@ -22,6 +22,6 @@ const routes: Routes = [
     AngularMaterialModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PropertyAddPage]
+  declarations: [HousingAvailableAddPage]
 })
-export class PropertyAddPageModule {}
+export class HousingAvailableAddPageModule {}

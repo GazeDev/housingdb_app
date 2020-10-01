@@ -15,7 +15,7 @@ import { HousingAvailablesPage } from './housing-availables.page';
     AngularMaterialModule,
     RouterModule.forChild([
       {
-        path: 'housing-availables',
+        path: 'housing-available',
         component: HousingAvailablesPage
       }
     ])
