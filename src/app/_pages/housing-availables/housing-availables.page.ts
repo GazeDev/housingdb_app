@@ -27,16 +27,11 @@ export class HousingAvailablesPage {
 
   ngOnInit() {
     this.getHousingAvailables();
-    this.headService.setPageTitle('Housing Available: ');
+    this.headService.setPageTitle('Housing Available');
   }
 
   ngOnDestroy() {
     this.headService.setPageTitle('');
-  }
-
-  pageUpdated($event) {
-    this.page.offset = $event.pageIndex;
-    this.page.size = $event.pageSize;
   }
 
   getHousingAvailables() {
