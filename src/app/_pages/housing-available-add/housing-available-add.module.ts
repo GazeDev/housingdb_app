@@ -21,6 +21,7 @@ const routes: Routes = [
     FormsModule,
     AngularMaterialModule,
     RouterModule.forChild(routes)
+    // TODO: add path, component;
   ],
   declarations: [HousingAvailableAddPage]
 })

@@ -170,7 +170,7 @@ export class ApiService {
    * Housing Available methods;
    */
   getHousingAvailables() {
-    return this.httpClient.get<any>(`${this.apiUrl}/housing-available`);
+    return this.httpClient.get<HousingAvailable[]>(`${this.apiUrl}/housing-available`);
   }
 
   addHousingAvailable(housingAvailable: HousingAvailable) {
