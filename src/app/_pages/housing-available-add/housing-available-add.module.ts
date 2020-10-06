@@ -7,22 +7,19 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HousingAvailableAddPage } from './housing-available-add.page';
 
-const routes: Routes = [
-  {
-    path: 'housing-available-add',
-    component: HousingAvailableAddPage
-  }
-];
-
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     AngularMaterialModule,
-    RouterModule.forChild(routes)
-    // TODO: add path, component;
+    RouterModule.forChild([
+      {
+      path: 'housing-available/add',
+      component: HousingAvailableAddPage
+      }
+    ])
   ],
   declarations: [HousingAvailableAddPage]
 })
-export class HousingAvailableAddPageModule {}
+export class HousingAvailableAddPageModule {};

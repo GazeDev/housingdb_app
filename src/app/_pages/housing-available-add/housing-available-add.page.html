@@ -12,13 +12,13 @@
       </a>
       To access advanced fields like property name, bedrooms, bathrooms, description, and claiming ownership of the property with an account.
     </p>
-
+<!--
     <mat-checkbox formControlName="claimOwnership">
       Claim Ownership: I own or manage this property <br>
       <span class="sublabel">
         Only check this if you own this property or are authorized by the owner to manage it on their behalf.
       </span>
-    </mat-checkbox>
+    </mat-checkbox> -->
 
     <mat-form-field appearance="standard" floatLabel="always">
       <mat-label>Title</mat-label>
@@ -40,13 +40,15 @@
       </mat-hint>
     </mat-form-field>
 
-    <mat-form-field appearance="standard" floatLabel="always">
-      <mat-label>Bedrooms</mat-label>
-      <input matInput formControlName="bedrooms" required>
-      <mat-error>
-        Bedrooms must be a whole number.
-      </mat-error>
-    </mat-form-field>
+    <fieldset class="range" formGroupName="bedrooms">
+      <legend>Bedrooms</legend>
+        <mat-form-field appearance="standard" floatLabel="always">
+          <mat-label>Bedrooms</mat-label>
+          <input matInput formControlName="bedrooms" required>
+          <mat-error>
+            Bedrooms must be a whole number.
+          </mat-error>
+        </mat-form-field>
 
     <mat-form-field appearance="standard" floatLabel="always">
       <mat-label>Bathrooms</mat-label>
