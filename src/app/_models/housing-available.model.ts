@@ -7,8 +7,8 @@ export class HousingAvailable {
   contact: string;
   bedrooms?: number;
   bathrooms?: number;
-  status: string;
+  status?: string;
   AuthorId: string;
-  metadata: {};
-  details: {};
+  metadata?: {};
+  details?: {};
 }

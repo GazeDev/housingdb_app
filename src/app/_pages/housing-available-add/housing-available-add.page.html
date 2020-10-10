@@ -22,7 +22,7 @@
 
     <mat-form-field appearance="standard" floatLabel="always">
       <mat-label>Title</mat-label>
-      <textarea matInput formControlName="title"></textarea>
+      <input matInput formControlName="title">
       <mat-hint>
         If this Housing Available listing has a formalized name, you can enter it here. e.g. Excellence Apartments<br>
         Alternately, if you'd just like to give this listing an eye-catching title, you can also do that here, e.g.<br>
@@ -40,15 +40,13 @@
       </mat-hint>
     </mat-form-field>
 
-    <fieldset class="range" formGroupName="bedrooms">
-      <legend>Bedrooms</legend>
-        <mat-form-field appearance="standard" floatLabel="always">
-          <mat-label>Bedrooms</mat-label>
-          <input matInput formControlName="bedrooms" required>
-          <mat-error>
-            Bedrooms must be a whole number.
-          </mat-error>
-        </mat-form-field>
+    <mat-form-field appearance="standard" floatLabel="always">
+      <mat-label>Bedrooms</mat-label>
+      <input matInput formControlName="bedrooms" required>
+      <mat-error>
+        Bedrooms must be a whole number.
+      </mat-error>
+    </mat-form-field>
 
     <mat-form-field appearance="standard" floatLabel="always">
       <mat-label>Bathrooms</mat-label>
@@ -83,8 +81,12 @@
     </mat-form-field>
 
     <mat-form-field appearance="standard" floatLabel="always">
-      <mat-label>Status</mat-label>
-      <input matInput formControlName="status" required>
+      <mat-label>- Status -</mat-label>
+      <select matNativeControl formControlName="status" required>
+        <option value='pending'>Pending</option>
+        <option value='active'>Active</option>
+        <option value='inactive'>Inactive</option>
+      </select>
       <mat-error>
         Status is a required field in order to add a housing listing.<br>
         It must be either "active", "inactive", or "pending".

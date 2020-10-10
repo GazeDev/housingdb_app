@@ -18,7 +18,6 @@ export class ApiService {
   public prevPage: string = "";
   public nextPage: string = "";
   public lastPage: string = "";
-  getHousingAvailable: any; // TODO: is necessary?
 
   constructor(
     private httpClient: HttpClient

@@ -40,8 +40,7 @@ export class HousingAvailableAddPage implements OnInit {
       bathrooms: [0, Validators.compose([])],
       website: ['', UrlValidator],
       contact: ['', Validators.compose([Validators.required])],
-      metadata: [''],
-      details: ['']
+      status:['active'],
     });
   }
 
@@ -70,6 +69,7 @@ export class HousingAvailableAddPage implements OnInit {
   }
 
   submit() {
+    console.log("Form submitted: ");
     this.currentlySubmitting = true;
     this.submitAttempt = true;
 
@@ -83,26 +83,25 @@ export class HousingAvailableAddPage implements OnInit {
       title: formValues.title,
       body: formValues.body,
       contact: formValues.contact,
-      status: formValues.status,
-      metadata: {},
       address: formValues.address,
-      details: {},
       website: formValues.website,
-      AuthorId: formValues.AuthorId
+      AuthorId: formValues.AuthorId,
     };
-    if (formValues.claimOwnership === true) {
-      this.apiService.getAccount().subscribe(
-        response => {
-          housingAvailable.AuthorId = response.id;
-          this.apiService.addHousingAvailable(housingAvailable).subscribe(res => {
-            console.log("Form submitted");
-            for (let key in formValues) {
-              console.log(key, formValues[key]);
-            }
-          });
-          this.resetForm();
-        }
-      )
+    if (formValues.status !== null) {
+      housingAvailable.status = formValues.status;
     }
+    this.apiService.getAccount().subscribe(
+      accountResponse => {
+        housingAvailable.AuthorId = accountResponse.id;
+        this.apiService.addHousingAvailable(housingAvailable).subscribe(addHousingAvailableResponse => {
+          console.log("Form submitted", addHousingAvailableResponse);
+          for (let key in formValues) {
+            console.log(key, formValues[key]);
+          }
+        });
+        this.resetForm();
+      }
+    )
   }
+
 }
