@@ -1,0 +1,57 @@
+.cards {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-flow: row wrap;
+  align-content: flex-start;
+  property-card {
+    width: 31rem;
+  }
+}
+
+.housing-available-block {
+  width: 31rem;
+  border: 3px solid black;
+  padding: 10px;
+  text-align: left;
+  margin: 10px;
+}
+
+// .filters {
+//   button {
+//     margin-right: 1rem;
+//   }
+// }
+
+// .filters-container .filters-panel {
+//   display: none;
+//   border-bottom: 1px solid grey;
+//   margin-bottom: 1rem;
+//   padding-bottom: 1rem;
+// }
+
+// .filters-container.filters-open .filters-panel {
+//   display: block;
+// }
+
+// @media (min-width: 48rem) {
+
+//   .filters-container .filters-panel {
+//     float: left;
+//     width: 15rem;
+//     border-right: 1px solid grey;
+//     padding-right: 1rem;
+//     margin-right: 1rem;
+//     border-bottom: none;
+//   }
+
+//   .filters-container.filters-open .filters-main {
+//     float: right;
+//     width: 100%;
+//     width: calc(100% - 16rem);
+//   }
+
+//   .filters-container .cards {
+//     clear: right;
+//   }
+// }

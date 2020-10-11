@@ -10,6 +10,7 @@
     <mat-nav-list (click)="sidenav.close()">
       <a mat-list-item routerLink="/dashboard" *ngIf="authService.isAuthenticated">Dashboard</a>
       <a mat-list-item routerLink="/profile" *ngIf="authService.isAuthenticated">Profile</a>
+      <a mat-list-item routerLink='/housing-availables'>Housing Availables</a>
       <a mat-list-item routerLink="/properties">Properties</a>
       <a mat-list-item routerLink="/landlords">Landlords</a>
       <mat-divider></mat-divider>
