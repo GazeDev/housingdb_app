@@ -173,7 +173,7 @@ export class ApiService {
   }
 
   addHousingAvailable(housingAvailable: HousingAvailable) {
-    return this.httpClient.post<HousingAvailable>(`${this.apiUrl}/housing-available`, housingAvailable, {observe: 'response'});
+    return this.httpClient.post<HousingAvailable>(`${this.apiUrl}/housing-available`, housingAvailable);
   }
 
   /*

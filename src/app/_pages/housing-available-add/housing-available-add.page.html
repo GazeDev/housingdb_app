@@ -10,22 +10,15 @@
       <a mat-stroked-button color="accent" (click)="authService.login()">
         Login
       </a>
-      To access advanced fields like property name, bedrooms, bathrooms, description, and claiming ownership of the property with an account.
+      User must be logged-in to post a new Housing Available listing.
     </p>
-<!--
-    <mat-checkbox formControlName="claimOwnership">
-      Claim Ownership: I own or manage this property <br>
-      <span class="sublabel">
-        Only check this if you own this property or are authorized by the owner to manage it on their behalf.
-      </span>
-    </mat-checkbox> -->
 
     <mat-form-field appearance="standard" floatLabel="always">
       <mat-label>Title</mat-label>
       <input matInput formControlName="title">
       <mat-hint>
-        If this Housing Available listing has a formalized name, you can enter it here. e.g. Excellence Apartments<br>
-        Alternately, if you'd just like to give this listing an eye-catching title, you can also do that here, e.g.<br>
+        If this Housing Available listing has a formalized name, you can enter it here. e.g. Excellence Apartments
+        Alternately, if you'd just like to give this listing an eye-catching title, you can also do that here, e.g.
         "Splendid view, minutes from downtown!".
       </mat-hint>
     </mat-form-field>
@@ -34,8 +27,8 @@
       <mat-label>Description</mat-label>
       <textarea matInput formControlName="body"></textarea>
       <mat-hint>
-        Give this Housing Available listing a vivid, informative description.  You can also add tidbits about the<br>
-        lease details, such as "Water/Sewage/Gas/WiFi are included" or "Renter pays first and last months rent upon<br>
+        Give this Housing Available listing a vivid, informative description.  You can also add tidbits about the
+        lease details, such as "Water/Sewage/Gas/WiFi are included" or "Renter pays first and last months rent upon
         approval".
       </mat-hint>
     </mat-form-field>
@@ -88,7 +81,7 @@
         <option value='inactive'>Inactive</option>
       </select>
       <mat-error>
-        Status is a required field in order to add a housing listing.<br>
+        Status is a required field in order to add a housing listing.
         It must be either "active", "inactive", or "pending".
       </mat-error>
     </mat-form-field>

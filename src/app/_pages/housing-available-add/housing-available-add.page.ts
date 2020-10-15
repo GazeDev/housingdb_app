@@ -94,14 +94,9 @@ export class HousingAvailableAddPage implements OnInit {
       accountResponse => {
         housingAvailable.AuthorId = accountResponse.id;
         this.apiService.addHousingAvailable(housingAvailable).subscribe(addHousingAvailableResponse => {
-          console.log("Form submitted", addHousingAvailableResponse);
-          for (let key in formValues) {
-            console.log(key, formValues[key]);
-          }
+          this.resetForm();
         });
-        this.resetForm();
       }
     )
   }
-
 }
