@@ -1,17 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from '_services/api.service';
+import { NumberRangeValidator, NumberRangeItemValidator } from '_validators/range-validator';
 import { HousingAvailable } from '_models/housing-available.model';
 
-import { Router } from '@angular/router';
-import { ApiService } from '_services/api.service';
-
-import { NumberRangeValidator, NumberRangeItemValidator } from '_validators/range-validator';
-
-// import { AlertService } from '_services/alert.service';
 import { AuthenticationService } from '_services/index';
 import { UrlValidator } from '_validators/url-validator';
-import { emptyish } from '_helpers/emptyish';
 
 @Component({
   selector: 'app-housing-available-add',
@@ -36,8 +31,8 @@ export class HousingAvailableAddPage implements OnInit {
       title: ['', Validators.compose([Validators.required])],
       body: ['', Validators.compose([Validators.required])],
       address: ['', Validators.compose([Validators.required])],
-      bedrooms: [0, this.bedroomItemValidator()], // bed and bath used to be [0];
-      bathrooms: [0, Validators.compose([])],
+      bedrooms: [0, this.bedroomItemValidator()],
+      bathrooms: [0, this.bathroomItemValidator()],
       website: ['', UrlValidator],
       contact: ['', Validators.compose([Validators.required])],
       status:['active'],
@@ -84,6 +79,8 @@ export class HousingAvailableAddPage implements OnInit {
       body: formValues.body,
       contact: formValues.contact,
       address: formValues.address,
+      bathrooms: formValues.bathrooms,
+      bedrooms: formValues.bedrooms,
       website: formValues.website,
       AuthorId: formValues.AuthorId,
     };

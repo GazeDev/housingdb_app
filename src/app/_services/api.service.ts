@@ -173,12 +173,12 @@ export class ApiService {
   }
 
   addHousingAvailable(housingAvailable: HousingAvailable) {
-    return this.httpClient.post<HousingAvailable>(`${this.apiUrl}/housing-available`, housingAvailable);
+    return this.httpClient.post<HousingAvailable>(`${this.apiUrl}/housing-available`, removeEmptyishFromObjectRecursive(housingAvailable));
   }
 
   /*
-  * Review Methods
-  */
+   * Review Methods
+   */
 
   getLandlordReviews(landlordId) {
     return this.httpClient.get<any>(`${this.apiUrl}/landlords/${landlordId}/reviews`);
