@@ -3,10 +3,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '_services/api.service';
 import { NumberRangeValidator, NumberRangeItemValidator } from '_validators/range-validator';
+import { UrlValidator } from '_validators/url-validator';
 import { HousingAvailable } from '_models/housing-available.model';
 
 import { AuthenticationService } from '_services/index';
-import { UrlValidator } from '_validators/url-validator';
+
 
 @Component({
   selector: 'app-housing-available-add',
