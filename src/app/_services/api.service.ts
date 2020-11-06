@@ -142,7 +142,6 @@ export class ApiService {
     } else {
       return this.httpClient.get<any>(`${this.apiUrl}/accounts`);
     }
-
   }
 
   createAccount() {
@@ -173,9 +172,13 @@ export class ApiService {
     return this.httpClient.get<HousingAvailable[]>(`${this.apiUrl}/housing-available`);
   }
 
+  addHousingAvailable(housingAvailable: HousingAvailable) {
+    return this.httpClient.post<HousingAvailable>(`${this.apiUrl}/housing-available`, removeEmptyishFromObjectRecursive(housingAvailable));
+  }
+
   /*
-  * Review Methods
-  */
+   * Review Methods
+   */
 
   getLandlordReviews(landlordId) {
     return this.httpClient.get<any>(`${this.apiUrl}/landlords/${landlordId}/reviews`);

@@ -94,6 +94,10 @@ let routes: Routes = [
     "path": "",
     "loadChildren": "_pages/housing-availables/housing-availables.module#HousingAvailablesPageModule"
   },
+  {
+    "path": "",
+    "loadChildren": "_pages/housing-available-add/housing-available-add.module#HousingAvailableAddPageModule"
+  },
 ];
 
 @NgModule({

@@ -4,14 +4,14 @@ import { HousingAvailable } from '_models/housing-available.model';
 import { Body } from '@angular/http/src/body';
 
 @Component({
-  selector: 'housing-availables-page', // should be also "-page"?
+  selector: 'housing-availables-page',
   templateUrl: 'housing-availables.page.html',
   styleUrls: ['housing-availables.page.scss'],
 })
 export class HousingAvailablesPage {
 
   loading: boolean = true;
-  housingAvailables: HousingAvailable[]; // should be "any"?
+  housingAvailables: HousingAvailable[];
   page: any;
 
   constructor(

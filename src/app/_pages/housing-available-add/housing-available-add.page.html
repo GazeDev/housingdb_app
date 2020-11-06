@@ -1,0 +1,97 @@
+<mat-toolbar class="page-info">
+  <mat-toolbar-row>
+    Add Housing Available
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<form (submit)="submit()" [formGroup]="form" #ngFormDirective="ngForm" [ngClass]="{'submit-attempt': submitAttempt}">
+
+  <p *ngIf="!authService.isAuthenticated">
+    <a mat-stroked-button color="accent" (click)="authService.login()">
+      Login
+    </a>
+    User must be logged-in to post a new Housing Available listing.
+  </p>
+
+  <mat-form-field appearance="standard" floatLabel="always">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title">
+    <mat-hint>
+      If this Housing Available listing has a formalized name, you can enter it here. e.g. Excellence Apartments
+      Alternately, if you'd just like to give this listing an eye-catching title, you can also do that here, e.g.
+      "Splendid view, minutes from downtown!".
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="standard" floatLabel="always">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="body"></textarea>
+    <mat-hint>
+      Give this Housing Available listing a vivid, informative description.  You can also add tidbits about the
+      lease details, such as "Water/Sewage/Gas/WiFi are included" or "Renter pays first and last months rent upon
+      approval".
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="standard" floatLabel="always">
+    <mat-label>Bedrooms</mat-label>
+    <input matInput formControlName="bedrooms">
+    <mat-error>
+      Bedrooms must be a whole number.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="standard" floatLabel="always">
+    <mat-label>Bathrooms</mat-label>
+    <input matInput formControlName="bathrooms">
+    <mat-error>
+      Bathrooms must be in 0.25 increments.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="standard" floatLabel="always">
+    <mat-label>Address</mat-label>
+    <input matInput formControlName="address" required>
+    <mat-error>
+      A valid address is a required field in order to add a housing listing.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="standard" floatLabel="always">
+    <mat-label>Website</mat-label>
+    <input matInput type="url" formControlName="website">
+    <mat-hint>
+      A link to find more info about this Housing Available listing. Format: https://example.com
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="standard" floatLabel="always">
+    <mat-label>Contact</mat-label>
+    <input matInput formControlName="contact">
+    <mat-hint>
+      Contact information for the person or agency responsible for leasing the property.
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="standard" floatLabel="always">
+    <mat-label>- Status -</mat-label>
+    <select matNativeControl formControlName="status" required>
+      <option value='pending'>Pending</option>
+      <option value='active'>Active</option>
+      <option value='inactive'>Inactive</option>
+    </select>
+    <mat-error>
+      Status is a required field in order to add a housing listing.
+      It must be either "active", "inactive", or "pending".
+    </mat-error>
+  </mat-form-field>
+
+  <div class="form-actions">
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </div>
+</form>
+<div class="form-actions">
+  <button mat-raised-button color="primary" type="button">
+    <a class="form-actions-link" routerLink="/housing-availables">View Housing Available</a>
+  </button>
+</div>

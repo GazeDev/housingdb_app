@@ -30,6 +30,7 @@ export class DashboardPage {
     this.loadLandlords();
     // Wait until after landlords are loaded to load properties so we can reduce property landlord lookups
     this.loadReviews();
+
   }
 
   loadLandlords() {
