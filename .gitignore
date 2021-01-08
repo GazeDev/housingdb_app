@@ -43,3 +43,4 @@ src/environments/environment.prod.ts
 src/_redirects
 # Ingore the custom css file. It can be used as a way to test styles before prod
 src/assets/custom.css
+src/index.html

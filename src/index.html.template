@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>HousingDB</title>
+    <title><!--INSTANCE_NAME--></title>
 
     <base href="/" />
 
@@ -12,16 +12,17 @@
     />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
-    <link rel="manifest" id="customManifest" disabled/>
-    <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+    <!--CUSTOM_MANIFEST_HTML-->
+    <!--CUSTOM_FAVICON_HTML-->
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css' rel='stylesheet' />
 
     <!-- add to homescreen for ios -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!--PLAUSIBLE_HTML-->
   </head>
   <body class="mat-app-background mat-typography">
     <app-root></app-root>
-    <link rel="stylesheet" id="customStyles" href="/assets/custom.css" disabled/>
+    <!--CUSTOM_STYLESHEET_HTML-->
   </body>
 </html>

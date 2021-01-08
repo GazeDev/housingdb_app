@@ -63,3 +63,39 @@ cp ${REDIRECTS_PATH}.example ${REDIRECTS_PATH}
 
 sed -i -e "s|NETLIFY_DOMAIN|${NETLIFY_DOMAIN}|" ${REDIRECTS_PATH}
 sed -i -e "s|SITE_DOMAIN|${SITE_DOMAIN}|" ${REDIRECTS_PATH}
+
+# Make replacements in the index.html
+INDEX_PATH="./src/index.html"
+
+cp ${INDEX_PATH}.template ${INDEX_PATH}
+
+if [[ ${INSTANCE_NAME} == "" ]]; then
+  INSTANCE_NAME="HousingDB"
+fi
+sed -i -e "s|<!--INSTANCE_NAME-->|${INSTANCE_NAME}|" ${INDEX_PATH}
+
+if [[ ${CUSTOM_MANIFEST_URL} != "" ]]; then
+  echo "Injecting custom manifest url: ${CUSTOM_MANIFEST_URL}"
+  CUSTOM_MANIFEST_HTML="<link rel=\"manifest\" id=\"customManifest\" href=\"${CUSTOM_MANIFEST_URL}\"/>"
+  sed -i -e "s|<!--CUSTOM_MANIFEST_HTML-->|${CUSTOM_MANIFEST_HTML}|" ${INDEX_PATH}
+fi
+
+if [[ ${CUSTOM_FAVICON_URL} != "" ]]; then
+  echo "Injecting custom logo url: ${CUSTOM_FAVICON_URL}"
+  CUSTOM_FAVICON_HTML="<link rel=\"icon\" type=\"image/png\" href=\"${CUSTOM_FAVICON_URL}\" />"
+else
+  CUSTOM_FAVICON_HTML="<link rel=\"icon\" type=\"image/png\" href=\"assets/icon/favicon.png\" />"
+fi
+sed -i -e "s|<!--CUSTOM_FAVICON_HTML-->|${CUSTOM_FAVICON_HTML}|" ${INDEX_PATH}
+
+if [[ ${CUSTOM_STYLESHEET_URL} != "" ]]; then
+  echo "Injecting custom stylesheet url: ${CUSTOM_STYLESHEET_URL}"
+  CUSTOM_STYLESHEET_HTML="<link rel=\"stylesheet\" id=\"customStyles\" href=\"${CUSTOM_STYLESHEET_URL}\" />"
+  sed -i -e "s|<!--CUSTOM_STYLESHEET_HTML-->|${CUSTOM_STYLESHEET_HTML}|" ${INDEX_PATH}
+fi
+
+if [[ ${PLAUSIBLE_DOMAIN} != "" ]]; then
+  echo "Injecting Plausible Analytics: ${PLAUSIBLE_DOMAIN}"
+  PLAUSIBLE_HTML="<script async defer data-domain=\"$PLAUSIBLE_DOMAIN\" src=\"https://plausible.io/js/plausible.js\"></script>"
+  sed -i -e "s|<!--PLAUSIBLE_HTML-->|${PLAUSIBLE_HTML}|" ${INDEX_PATH}
+fi
