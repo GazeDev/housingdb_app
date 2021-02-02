@@ -8,6 +8,8 @@ import { AuthenticationService } from '_services/index';
 import { NumberRangeValidator, NumberRangeItemValidator } from '_validators/range-validator';
 import { UrlValidator } from '_validators/url-validator';
 import { emptyish } from '_helpers/emptyish';
+import { Observable, of } from 'rxjs';
+import { startWith, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-property-add',
@@ -20,6 +22,7 @@ export class PropertyAddPage implements OnInit {
   form: FormGroup;
   submitAttempt: boolean;
   currentlySubmitting: boolean;
+  landlordAutocompletes: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -51,10 +54,28 @@ export class PropertyAddPage implements OnInit {
       contact: [''],
       body: [''],
     });
+    // TODO: if you put in 's' then delete it, result still shows
+    this.landlordAutocompletes = this.form.get('landlordQuickInfo').valueChanges
+      .pipe(
+        startWith(''),
+        debounceTime(100),
+        distinctUntilChanged(),
+        switchMap(val => {
+          return this.landlordSearch(val || '')
+        })
+      );
   }
 
   async ngOnInit() {
     await this.authService.checkLogin();
+  }
+
+  landlordSearch(value: string): Observable<any[]> {
+    if (value.trim() == '') {
+      console.log('return empty array');
+      return of([]);
+    }
+    return this.apiService.getLandlords({search: value})
   }
 
   bedroomItemValidator() {
